@@ -1,0 +1,108 @@
+---
+layout: default
+title: "Blog di Antonio Trento"
+description: "Ultime notizie, aggiornamenti e approfondimenti su integrazione sistemi, app personalizzate e
+automazioni."
+pagination:
+enabled: true
+---
+
+<div class="py-32 px-6 bg-white dark:bg-neutral-950 transition-colors min-h-screen">
+  <div class="max-w-7xl mx-auto">
+
+    <div class="text-center mb-20 reveal">
+      <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-6 leading-tight">{{ page.title }}</h1>
+      {% if page.description %}
+      <p class="text-xl text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">{{ page.description }}</p>
+      {% endif %}
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+      {%- assign date_format = "%-d %B %Y" -%}
+      {%- for post in paginator.posts -%}
+      <article
+        class="group bg-white dark:bg-neutral-900 rounded-[2rem] overflow-hidden border border-gray-100 dark:border-white/5 shadow-sm hover:shadow-xl transition-all duration-300 reveal delay-100 flex flex-col">
+        {%- if post.image %}
+        <a href="{{ post.url | relative_url }}" class="block h-60 overflow-hidden relative">
+          <img src="{{ post.image | relative_url }}"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            alt="{{ post.title }}">
+          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 dark:group-hover:bg-white/5 transition-colors">
+          </div>
+        </a>
+        {%- endif %}
+
+        <div class="p-8 flex flex-col flex-grow">
+          <div class="mb-4 text-sm text-gray-400 font-medium">
+            {{ post.date | date: date_format }}
+          </div>
+
+          <h2 class="text-2xl font-bold mb-4 group-hover:text-brand-blue transition-colors">
+            <a href="{{ post.url | relative_url }}">
+              {{ post.title }}
+            </a>
+          </h2>
+
+          <div class="text-gray-500 dark:text-gray-400 mb-6 line-clamp-3 flex-grow">
+            {%- if post.description %}
+            {{ post.description | truncate: 120 }}
+            {%- elsif post.excerpt %}
+            {{ post.excerpt | strip_html | truncate: 120 }}
+            {%- endif %}
+          </div>
+
+          <div class="mt-auto pt-6 border-t border-gray-100 dark:border-white/5">
+            <a href="{{ post.url | relative_url }}"
+              class="inline-flex items-center gap-2 font-bold text-brand-blue hover:text-black dark:hover:text-white transition-colors">
+              Leggi l'articolo
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3">
+                </path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </article>
+      {%- endfor -%}
+    </div>
+
+    <!-- Pagination -->
+    {% if paginator.total_pages > 1 %}
+    <nav class="flex justify-center items-center gap-2 reveal">
+      {% if paginator.previous_page %}
+      <a href="{{ paginator.previous_page_path | relative_url }}"
+        class="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-neutral-800 border border-gray-200 dark:border-white/10 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors">
+        <i class="fas fa-chevron-left"></i>
+      </a>
+      {% endif %}
+
+      {% for page_num in (1..paginator.total_pages) %}
+      {% if page_num == paginator.page %}
+      <span
+        class="w-10 h-10 flex items-center justify-center rounded-full bg-black dark:bg-white text-white dark:text-black font-bold">
+        {{ page_num }}
+      </span>
+      {% elsif page_num == 1 %}
+      <a href="{{ '/blog/' | relative_url }}"
+        class="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-neutral-800 border border-gray-200 dark:border-white/10 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">
+        {{ page_num }}
+      </a>
+      {% else %}
+      <a href="{{ site.paginate_path | relative_url | replace: ':num', page_num }}"
+        class="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-neutral-800 border border-gray-200 dark:border-white/10 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors">
+        {{ page_num }}
+      </a>
+      {% endif %}
+      {% endfor %}
+
+      {% if paginator.next_page %}
+      <a href="{{ paginator.next_page_path | relative_url }}"
+        class="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-neutral-800 border border-gray-200 dark:border-white/10 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors">
+        <i class="fas fa-chevron-right"></i>
+      </a>
+      {% endif %}
+    </nav>
+    {% endif %}
+
+  </div>
+</div>

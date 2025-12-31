@@ -1,0 +1,27 @@
+# robots.txt per antoniotrento.net
+
+User-agent: *
+Allow: /
+
+# Blocca file e cartelle tecniche Jekyll
+Disallow: /vendor/
+Disallow: /node_modules/
+Disallow: /Gemfile
+Disallow: /Gemfile.lock
+Disallow: /.sass-cache/
+Disallow: /.jekyll-cache/
+Disallow: /?amp
+Disallow: /?ref=
+Disallow: /?s=
+Disallow: /?attachment_id=
+Disallow: /?elementor_library=
+Disallow: /*/feed/
+Disallow: /feed/
+Disallow: /*/attachment_id=
+Disallow: /*?*attachment_id=
+Disallow: /*?*elementor_library=
+Disallow: /*?*ref=
+Disallow: /*?*s=
+
+# Sitemap
+Sitemap: https://antoniotrento.net/sitemap.xml

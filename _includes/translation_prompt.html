@@ -1,0 +1,47 @@
+<!-- _includes/translation_prompt.html -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const userLang = navigator.language || navigator.userLanguage; // es: "en-US"
+      const siteLang = document.documentElement.lang || "it";
+    
+      if (!userLang.startsWith(siteLang)) {
+        const box = document.createElement("div");
+        box.id = "translation-suggestion";
+        box.innerHTML = `
+          <div style="
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #ffffffee;
+            border: 1px solid #ccc;
+            padding: 12px 16px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            font-family: sans-serif;
+            font-size: 14px;
+            color: #333;
+            z-index: 9999;
+            max-width: 260px;
+          ">
+            <strong>Translate this page?</strong><br>
+            Use your browser’s translate function.
+            <button style="
+              display:block;
+              margin-top: 8px;
+              background-color: #007bff;
+              color: white;
+              border: none;
+              padding: 6px 10px;
+              font-size: 13px;
+              border-radius: 4px;
+              cursor: pointer;
+            " onclick="document.getElementById('translation-suggestion').remove()">
+              Got it
+            </button>
+          </div>
+        `;
+        document.body.appendChild(box);
+      }
+    });
+    </script>
+    

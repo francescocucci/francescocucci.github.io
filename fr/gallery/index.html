@@ -1,0 +1,249 @@
+---
+layout: default
+title: Galerie - Francesco Cucci
+lang: fr
+---
+
+<div class="fixed inset-0 z-50 bg-black transform transition-transform duration-500 translate-y-full" id="lightbox">
+    <div class="absolute top-6 right-6 z-50 flex gap-4">
+        <button class="text-white text-4xl hover:text-gray-300 transition-colors" onclick="closeLightbox()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!-- Navigation Arrows -->
+    <button
+        class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-4xl md:text-6xl p-4 hover:text-gray-300 transition-colors z-50"
+        onclick="prevImage()">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+    <button
+        class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-4xl md:text-6xl p-4 hover:text-gray-300 transition-colors z-50"
+        onclick="nextImage()">
+        <i class="fas fa-chevron-right"></i>
+    </button>
+
+    <div class="h-full w-full flex items-center justify-center p-4 md:p-12">
+        <img src="" alt="" class="max-h-full max-w-full object-contain" id="lightbox-image">
+    </div>
+    <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent text-white">
+        <h3 class="text-3xl font-bold mb-2" id="lightbox-title"></h3>
+        <p class="text-gray-300" id="lightbox-desc"></p>
+    </div>
+</div>
+
+<div class="pt-32 pb-20 px-6 min-h-screen bg-white dark:bg-neutral-900">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+            <div>
+                <a href="/fr/"
+                    class="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white mb-4 inline-block transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i> Retour à l'accueil
+                </a>
+                <h1 class="text-5xl md:text-7xl font-black mb-4 dark:text-white">Galerie.</h1>
+                <p class="text-xl text-gray-500 dark:text-gray-400 max-w-2xl">
+                    Une collection sélectionnée d'œuvres qui explorent la relation entre la matière et l'espace.
+                </p>
+            </div>
+
+            <!-- Filter Categories -->
+            <div class="flex flex-wrap gap-2" id="filters">
+                <button
+                    class="px-6 py-2 rounded-full border-2 border-black dark:border-white bg-black dark:bg-white text-white dark:text-black font-bold transition-all"
+                    data-filter="all">
+                    Tout
+                </button>
+                <button
+                    class="px-6 py-2 rounded-full border-2 border-gray-200 dark:border-neutral-700 hover:border-black dark:hover:border-white transition-all dark:text-gray-300"
+                    data-filter="installazioni">
+                    Installations
+                </button>
+                <button
+                    class="px-6 py-2 rounded-full border-2 border-gray-200 dark:border-neutral-700 hover:border-black dark:hover:border-white transition-all dark:text-gray-300"
+                    data-filter="ceramiche">
+                    Céramiques
+                </button>
+                <button
+                    class="px-6 py-2 rounded-full border-2 border-gray-200 dark:border-neutral-700 hover:border-black dark:hover:border-white transition-all dark:text-gray-300"
+                    data-filter="sculture">
+                    Sculptures
+                </button>
+                <button
+                    class="px-6 py-2 rounded-full border-2 border-gray-200 dark:border-neutral-700 hover:border-black dark:hover:border-white transition-all dark:text-gray-300"
+                    data-filter="pittura">
+                    Peinture
+                </button>
+                <button
+                    class="px-6 py-2 rounded-full border-2 border-gray-200 dark:border-neutral-700 hover:border-black dark:hover:border-white transition-all dark:text-gray-300"
+                    data-filter="grafica">
+                    Graphisme
+                </button>
+                <button
+                    class="px-6 py-2 rounded-full border-2 border-gray-200 dark:border-neutral-700 hover:border-black dark:hover:border-white transition-all dark:text-gray-300"
+                    data-filter="design">
+                    Design
+                </button>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="gallery-grid">
+            <!-- Images will be populated by JS -->
+        </div>
+    </div>
+</div>
+
+<script>
+    // Portfolio Data
+    const portfolio = [
+        {
+            category: 'installazioni',
+            title: 'Outside Inside',
+            image: '/assets/images/portfolio/installazioni/0001.jpg',
+            year: '2024'
+        },
+        {
+            category: 'ceramiche',
+            title: 'Composizione 1',
+            image: '/assets/images/portfolio/ceramiche/01.jpg',
+            year: '2023'
+        },
+        {
+            category: 'sculture',
+            title: 'Forma 1',
+            image: '/assets/images/portfolio/sculture/00000001.jpg',
+            year: '2023'
+        },
+        {
+            category: 'pittura',
+            title: 'Dipinto 1',
+            image: '/assets/images/portfolio/pittura/001.jpg',
+            year: '2023'
+        },
+        {
+            category: 'grafica',
+            title: 'Grafica 1',
+            image: '/assets/images/portfolio/grafica/00001.jpg',
+            year: '2023'
+        },
+        {
+            category: 'design',
+            title: 'Design 1',
+            image: '/assets/images/portfolio/design/0001.jpg',
+            year: '2023'
+        }
+        // Add more items here
+    ];
+
+    // Initialize Gallery
+    const grid = document.getElementById('gallery-grid');
+    const filters = document.getElementById('filters');
+    let currentCategory = 'all';
+    let currentImages = []; // Array to store currently visible images for lightbox
+    let currentImageIndex = 0;
+
+    function renderGallery(filter = 'all') {
+        grid.innerHTML = '';
+        currentCategory = filter;
+
+        const items = filter === 'all'
+            ? portfolio
+            : portfolio.filter(item => item.category === filter);
+
+        currentImages = items; // Update current images list
+
+        items.forEach((item, index) => {
+            const el = document.createElement('div');
+            el.className = 'group relative h-96 rounded-[2rem] overflow-hidden cursor-pointer animate-fade-in';
+            el.onclick = () => openLightbox(index); // Pass index relative to filtered list
+            el.innerHTML = `
+                <img src="${item.image}" alt="${item.title}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
+                    <h3 class="text-2xl font-bold text-white mb-1">${item.title}</h3>
+                    <p class="text-white/80">${item.category.charAt(0).toUpperCase() + item.category.slice(1)}</p>
+                </div>
+            `;
+            grid.appendChild(el);
+        });
+    }
+
+    // Filter Logic
+    filters.addEventListener('click', (e) => {
+        if (e.target.tagName === 'BUTTON') {
+            // Update Active State
+            filters.querySelectorAll('button').forEach(btn => {
+                btn.className = 'px-6 py-2 rounded-full border-2 border-gray-200 dark:border-neutral-700 hover:border-black dark:hover:border-white transition-all dark:text-gray-300';
+            });
+            e.target.className = 'px-6 py-2 rounded-full border-2 border-black dark:border-white bg-black dark:bg-white text-white dark:text-black font-bold transition-all';
+
+            // Render
+            renderGallery(e.target.dataset.filter);
+
+            // Update URL
+            const url = new URL(window.location);
+            url.searchParams.set('category', e.target.dataset.filter);
+            window.history.pushState({}, '', url);
+        }
+    });
+
+    // Check URL params on load
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('category');
+    if (category) {
+        const btn = filters.querySelector(`[data-filter="${category}"]`);
+        if (btn) btn.click();
+    } else {
+        renderGallery();
+    }
+
+    // Lightbox Logic
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-image');
+    const lightboxTitle = document.getElementById('lightbox-title');
+    const lightboxDesc = document.getElementById('lightbox-desc');
+
+    // Make functions global so they can be called from HTML onclick attributes
+    window.openLightbox = function (index) {
+        if (!currentImages[index]) return;
+
+        currentImageIndex = index;
+        const item = currentImages[index];
+
+        lightboxImg.src = item.image;
+        lightboxTitle.innerText = item.title;
+        lightboxDesc.innerText = item.category.charAt(0).toUpperCase() + item.category.slice(1);
+
+        lightbox.classList.remove('translate-y-full');
+        document.body.style.overflow = 'hidden';
+    };
+
+    window.closeLightbox = function () {
+        lightbox.classList.add('translate-y-full');
+        document.body.style.overflow = '';
+    };
+
+    window.nextImage = function (e) {
+        if (e) e.stopPropagation();
+        currentImageIndex = (currentImageIndex + 1) % currentImages.length;
+        window.openLightbox(currentImageIndex);
+    };
+
+    window.prevImage = function (e) {
+        if (e) e.stopPropagation();
+        currentImageIndex = (currentImageIndex - 1 + currentImages.length) % currentImages.length;
+        window.openLightbox(currentImageIndex);
+    };
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (lightbox.classList.contains('translate-y-full')) return;
+
+        if (e.key === 'Escape') window.closeLightbox();
+        if (e.key === 'ArrowRight') window.nextImage();
+        if (e.key === 'ArrowLeft') window.prevImage();
+    });
+
+    // Close on background click
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) window.closeLightbox();
+    });
+</script>

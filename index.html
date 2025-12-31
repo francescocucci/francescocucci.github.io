@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Francesco Cucci - Redirecting...</title>
+    <script>
+        (function () {
+            var lang = navigator.language || navigator.userLanguage;
+            if (lang.startsWith('it')) {
+                window.location.replace('/it/');
+            } else if (lang.startsWith('de')) {
+                window.location.replace('/de/');
+            } else if (lang.startsWith('fr')) {
+                window.location.replace('/fr/');
+            } else {
+                window.location.replace('/en/');
+            }
+        })();
+    </script>
+    <meta http-equiv="refresh" content="0;url=/en/">
+</head>
+
+<body
+    style="background-color: #000; color: #fff; display: flex; align-items: center; justify-content: center; height: 100vh; font-family: sans-serif;">
+    <div style="text-align: center;">
+        <p>Redirecting...</p>
+        <p>
+            <a href="/en/"
+                style="color: #fff; text-transform: uppercase; font-weight: bold; margin: 0 10px; text-decoration: none;">English</a>
+            <a href="/it/"
+                style="color: #fff; text-transform: uppercase; font-weight: bold; margin: 0 10px; text-decoration: none;">Italiano</a>
+            <a href="/de/"
+                style="color: #fff; text-transform: uppercase; font-weight: bold; margin: 0 10px; text-decoration: none;">Deutsch</a>
+        </p>
+    </div>
+</body>
+
+</html>

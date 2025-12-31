@@ -1,0 +1,101 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+#
+# If you need help with YAML syntax, here are some quick references for you:
+# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
+# https://learnxinyminutes.com/docs/yaml/
+#
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+
+title: "Francesco Cucci"
+description: "Francesco Cucci - Artista e Scultore. Un dialogo dinamico tra materia, spazio e luce."
+baseurl: ""
+url: "https://francescocucci.github.io"
+
+author:
+  name: "Francesco Cucci"
+  email: "francesco.cucci07@gmail.com"
+  bio: "Materia. Spazio. Luce."
+
+# la immagine di anteprima link per i social media
+og_image: "/assets/images/portfolio/installazioni/002.jpg"
+
+# collections:
+#   docs:
+#     output: true
+#     permalink: "/docs/:title/"
+
+paginate: 20  # numero di post per pagina
+paginate_path: "/blog/page:num"
+
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-paginate
+
+navigation:
+  - title: "Home"
+    url: "/it/"
+  - title: "Galleria"
+    url: "/it/gallery/"
+  - title: "Biografia"
+    url: "/it/biography/"
+
+languages:
+  - it
+  - en
+  - de
+
+
+social:
+  github: "https://github.com/hitmodel"
+  # Add other social links if available
+
+permalink: "/:categories/:title/"
+markdown: kramdown
+highlighter: rouge
+
+include:
+  - assets
+  - robots.txt
+
+
+keywords:
+  - hybrid intelligence teams
+  - ai teams
+  - future of work
+  - ai native
+  - organization design
+  - hit model
+
+# Exclude from processing.
+# The following items will not be processed, by default.
+# Any item listed under the `exclude:` key here will be automatically added to
+# the internal "default list".
+#
+# Excluded items can be processed by explicitly listing the directories or
+# their entries' file path in the `include:` list.
+#
+# exclude:
+#   - .sass-cache/
+#   - .jekyll-cache/
+#   - gemfiles/
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules/
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/

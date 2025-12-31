@@ -1,0 +1,21 @@
+<!-- Accordion FAQ -->
+<div class="space-y-4" id="faqAccordion">
+    {% for faq in site.faq %}
+    <details
+        class="group bg-white dark:bg-neutral-800 border border-gray-100 dark:border-white/5 rounded-[2rem] p-6 hover:shadow-md transition-all cursor-pointer">
+        <summary class="flex justify-between items-center font-bold text-xl list-none select-none">
+            {{ faq.question }}
+            <span
+                class="bg-gray-50 dark:bg-white/10 w-8 h-8 rounded-full flex items-center justify-center group-open:rotate-180 transition-transform duration-300">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </span>
+        </summary>
+        <div
+            class="mt-4 text-gray-500 dark:text-gray-400 leading-relaxed overflow-hidden transition-all duration-300 ease-in-out">
+            {{ faq.answer }}
+        </div>
+    </details>
+    {% endfor %}
+</div>

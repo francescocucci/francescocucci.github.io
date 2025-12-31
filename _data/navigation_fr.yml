@@ -1,0 +1,15 @@
+- title: Accueil
+  url: "/fr/"
+  section: "#home"
+
+- title: Œuvres
+  url: "#gallery"
+
+- title: Biographie
+  url: "#biography"
+
+- title: Pensées
+  url: "/fr/blog/"
+
+- title: Contact
+  url: "#contact"

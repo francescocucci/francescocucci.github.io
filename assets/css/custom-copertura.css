@@ -1,0 +1,133 @@
+/* Hero Section */
+.hero-section-home {
+  min-height: 100vh;
+  background: url('/assets/images/assets/images/index/breadcumb-bg.jpg') center / cover no-repeat;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-section-home h1 {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  font-size: 4.5rem;
+  text-align: left;
+}
+
+.hero-section-home .row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.hero-section-home img {
+  max-width: 100%;
+  height: auto;
+}
+
+.hero-section-home .col-lg-6 {
+  text-align: left;
+}
+
+.hero-section-home .btn-primary {
+  background-color: var(--bs-primary);
+  color: white;
+  border: none;
+}
+
+.hero-section-home .btn-primary:hover {
+  background-color: white;
+  color: var(--bs-primary);
+}
+
+.hero-section-home .btn-outline-secondary {
+  border-color: var(--bs-primary);
+  color: var(--bs-primary);
+}
+
+.hero-section-home .btn-outline-secondary:hover {
+  background-color: var(--bs-primary);
+  color: white;
+}
+
+/* Hero Plans Section */
+.hero-plans-home {
+  background: url('//assets/images/assets/images/index/index/bg_ItaliaCandele_dsvisualdesigner.png') #3e8add center / cover fixed;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-plans-home h2 {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+}
+
+/* Hero Experience Section */
+.hero-experience-home {
+  background: url('//assets/images/assets/images/index/index/pattern-6.png') center / cover no-repeat;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hero Future Section */
+.hero-future-home {
+  background: url('//assets/images/assets/images/index/index/bg-future-dsvisualdesigner.jpg') rgba(255, 255, 255, 0.6) center / cover no-repeat;
+  background-blend-mode: overlay;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Utility Classes */
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
+.b-example-divider {
+  width: 100%;
+  height: 3rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  border: solid rgba(0, 0, 0, 0.15);
+  border-width: 1px 0;
+  box-shadow: inset 0 0.5em 1.5em rgba(0, 0, 0, 0.1), inset 0 0.125em 0.5em rgba(0, 0, 0, 0.15);
+}
+
+.b-example-vr {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 100vh;
+}
+
+.bi {
+  vertical-align: -0.125em;
+  fill: currentColor;
+}
+
+/* Styles for .hero-map */
+.hero-map {
+  background-color: #f8f9fa; /* Fallback background color */
+}
+
+.hero-map #map {
+  width: 100%;
+  height: 100%;
+}
+
+/* Additional Styles for .hero-map */
+.hero-map {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}

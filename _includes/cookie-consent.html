@@ -1,0 +1,92 @@
+<div id="cookieConsent"
+    class="fixed bottom-0 w-full bg-white dark:bg-neutral-900 border-t border-gray-200 dark:border-white/10 p-6 shadow-2xl z-50 hidden">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="text-center md:text-left">
+            <p class="mb-2 text-gray-600 dark:text-gray-300">
+                Utilizziamo cookie per migliorare la tua esperienza. Puoi accettare tutti i cookie o gestire le tue
+                preferenze.
+            </p>
+            <a href="/privacy-policy/"
+                class="text-brand-blue underline hover:text-black dark:hover:text-white transition-colors">Leggi la
+                nostra politica sui cookie</a>
+        </div>
+        <div class="flex gap-4">
+            <button id="acceptAllCookies"
+                class="px-6 py-2 bg-green-600 text-white rounded-full font-bold hover:bg-green-700 transition-colors">Accetta
+                tutti</button>
+            <button id="manageCookies"
+                class="px-6 py-2 bg-gray-200 dark:bg-white/10 text-black dark:text-white rounded-full font-bold hover:bg-gray-300 dark:hover:bg-white/20 transition-colors">Gestisci
+                preferenze</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal per la gestione dei cookie (Simplified for Tailwind) -->
+<div id="cookieSettingsModal" class="fixed inset-0 bg-black/50 z-[60] hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-neutral-900 rounded-[2rem] max-w-lg w-full p-8 shadow-2xl">
+        <div class="flex justify-between items-center mb-6">
+            <h5 class="text-2xl font-bold">Gestisci preferenze cookie</h5>
+            <button id="closeCookieModal"
+                class="text-gray-500 hover:text-black dark:hover:text-white text-2xl">&times;</button>
+        </div>
+        <div class="space-y-4 mb-8">
+            <form id="cookieSettingsForm">
+                <div class="flex items-center gap-3">
+                    <input type="checkbox" id="functionalCookies" checked disabled class="w-5 h-5 accent-brand-blue">
+                    <label for="functionalCookies" class="font-medium">Cookie funzionali (necessari)</label>
+                </div>
+                <div class="flex items-center gap-3 mt-4">
+                    <input type="checkbox" id="analyticsCookies" class="w-5 h-5 accent-brand-blue">
+                    <label for="analyticsCookies" class="font-medium">Cookie analitici</label>
+                </div>
+                <div class="flex items-center gap-3 mt-4">
+                    <input type="checkbox" id="marketingCookies" class="w-5 h-5 accent-brand-blue">
+                    <label for="marketingCookies" class="font-medium">Cookie di marketing</label>
+                </div>
+            </form>
+        </div>
+        <div class="flex justify-end gap-4">
+            <button id="closeCookieModalBtn"
+                class="px-6 py-2 text-gray-500 hover:text-black dark:hover:text-white font-bold">Chiudi</button>
+            <button id="saveCookiePreferences"
+                class="px-6 py-2 bg-brand-blue text-white rounded-full font-bold hover:bg-black dark:hover:bg-white dark:hover:text-black transition-colors">Salva
+                preferenze</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Simple JS to handle the modal and banner visibility
+    document.addEventListener('DOMContentLoaded', () => {
+        const banner = document.getElementById('cookieConsent');
+        const modal = document.getElementById('cookieSettingsModal');
+        const manageBtn = document.getElementById('manageCookies');
+        const closeBtns = [document.getElementById('closeCookieModal'), document.getElementById('closeCookieModalBtn')];
+        const acceptBtn = document.getElementById('acceptAllCookies');
+        const saveBtn = document.getElementById('saveCookiePreferences');
+
+        // Show banner if not accepted (mock logic)
+        if (!localStorage.getItem('cookieConsent')) {
+            banner.classList.remove('hidden');
+        }
+
+        manageBtn.addEventListener('click', () => {
+            modal.classList.remove('hidden');
+        });
+
+        closeBtns.forEach(btn => btn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        }));
+
+        acceptBtn.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'all');
+            banner.classList.add('hidden');
+        });
+
+        saveBtn.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'custom');
+            modal.classList.add('hidden');
+            banner.classList.add('hidden');
+        });
+    });
+</script>

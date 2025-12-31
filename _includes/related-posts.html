@@ -1,0 +1,52 @@
+{% assign current_url = page.url %}
+{% assign current_date = page.date %}
+{% assign related_posts = "" | split: "" %}
+
+{% comment %} Filter posts by current language {% endcomment %}
+{% assign lang_posts = site.posts | where: "lang", page.lang %}
+
+{% if page.related %}
+{% for rel_url in page.related %}
+{% assign rel_post = lang_posts | where: "url", rel_url | first %}
+{% if rel_post %}
+{% assign related_posts = related_posts | push: rel_post %}
+{% endif %}
+{% endfor %}
+{% else %}
+{% assign older_posts = lang_posts | where_exp: "item", "item.date < page.date" | sort: "date" | reverse %} {% assign
+  newer_posts=lang_posts | where_exp: "item" , "item.date > page.date" | sort: "date" %} {% assign
+  fallback_posts=older_posts | concat: newer_posts %} {% assign fallback_posts=fallback_posts | reject: "url" ,
+  current_url %} {% assign related_posts=fallback_posts | slice: 0, 3 %} {% endif %} {% if related_posts.size> 0 %}
+  <div class="related-posts mt-12">
+    <h3 class="text-2xl font-bold mb-8">
+      {% if page.lang == 'it' %}
+      Potrebbe interessarti anche...
+      {% else %}
+      You might also be interested in...
+      {% endif %}
+    </h3>
+    <div class="grid md:grid-cols-3 gap-8">
+      {% for post in related_posts %}
+      <div
+        class="group bg-white dark:bg-neutral-900 rounded-[2rem] overflow-hidden border border-gray-100 dark:border-white/5 shadow-sm hover:shadow-xl transition-all duration-300">
+        {% if post.image %}
+        <div class="h-48 overflow-hidden">
+          <img src="{{ post.image | relative_url }}"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            alt="{{ post.title }}">
+        </div>
+        {% endif %}
+        <div class="p-6">
+          <h5 class="text-xl font-bold mb-3 group-hover:text-brand-blue transition-colors">{{ post.title }}</h5>
+          <p class="text-gray-500 dark:text-gray-400 mb-4 text-sm line-clamp-3">{{ post.excerpt | strip_html |
+            truncatewords: 15 }}</p>
+          <a href="{{ post.url | relative_url }}"
+            class="inline-block px-4 py-2 rounded-full bg-black dark:bg-white text-white dark:text-black text-sm font-bold hover:bg-brand-blue dark:hover:bg-brand-blue dark:hover:text-white transition-colors">
+            {% if page.lang == 'it' %}Leggi{% else %}Read{% endif %}
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}

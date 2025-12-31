@@ -1,0 +1,194 @@
+<style>
+    /* Finestra */
+#chatbot {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 320px;
+  max-height: 500px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 9999;
+  font-family: sans-serif;
+}
+
+#chatbot-header {
+  background: #0a84ff;
+  color: white;
+  padding: 12px;
+  font-weight: bold;
+}
+
+#chatbot-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  background: #f9f9f9;
+}
+
+#chatbot-input {
+  display: flex;
+  border-top: 1px solid #ccc;
+}
+
+#chatbot-input input {
+  flex: 1;
+  border: none;
+  padding: 10px;
+  outline: none;
+}
+
+#chatbot-input button {
+  background: #0a84ff;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.chatbot-msg {
+  margin: 6px 0;
+}
+
+.chatbot-msg.bot {
+  background: #e0e0e0;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.chatbot-msg.user {
+  text-align: right;
+  color: #0a84ff;
+}
+
+.chatbot-slot-button {
+  display: inline-block;
+  margin: 4px 2px;
+  padding: 6px 10px;
+  background: #0a84ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Bottone fisso */
+#chatbot-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #0a84ff;
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+#chatbot-messages {
+  scroll-behavior: smooth;
+}
+
+
+</style>
+<!-- Chatbot -->
+<div id="chatbot-container"></div>
+<script>
+    (function () {
+  const endpoint = 'https://n8n.antoniotrento.net/webhook/antoniotrento-net-chatbot'; // <-- modifica con il tuo URL pubblico
+  const container = document.getElementById('chatbot-container');
+
+  const html = `
+    <div id="chatbot">
+      <div id="chatbot-header">Assistente Antonio</div>
+      <div id="chatbot-messages"></div>
+      <div id="chatbot-input">
+        <input type="text" id="chatbot-text" placeholder="Scrivi un messaggio..."/>
+        <button id="chatbot-send">➤</button>
+      </div>
+    </div>
+    <button id="chatbot-toggle">Chatta con Antonio</button>
+  `;
+
+  container.innerHTML = html;
+
+  const chatbot = document.getElementById('chatbot');
+  const toggle = document.getElementById('chatbot-toggle');
+  const input = document.getElementById('chatbot-text');
+  const sendBtn = document.getElementById('chatbot-send');
+  const messages = document.getElementById('chatbot-messages');
+
+  let sessionId = localStorage.getItem('chatbot-session');
+  if (!sessionId) {
+    sessionId = 'sess_' + Math.random().toString(36).substring(2);
+    localStorage.setItem('chatbot-session', sessionId);
+  }
+
+  toggle.addEventListener('click', () => {
+    chatbot.style.display = chatbot.style.display === 'none' ? 'flex' : 'none';
+    if (chatbot.style.display === 'flex') {
+      if (!messages.dataset.welcomed) {
+        addBotMsg("Ciao! Sono l'assistente di Antonio Trento. Come posso aiutarti?");
+        messages.dataset.welcomed = "1";
+      }
+    }
+  });
+
+  sendBtn.addEventListener('click', sendMessage);
+  input.addEventListener('keypress', e => {
+    if (e.key === 'Enter') sendMessage();
+  });
+
+  function addUserMsg(text) {
+    messages.innerHTML += `<div class="chatbot-msg user">${text}</div>`;
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function addBotMsg(text) {
+    messages.innerHTML += `<div class="chatbot-msg bot">${text}</div>`;
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function addSlots(slots) {
+    slots.forEach(slot => {
+      const btn = document.createElement('button');
+      const label = new Date(slot.start).toLocaleString();
+      btn.innerText = label;
+      btn.className = 'chatbot-slot-button';
+      btn.onclick = () => {
+        input.value = label;
+        sendMessage();
+      };
+      messages.appendChild(btn);
+    });
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function sendMessage() {
+    const text = input.value.trim();
+    if (!text) return;
+    addUserMsg(text);
+    input.value = '';
+    fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sessionId, message: text })
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.reply) addBotMsg(data.reply);
+        if (Array.isArray(data.slots)) addSlots(data.slots);
+      })
+      .catch(() => addBotMsg("Errore nel server. Riprova più tardi."));
+  }
+})();
+
+</script>
+

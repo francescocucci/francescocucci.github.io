@@ -1,0 +1,618 @@
+﻿[
+    {
+        "Name":  "01.jpg",
+        "Category":  "ceramiche"
+    },
+    {
+        "Name":  "02.jpg",
+        "Category":  "ceramiche"
+    },
+    {
+        "Name":  "03.jpg",
+        "Category":  "ceramiche"
+    },
+    {
+        "Name":  "04.jpg",
+        "Category":  "ceramiche"
+    },
+    {
+        "Name":  "05.jpg",
+        "Category":  "ceramiche"
+    },
+    {
+        "Name":  "06.jpg",
+        "Category":  "ceramiche"
+    },
+    {
+        "Name":  "07.jpg",
+        "Category":  "ceramiche"
+    },
+    {
+        "Name":  "08.jpg",
+        "Category":  "ceramiche"
+    },
+    {
+        "Name":  "09.jpg",
+        "Category":  "ceramiche"
+    },
+    {
+        "Name":  "10.jpg",
+        "Category":  "ceramiche"
+    },
+    {
+        "Name":  "11.jpg",
+        "Category":  "ceramiche"
+    },
+    {
+        "Name":  "12.jpg",
+        "Category":  "ceramiche"
+    },
+    {
+        "Name":  "13.jpg",
+        "Category":  "ceramiche"
+    },
+    {
+        "Name":  "14.jpg",
+        "Category":  "ceramiche"
+    },
+    {
+        "Name":  "15.jpg",
+        "Category":  "ceramiche"
+    },
+    {
+        "Name":  "16.jpg",
+        "Category":  "ceramiche"
+    },
+    {
+        "Name":  "17.jpg",
+        "Category":  "ceramiche"
+    },
+    {
+        "Name":  "18.jpg",
+        "Category":  "ceramiche"
+    },
+    {
+        "Name":  "19.jpg",
+        "Category":  "ceramiche"
+    },
+    {
+        "Name":  "20.jpg",
+        "Category":  "ceramiche"
+    },
+    {
+        "Name":  "21.jpg",
+        "Category":  "ceramiche"
+    },
+    {
+        "Name":  "0001.jpg",
+        "Category":  "design"
+    },
+    {
+        "Name":  "0002.jpg",
+        "Category":  "design"
+    },
+    {
+        "Name":  "0003.jpg",
+        "Category":  "design"
+    },
+    {
+        "Name":  "0004.jpg",
+        "Category":  "design"
+    },
+    {
+        "Name":  "0005.jpg",
+        "Category":  "design"
+    },
+    {
+        "Name":  "0006.jpg",
+        "Category":  "design"
+    },
+    {
+        "Name":  "0007.jpg",
+        "Category":  "design"
+    },
+    {
+        "Name":  "0008.jpg",
+        "Category":  "design"
+    },
+    {
+        "Name":  "0009.jpg",
+        "Category":  "design"
+    },
+    {
+        "Name":  "0010.jpg",
+        "Category":  "design"
+    },
+    {
+        "Name":  "0011.jpg",
+        "Category":  "design"
+    },
+    {
+        "Name":  "0013.jpg",
+        "Category":  "design"
+    },
+    {
+        "Name":  "0014.jpg",
+        "Category":  "design"
+    },
+    {
+        "Name":  "0015.jpg",
+        "Category":  "design"
+    },
+    {
+        "Name":  "0016.jpg",
+        "Category":  "design"
+    },
+    {
+        "Name":  "0017.jpg",
+        "Category":  "design"
+    },
+    {
+        "Name":  "0018.jpg",
+        "Category":  "design"
+    },
+    {
+        "Name":  "0019.jpg",
+        "Category":  "design"
+    },
+    {
+        "Name":  "0020.jpg",
+        "Category":  "design"
+    },
+    {
+        "Name":  "0021.jpg",
+        "Category":  "design"
+    },
+    {
+        "Name":  "0022.jpg",
+        "Category":  "design"
+    },
+    {
+        "Name":  "03.jpg",
+        "Category":  "design"
+    },
+    {
+        "Name":  "07.jpg",
+        "Category":  "design"
+    },
+    {
+        "Name":  "00001.jpg",
+        "Category":  "grafica"
+    },
+    {
+        "Name":  "002.jpg",
+        "Category":  "grafica"
+    },
+    {
+        "Name":  "003.jpg",
+        "Category":  "grafica"
+    },
+    {
+        "Name":  "004.jpg",
+        "Category":  "grafica"
+    },
+    {
+        "Name":  "005.jpg",
+        "Category":  "grafica"
+    },
+    {
+        "Name":  "006_snia_VA.-bjpg.jpg",
+        "Category":  "grafica"
+    },
+    {
+        "Name":  "007_snia_VA.-bjpg.jpg",
+        "Category":  "grafica"
+    },
+    {
+        "Name":  "011_comune_VA-b.jpg",
+        "Category":  "grafica"
+    },
+    {
+        "Name":  "013_logo_maccagno_VA-B.jpg",
+        "Category":  "grafica"
+    },
+    {
+        "Name":  "014_logo_maccagno_VA-b.jpg",
+        "Category":  "grafica"
+    },
+    {
+        "Name":  "015_logo_maccagno_VA-b.jpg",
+        "Category":  "grafica"
+    },
+    {
+        "Name":  "016_logo_maccagno_VA-b.jpg",
+        "Category":  "grafica"
+    },
+    {
+        "Name":  "017_logo_maccagno_VA-b.jpg",
+        "Category":  "grafica"
+    },
+    {
+        "Name":  "018_logo_maccagno_VA..jpg",
+        "Category":  "grafica"
+    },
+    {
+        "Name":  "019_dei_VA._bpg.jpg",
+        "Category":  "grafica"
+    },
+    {
+        "Name":  "020_DEI_VA.jpg",
+        "Category":  "grafica"
+    },
+    {
+        "Name":  "021_DEI_VA--b.jpg",
+        "Category":  "grafica"
+    },
+    {
+        "Name":  "022_DEI_VA-b.jpg",
+        "Category":  "grafica"
+    },
+    {
+        "Name":  "023-Translazione.jpg",
+        "Category":  "grafica"
+    },
+    {
+        "Name":  "024.jpg",
+        "Category":  "grafica"
+    },
+    {
+        "Name":  "0001.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "001.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "002.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "003.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "004.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "005.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "006.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "007.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "009.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "010.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "012.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "013.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "014.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "015.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "017.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "018.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "020.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "021.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "22.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "23.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "24.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "25.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "26.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "27.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "28.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "29.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "30.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "32.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "33.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "34.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "36.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "37.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "38.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "39.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "50.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "51.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "52.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "55.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "56.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "62.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "67.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "71.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "73.jpg",
+        "Category":  "installazioni"
+    },
+    {
+        "Name":  "001.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "02.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "03_31.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "04.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "05.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "06.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "07.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "10.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "13.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "14.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "15.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "18.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "21.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "22.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "23.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "24.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "25.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "31.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "32.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "33.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "34.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "35.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "46.piazza.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "47.piazza.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "48.piazza.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "49.piazza.jpg",
+        "Category":  "pittura"
+    },
+    {
+        "Name":  "00000001.jpg",
+        "Category":  "sculture"
+    },
+    {
+        "Name":  "000003.jpg",
+        "Category":  "sculture"
+    },
+    {
+        "Name":  "00004.jpg",
+        "Category":  "sculture"
+    },
+    {
+        "Name":  "001.jpg",
+        "Category":  "sculture"
+    },
+    {
+        "Name":  "002.jpg",
+        "Category":  "sculture"
+    },
+    {
+        "Name":  "003.jpg",
+        "Category":  "sculture"
+    },
+    {
+        "Name":  "004.jpg",
+        "Category":  "sculture"
+    },
+    {
+        "Name":  "005.jpg",
+        "Category":  "sculture"
+    },
+    {
+        "Name":  "006.jpg",
+        "Category":  "sculture"
+    },
+    {
+        "Name":  "007.jpg",
+        "Category":  "sculture"
+    },
+    {
+        "Name":  "009.jpg",
+        "Category":  "sculture"
+    },
+    {
+        "Name":  "010.jpg",
+        "Category":  "sculture"
+    },
+    {
+        "Name":  "011.jpg",
+        "Category":  "sculture"
+    },
+    {
+        "Name":  "012.jpg",
+        "Category":  "sculture"
+    },
+    {
+        "Name":  "018.jpg",
+        "Category":  "sculture"
+    },
+    {
+        "Name":  "020.jpg",
+        "Category":  "sculture"
+    },
+    {
+        "Name":  "021.jpg",
+        "Category":  "sculture"
+    },
+    {
+        "Name":  "022.jpg",
+        "Category":  "sculture"
+    },
+    {
+        "Name":  "023.jpg",
+        "Category":  "sculture"
+    },
+    {
+        "Name":  "026.jpg",
+        "Category":  "sculture"
+    },
+    {
+        "Name":  "027.jpg",
+        "Category":  "sculture"
+    }
+]

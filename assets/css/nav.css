@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Variabili globali */
+:root {
+  --font-family-poppins: 'Poppins', sans-serif;
+  --font-family-dm-sans: 'DM Sans', sans-serif;
+  --font-family-sen: 'Sen', sans-serif;
+
+  /* Colori personalizzati */
+  --bs-primary: #3e8add;
+  --bs-secondary: white;
+  --bs-primary-hover: white;
+  --bs-secondary-hover: #3e8add;
+
+  /* Personalizzazioni bottoni */
+  --bs-btn-primary-bg: var(--bs-primary);
+  --bs-btn-primary-border-color: var(--bs-primary);
+  --bs-btn-primary-color: white;
+  --bs-btn-primary-hover-bg: var(--bs-primary-hover);
+  --bs-btn-primary-hover-color: var(--bs-primary);
+  --bs-btn-secondary-bg: var(--bs-secondary);
+  --bs-btn-secondary-border-color: var(--bs-primary);
+  --bs-btn-secondary-color: var(--bs-primary);
+  --bs-btn-secondary-hover-bg: var(--bs-secondary-hover);
+  --bs-btn-secondary-hover-color: white;
+}
+
+/* Tipografia */
+body, h1, h2, h3, p {
+  font-family: var(--font-family-poppins);
+}
+
+/* Navbar */
+.navbar {
+  font-family: var(--font-family-poppins);
+}
+
+.navbar .navbar-brand {
+  font-family: var(--font-family-poppins);
+  font-size: 1.5rem;
+}
+
+.navbar .navbar-brand img {
+  width: auto;
+  height: 30px;
+}
+
+.navbar .nav-link {
+  font-family: var(--font-family-poppins);
+  color: #f8f9fa;
+}
+
+.navbar .nav-link:hover {
+  color: #e9ecef;
+}
+
+.navbar .dropdown-menu {
+  font-family: var(--font-family-poppins);
+}
+
+/* Footer */
+.footer {
+  background-color: #1e73be;
+  color: white;
+}
+
+.footer .footer-logo {
+  width: 100%;
+  max-width: 300px;
+}
+
+

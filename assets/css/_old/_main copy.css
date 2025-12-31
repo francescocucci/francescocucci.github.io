@@ -1,0 +1,288 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Variabili globali */
+:root {
+  --font-family-poppins: 'Poppins', sans-serif;
+  --font-family-dm-sans: 'DM Sans', sans-serif;
+  --font-family-sen: 'Sen', sans-serif;
+
+  /* Colori personalizzati */
+  --bs-primary: #3e8add;
+  --bs-secondary: white;
+  --bs-primary-hover: white;
+  --bs-secondary-hover: #3e8add;
+
+  /* Personalizzazioni bottoni */
+  --bs-btn-primary-bg: var(--bs-primary);
+  --bs-btn-primary-border-color: var(--bs-primary);
+  --bs-btn-primary-color: white;
+  --bs-btn-primary-hover-bg: var(--bs-primary-hover);
+  --bs-btn-primary-hover-color: var(--bs-primary);
+  --bs-btn-secondary-bg: var(--bs-secondary);
+  --bs-btn-secondary-border-color: var(--bs-primary);
+  --bs-btn-secondary-color: var(--bs-primary);
+  --bs-btn-secondary-hover-bg: var(--bs-secondary-hover);
+  --bs-btn-secondary-hover-color: white;
+}
+
+/* Tipografia */
+body, h1, h2, h3, p {
+  font-family: var(--font-family-poppins);
+}
+
+/* Navbar */
+.navbar {
+  font-family: var(--font-family-poppins);
+}
+
+.navbar .navbar-brand {
+  font-family: var(--font-family-poppins);
+  font-size: 1.5rem;
+}
+
+.navbar .navbar-brand img {
+  width: auto;
+  height: 30px;
+}
+
+.navbar .nav-link {
+  font-family: var(--font-family-poppins);
+  color: #f8f9fa;
+}
+
+.navbar .nav-link:hover {
+  color: #e9ecef;
+}
+
+.navbar .dropdown-menu {
+  font-family: var(--font-family-poppins);
+}
+
+/* Footer */
+.footer {
+  background-color: #f06292;
+  color: white;
+}
+
+.footer .footer-logo {
+  width: 100%;
+  max-width: 300px;
+}
+
+/* Bottoni */
+.btn-custom-primary {
+  background-color: #f06292; /* Rosa come colore di sfondo */
+  color: white;
+  border: 1px solid #f06292; /* Rosa come colore del bordo */
+}
+
+.btn-custom-primary:hover {
+  background-color: white;
+  color: #f06292; /* Rosa come colore del testo */
+  border: 1px solid #f06292; /* Rosa come colore del bordo */
+}
+
+
+/* Bottoni secondari */
+.btn-custom-secondary {
+  background-color: white;
+  color: #f06292; /* Rosa come colore del testo */
+  border: 1px solid #f06292; /* Rosa come colore del bordo */
+}
+
+.btn-custom-secondary:hover {
+  background-color: #f06292; /* Rosa come colore di sfondo */
+  color: white;
+  border: 1px solid #f06292; /* Rosa come colore del bordo */
+}
+
+
+/* Heroes */
+.hero-img-bg {
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+.hero-img-bg .hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+
+.hero-img-bg .hero-overlay-white {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5); /* Bianco semi-trasparente */
+    z-index: -1;
+}
+
+.hero-100hv {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.hero-100hv .hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+
+.hero-100hv .hero-overlay-black {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Nero trasparente */
+    z-index: -1;
+}
+
+.hero-100hv h1 {
+    font-size: 4.5rem;
+}
+
+.hero-parallax {
+  position: relative;
+  width: 100%; /* Full height */
+  overflow: hidden; /* Prevent overflow due to image fixed positioning */
+}
+
+.hero-parallax .hero-bg-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; /* Copre l'intera sezione */
+  height: 100%;
+  object-fit: cover; /* Coperature dell'immagine */
+  z-index: -4; /* Assicura che l'immagine venga posizionata dietro al contenuto */
+}
+
+.hero-parallax .hero-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+}
+
+.hero-parallax h2 {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  font-size: 2.5rem; /* Ajusta la dimensione del testo secondo le necessità */
+  margin: 0;
+}
+
+.hero-parallax::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(242, 160, 201); /* Rosa trasparente */
+  z-index: -5;
+}
+
+
+
+
+.cookie-consent {
+  z-index: 1050;
+  border-top: 3px solid #0d6efd;
+
+  .btn {
+      border-radius: 0.25rem;
+  }
+}
+
+.badge-custom {
+    background-color: #3e8add;
+    color: #ffffff; /* Testo bianco per contrasto */
+}
+.text-custom {
+    color: #3e8add;
+}
+.bg-gray-blue-gradient {
+    background: linear-gradient(135deg, #6c757d 50%, #007bff 50%);
+}
+
+
+
+
+
+
+.custom-card-section {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding-top: 10px;
+    border-radius: 5px;
+}
+
+.custom-card {
+    background: transparent;
+    border: 1px solid #6c757d; /* Bordo grigio */
+    min-height: auto; /* Rimuove altezza fissa */
+    display: flex;
+    align-items: center; /* Allinea il contenuto verticalmente */
+    justify-content: center;
+    padding: 0.5rem 1rem; /* Riduce il padding per dare un effetto di scheda */
+    transition: background-color 0.3s ease;
+}
+
+.custom-card-body {
+    padding: 0; /* Rimuove il padding interno del body */
+}
+
+.custom-card.active {
+    background-color: #6c757d !important; /* Grigio scuro per lo sfondo della scheda attiva */
+    border-color: #6c757d !important;
+}
+
+.custom-card a {
+    color: white;
+    text-decoration: none;
+}
+
+.custom-card:hover {
+    background-color: #adb5bd !important; /* Leggero grigio al passaggio del mouse */
+}
+
+
+
+.head-navbar {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(135deg, #6c757d 50%, #d63384 50%);
+    background-size: 200%; /* Ensures the gradient is static across the width */
+    background-position: center;
+}
+
+
+/* Definizione dei colori personalizzati */
+.text-purple {
+  color: #6f42c1; /* Viola (lavanda) */
+}
+
+.text-pink {
+  color: #d63384; /* Rosa (ciliegio) */
+}

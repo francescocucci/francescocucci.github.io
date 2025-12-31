@@ -1,0 +1,378 @@
+/*USAGE EXAMPLE
+
+<main>
+  <article>
+    <div class="a"></div>
+  </article>
+  <article>
+    <div class="t"></div>
+  </article>
+  <article>
+    <div class="g"></div>
+  </article>
+  <article>
+    <div class="can"></div>
+  </article>
+  <article>
+    <div class="le"></div>
+  </article>
+  <article>
+    <div class="v"></div>
+  </article>
+  <article>
+    <div class="l"></div>
+  </article>
+  <article>
+    <div class="sc"></div>
+  </article>
+  <article>
+    <div class="s"></div>
+  </article>
+  <article>
+    <div class="cap"></div>
+  </article>
+  <article>
+    <div class="aq"></div>
+  </article>
+  <article>
+    <div class="p"></div>
+  </article>
+</main>
+
+*/
+
+body {
+    --c1: #6c5ce7;
+    --c2: #e84393;
+    --s: 5cqw;
+    display: grid;
+    place-content: center;
+    min-height: 100dvh;
+  }
+  
+  main {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  article {
+    container-type: inline-size;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100vmax / 6);
+    aspect-ratio: 1/1;
+  }
+  
+  .t {
+    overflow: hidden;
+  }
+  .t::before, .t::after {
+    content: "";
+    display: block;
+    width: 33.33cqw;
+    padding: var(--s);
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    background: linear-gradient(to right, var(--c1), var(--c2));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+  }
+  .t::before {
+    margin-top: calc(-50% - var(--s));
+    translate: 0 var(--s);
+  }
+  
+  .g {
+    width: 33.33cqw;
+    aspect-ratio: 1/1.8;
+    background: linear-gradient(105deg, var(--c1), var(--c2));
+    -webkit-mask: linear-gradient(to right, transparent, transparent calc(100% - var(--s)), #fff calc(100% - var(--s))) repeat-x left center/calc(100% / 3 + var(--s) / 3 + 0.2px) 100%, linear-gradient(to bottom, #fff, #fff var(--s), transparent var(--s)), linear-gradient(to top, #fff, #fff var(--s), transparent var(--s));
+            mask: linear-gradient(to right, transparent, transparent calc(100% - var(--s)), #fff calc(100% - var(--s))) repeat-x left center/calc(100% / 3 + var(--s) / 3 + 0.2px) 100%, linear-gradient(to bottom, #fff, #fff var(--s), transparent var(--s)), linear-gradient(to top, #fff, #fff var(--s), transparent var(--s));
+  }
+  
+  .can {
+    position: relative;
+    width: 50cqw;
+    aspect-ratio: 1/1;
+    border: var(--s) solid transparent;
+    border-top-color: var(--c1);
+    border-bottom-color: var(--c2);
+    border-radius: 50%;
+  }
+  .can::before, .can::after {
+    content: "";
+    position: absolute;
+    width: calc(100% / 3);
+    aspect-ratio: 1/1;
+    border: var(--s) solid;
+    border-radius: 50%;
+  }
+  .can::before {
+    left: 0;
+    top: 0;
+    border-color: var(--c1);
+  }
+  .can::after {
+    right: 0;
+    bottom: 0;
+    border-color: var(--c2);
+  }
+  
+  .a {
+    position: relative;
+    width: var(--s);
+    aspect-ratio: 1/12;
+    background: linear-gradient(to bottom, transparent calc((20cqw + var(--s)) / 2), var(--c1) calc((20cqw + var(--s)) / 2), var(--c2));
+  }
+  .a::before, .a::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 20cqw;
+    aspect-ratio: 1/1;
+    border: var(--s) solid var(--c1);
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 50%, 50% 50%, 50% 100%, 0 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 50%, 50% 50%, 50% 100%, 0 100%);
+  }
+  .a::before {
+    right: 0;
+  }
+  .a::after {
+    left: 0;
+    scale: -1 1;
+  }
+  
+  .p {
+    position: relative;
+    display: flex;
+    gap: var(--s);
+    align-items: center;
+    background: linear-gradient(var(--c2), var(--c2)) center/33cqw var(--s) no-repeat;
+    -webkit-clip-path: inset(0 25% 0 25%);
+            clip-path: inset(0 25% 0 25%);
+  }
+  .p::before, .p::after {
+    --o: calc(100% - var(--s) * 2);
+    content: "";
+    flex: 0 0 auto;
+    width: 50cqw;
+    padding: var(--s);
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    background: linear-gradient(to right, var(--c1) 55%, var(--c2));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+  }
+  .p::after {
+    scale: -1 1;
+  }
+  
+  .s {
+    width: 80cqw;
+    aspect-ratio: 1/1;
+    rotate: 45deg;
+    background: linear-gradient(22deg, var(--c2), var(--c1));
+    -webkit-clip-path: polygon(calc(50% - var(--s) / 2) calc(var(--s) * 1.75), calc(50% - var(--s) / 2) calc(66% - var(--s) / 2), calc(50% - var(--s) * 2) calc(66% - var(--s) / 2), calc(50% - var(--s) * 2) calc(66% + var(--s) / 2), calc(50% - var(--s) / 2) calc(66% + var(--s) / 2), calc(50% - var(--s) / 2) 100%, calc(50% + var(--s) / 2) 100%, calc(50% + var(--s) / 2) calc(66% + var(--s) / 2), calc(50% + var(--s) * 2) calc(66% + var(--s) / 2), calc(50% + var(--s) * 2) calc(66% - var(--s) / 2), calc(50% + var(--s) / 2) calc(66% - var(--s) / 2), calc(50% + var(--s) / 2) calc(var(--s) * 1.75), calc(75% - var(--s) / 1.65) calc(25% + var(--s) / 1.65), 75% 25%, 50% 0%, 25% 25%, calc(25% + var(--s) / 1.65) calc(25% + var(--s) / 1.65));
+            clip-path: polygon(calc(50% - var(--s) / 2) calc(var(--s) * 1.75), calc(50% - var(--s) / 2) calc(66% - var(--s) / 2), calc(50% - var(--s) * 2) calc(66% - var(--s) / 2), calc(50% - var(--s) * 2) calc(66% + var(--s) / 2), calc(50% - var(--s) / 2) calc(66% + var(--s) / 2), calc(50% - var(--s) / 2) 100%, calc(50% + var(--s) / 2) 100%, calc(50% + var(--s) / 2) calc(66% + var(--s) / 2), calc(50% + var(--s) * 2) calc(66% + var(--s) / 2), calc(50% + var(--s) * 2) calc(66% - var(--s) / 2), calc(50% + var(--s) / 2) calc(66% - var(--s) / 2), calc(50% + var(--s) / 2) calc(var(--s) * 1.75), calc(75% - var(--s) / 1.65) calc(25% + var(--s) / 1.65), 75% 25%, 50% 0%, 25% 25%, calc(25% + var(--s) / 1.65) calc(25% + var(--s) / 1.65));
+  }
+  
+  .aq {
+    position: relative;
+    width: 60cqw;
+    aspect-ratio: 1/1;
+  }
+  .aq::before {
+    --w: 18cqw;
+    content: "";
+    position: absolute;
+    top: calc(25% - var(--w) / 2);
+    left: 0;
+    width: var(--w);
+    aspect-ratio: 1/1;
+    border: var(--s) solid var(--c1);
+    border-right: 0;
+    border-bottom: 0;
+    rotate: 45deg;
+    translate: 25% 25%;
+    filter: drop-shadow(var(--w) calc(var(--w) * -1) var(--c1)) drop-shadow(var(--w) var(--w) var(--c2));
+  }
+  
+  .l {
+    position: relative;
+    width: 60cqw;
+    aspect-ratio: 54/44;
+    background: linear-gradient(to right, var(--c2) 50%, var(--c1) 50%), linear-gradient(to right, var(--c1) calc(33% - var(--s)), transparent 0, transparent calc(67% + var(--s)), var(--c2) 0);
+    background-position: bottom center, center calc(33.33% + var(--s));
+    background-size: 100% var(--s);
+    background-repeat: no-repeat;
+  }
+  .l::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 66.66%;
+    border: var(--s) solid var(--c1);
+    border-top-color: var(--c2);
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    box-sizing: border-box;
+    translate: -50% 0;
+    rotate: 45deg;
+  }
+  
+  .le {
+    position: relative;
+    width: 30cqw;
+    aspect-ratio: 1/1;
+    border: var(--s) solid var(--c1);
+    border-radius: 50%;
+    box-sizing: border-box;
+    translate: -50% 40%;
+  }
+  .le::before, .le::after {
+    content: "";
+    position: absolute;
+    width: 40cqw;
+    aspect-ratio: 1/1;
+    box-sizing: border-box;
+    border-radius: 50%;
+  }
+  .le::before {
+    bottom: 62%;
+    left: 50%;
+    border: var(--s) solid var(--c1);
+    border-bottom-color: transparent;
+  }
+  .le::after {
+    bottom: -60%;
+    left: 174%;
+    border: var(--s) solid var(--c2);
+    border-top-color: transparent;
+    border-right-color: transparent;
+  }
+  @supports (-webkit-touch-callout: none) {
+    .le::after {
+      border-bottom-color: transparent;
+    }
+  }
+  @supports not (-webkit-touch-callout: none) {
+    .le::after {
+      border-bottom: 0;
+    }
+  }
+  
+  .sc {
+    --w: calc(var(--s) * 4);
+    position: relative;
+    width: 60cqw;
+    aspect-ratio: 1/1;
+  }
+  .sc::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: calc(var(--w) / -2);
+    width: var(--w);
+    height: 100%;
+    border: var(--s) solid var(--c1);
+    border-radius: 50cqw;
+    filter: drop-shadow(calc(var(--w) - var(--s)) 0 var(--c2)) drop-shadow(calc((var(--w) - var(--s))) 0 var(--c1));
+    box-sizing: border-box;
+    -webkit-clip-path: polygon(50% 0, calc(50% + var(--w) * 3) 0, calc(50% + var(--w) * 3) calc(100% - var(--s) * 2), 50% calc(100% - var(--s) * 2));
+            clip-path: polygon(50% 0, calc(50% + var(--w) * 3) 0, calc(50% + var(--w) * 3) calc(100% - var(--s) * 2), 50% calc(100% - var(--s) * 2));
+  }
+  .sc::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 1%;
+    width: calc(var(--w) - var(--s));
+    aspect-ratio: 1/1;
+    border: var(--s) solid var(--c1);
+    border-bottom: 0;
+    border-left: 0;
+    rotate: 45deg;
+    background: linear-gradient(-45deg, transparent, transparent calc(50% - var(--s) / 2), var(--c1) calc(50% - var(--s) / 2), var(--c1) calc(50% + var(--s) / 2), transparent 0) center/auto auto no-repeat;
+  }
+  
+  .v {
+    --w: calc(var(--s) * 4);
+    position: relative;
+    width: 60cqw;
+    aspect-ratio: 1/1;
+  }
+  .v::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: calc(var(--w) / -2);
+    width: var(--w);
+    height: 100%;
+    border: var(--s) solid var(--c1);
+    border-radius: 50cqw;
+    filter: drop-shadow(calc(var(--w) - var(--s)) 0 var(--c1)) drop-shadow(calc((var(--w) - var(--s))) 0 var(--c2));
+    box-sizing: border-box;
+    -webkit-clip-path: polygon(50% 0, calc(50% + var(--w) * 3) 0, calc(50% + var(--w) * 3) calc(100% - var(--s) * 2), 50% calc(100% - var(--s) * 2));
+            clip-path: polygon(50% 0, calc(50% + var(--w) * 3) 0, calc(50% + var(--w) * 3) calc(100% - var(--s) * 2), 50% calc(100% - var(--s) * 2));
+  }
+  .v::after {
+    content: "";
+    position: absolute;
+    top: 25%;
+    right: 25%;
+    width: var(--w);
+    aspect-ratio: 1/2;
+    border: var(--s) solid var(--c2);
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    rotate: 45deg;
+    border-radius: 50%;
+  }
+  
+  .cap {
+    --w: calc(var(--s) * 4);
+    position: relative;
+    width: 60cqw;
+    aspect-ratio: 1/1;
+  }
+  .cap::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: calc(var(--w) / -4);
+    width: var(--w);
+    height: 100%;
+    border: var(--s) solid var(--c2);
+    border-radius: 50cqw;
+    filter: drop-shadow(calc(var(--w) - var(--s)) 0 var(--c1));
+    box-sizing: border-box;
+    -webkit-clip-path: polygon(50% 0, calc(50% + var(--w) * 2) 0, calc(50% + var(--w) * 2) 100%, calc(50% + var(--w) - var(--s)) 100%, calc(50% + var(--w) - var(--s)) 75%, 50% 75%);
+            clip-path: polygon(50% 0, calc(50% + var(--w) * 2) 0, calc(50% + var(--w) * 2) 100%, calc(50% + var(--w) - var(--s)) 100%, calc(50% + var(--w) - var(--s)) 75%, 50% 75%);
+  }
+  .cap::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: calc(var(--w) / 4);
+    width: var(--w);
+    padding: var(--s);
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    background: linear-gradient(to right, var(--c1), var(--c2));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+  }

@@ -1,0 +1,32 @@
+<!-- Footer -->
+<footer class="bg-white dark:bg-neutral-950 border-t border-gray-200 dark:border-white/10 py-12 px-6 transition-colors"
+    id="contact">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+
+        <div class="text-center md:text-left">
+            <a href="{{ '/' | relative_url }}{% if page.lang == 'it' %}it/{% else %}en/{% endif %}"
+                class="inline-block mb-2 hover:opacity-80 transition-opacity">
+                <span class="text-xl font-black tracking-tighter uppercase font-display">Francesco Cucci</span>
+            </a>
+            <p class="text-gray-500 dark:text-gray-400 text-sm">
+                Materia. Spazio. Luce.
+            </p>
+        </div>
+
+        <div class="flex gap-6">
+            <!-- Email -->
+            <a href="mailto:francesco.cucci07@gmail.com"
+                class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-colors"
+                title="Email">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
+
+        <div class="text-sm text-gray-500 dark:text-gray-400 text-center md:text-right">
+            <p>&copy; 2025 Francesco Cucci.</p>
+            <p>{% if page.lang == 'it' %}Tutti i diritti riservati.{% elsif page.lang == 'de' %}Alle Rechte
+                vorbehalten.{% else %}All rights reserved.{% endif %}</p>
+        </div>
+
+    </div>
+</footer>

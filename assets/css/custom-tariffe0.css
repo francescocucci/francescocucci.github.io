@@ -1,0 +1,277 @@
+/* Hero Section */
+.hero-section-home {
+  min-height: 100vh;
+  background: url('/assets/images/assets/images/index/slider_ItaliaCandele_dsvisualdesigner-1.jpg') center / cover no-repeat;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-section-home h1 {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  font-size: 4.5rem;
+  text-align: left;
+}
+
+.hero-section-home .row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.hero-section-home img {
+  max-width: 100%;
+  height: auto;
+}
+
+.hero-section-home .col-lg-6 {
+  text-align: left;
+}
+
+.hero-section-home .btn-primary {
+  background-color: var(--bs-primary);
+  color: white;
+  border: none;
+}
+
+.hero-section-home .btn-primary:hover {
+  background-color: white;
+  color: var(--bs-primary);
+}
+
+.hero-section-home .btn-outline-secondary {
+  border-color: var(--bs-primary);
+  color: var(--bs-primary);
+}
+
+.hero-section-home .btn-outline-secondary:hover {
+  background-color: var(--bs-primary);
+  color: white;
+}
+
+/* Hero Plans Section */
+.hero-plans-home {
+  background: url('/assets/images/assets/images/index/bg_ItaliaCandele_dsvisualdesigner.png') #3e8add center / cover fixed;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-plans-home h2 {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+}
+
+/* Hero Experience Section */
+.hero-experience-home {
+  background: url('/assets/images/assets/images/index/pattern-6.png') center / cover no-repeat;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hero Future Section */
+.hero-future-home {
+  background: url('/assets/images/assets/images/index/bg-future-dsvisualdesigner.jpg') rgba(255, 255, 255, 0.6) center / cover no-repeat;
+  background-blend-mode: overlay;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Utility Classes */
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
+.b-example-divider {
+  width: 100%;
+  height: 3rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  border: solid rgba(0, 0, 0, 0.15);
+  border-width: 1px 0;
+  box-shadow: inset 0 0.5em 1.5em rgba(0, 0, 0, 0.1), inset 0 0.125em 0.5em rgba(0, 0, 0, 0.15);
+}
+
+.b-example-vr {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 100vh;
+}
+
+.bi {
+  vertical-align: -0.125em;
+  fill: currentColor;
+}
+
+
+.card .card-logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+
+        .card-img-wrapper img{
+            display: block;
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            border-radius: 100%;
+        }
+
+
+            /* Card Stile */
+            .offer-card {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+
+            .offer-card img {
+                width: 50px;
+                height: 50px;
+            }
+
+            .offer-details {
+                flex: 2;
+                padding: 0 20px;
+            }
+
+            .offer-details h3 {
+                margin: 0;
+                font-size: 1.5rem;
+                font-weight: bold;
+            }
+
+            .offer-details p {
+                margin: 5px 0;
+                color: #666;
+            }
+
+            .offer-features ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .offer-features li {
+                display: flex;
+                align-items: center;
+                margin-bottom: 5px;
+                color: #444;
+            }
+
+            .offer-features li i {
+                margin-right: 10px;
+                color: #2a9df4;
+            }
+
+            .offer-price {
+                text-align: center;
+                flex: 1;
+                font-size: 1.8rem;
+                font-weight: bold;
+                color: #000;
+            }
+
+            .contact-btn {
+                background-color: #2a9df4;
+                color: #fff;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+            .contact-btn:hover {
+                background-color: #1f7cc4;
+            }
+
+
+
+
+
+            .offer-details, .offer-features, .offer-price {
+                flex: 1;
+                padding: 0 15px;
+            }
+
+            .offer-card img {
+                width: 60px;
+                height: 60px;
+            }
+
+            /* Responsive per dispositivi mobili */
+            @media (max-width: 768px) {
+                .offer-card {
+                    flex-direction: column; /* Layout verticale */
+                    text-align: center;
+                    padding: 15px;
+                }
+
+                .offer-card img {
+                    width: 50px; /* Ridimensiona l'immagine */
+                    height: 50px;
+                    margin-bottom: 10px;
+                }
+
+                .offer-details h3 {
+                    font-size: 1.2rem; /* Riduci il titolo */
+                }
+
+                .offer-details p, .offer-price {
+                    font-size: 1rem; /* Riduci il testo */
+                }
+
+                .offer-features ul {
+                    padding: 0;
+                    margin: 10px 0;
+                    list-style: none;
+                }
+
+                .offer-price {
+                    margin-top: 15px;
+                }
+
+                .btn-custom-primary {
+                    font-size: 0.9rem;
+                    padding: 8px 12px;
+                }
+            }
+
+            /* Ridurre ulteriormente su schermi molto piccoli */
+            @media (max-width: 480px) {
+                .offer-card {
+                    padding: 10px;
+                }
+
+                .offer-card img {
+                    width: 40px;
+                    height: 40px;
+                }
+
+                .offer-details h3 {
+                    font-size: 1rem;
+                }
+
+                .offer-details p {
+                    font-size: 0.9rem;
+                }
+            }

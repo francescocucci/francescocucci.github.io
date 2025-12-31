@@ -1,0 +1,70 @@
+---
+layout: default
+---
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Immagine del prodotto -->
+        <div class="col-md-6">
+            <img src="{{ page.image }}" alt="{{ page.title }}" class="img-fluid rounded shadow">
+        </div>
+
+        <!-- Dettagli del prodotto -->
+        <div class="col-md-6">
+            <h1 class="fw-bold">{{ page.title }}</h1>
+            
+            <!-- Categorie multiple -->
+            <p class="text-muted">
+                {% if page.categories %}
+                    {{ page.categories | join: ', ' }}
+                {% else %}
+                    {{ page.category }}
+                {% endif %}
+            </p>
+
+            <p class="lead">{{ page.description }}</p>
+            <h3 class="text-primary fw-bold">{{ page.price }} €</h3>
+
+            <!-- Selezione del colore -->
+            {% if page.colors %}
+            <div class="mb-3">
+                <label for="color-select" class="form-label">Colore</label>
+                <select id="color-select" class="form-select">
+                    {% for color in page.colors %}
+                    <option value="{{ color }}">{{ color }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% endif %}
+
+            <!-- Selezione della profumazione -->
+            {% if page.scents %}
+            <div class="mb-3">
+                <label for="scent-select" class="form-label">Profumazione</label>
+                <select id="scent-select" class="form-select">
+                    {% for scent in page.scents %}
+                    <option value="{{ scent }}">{{ scent }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% endif %}
+
+            <!-- Disponibilità -->
+            <p class="{% if page.availability %}text-success{% else %}text-danger{% endif %} fw-bold">
+                {% if page.availability %}Disponibile{% else %}Non disponibile{% endif %}
+            </p>
+
+            <!-- Pulsante Aggiungi al Carrello Snipcart (non cliccabile se non disponibile) -->
+            <button class="btn btn-custom-primary snipcart-add-item mt-3 {% if page.availability == false %}disabled{% endif %}"
+                data-item-id="{{ page.sku }}"
+                data-item-name="{{ page.title }}"
+                data-item-price="{{ page.price }}"
+                data-item-url="{{ page.url | absolute_url }}"
+                data-item-image="{{ page.image | default: '/assets/images/default-product.jpg' }}">
+                <i class="fa-solid fa-cart-plus me-2"></i> Aggiungi al Carrello
+            </button>
+        </div>
+    </div>
+</div>
+    <!-- Spaziatore per separare il footer -->
+    <div class="my-5"></div>

@@ -1,0 +1,15 @@
+- title: Home
+  url: "/en/"
+  section: "#home"
+
+- title: Works
+  url: "#gallery"
+
+- title: Biography
+  url: "#biography"
+
+- title: Thoughts
+  url: "/en/blog/"
+
+- title: Contact
+  url: "#contact"

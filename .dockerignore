@@ -1,0 +1,9 @@
+_site
+.sass-cache
+.jekyll-cache
+.git
+.github
+_new_theme
+node_modules
+Dockerfile
+docker-compose.yml

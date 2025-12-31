@@ -1,0 +1,188 @@
+<nav class="fixed w-full z-50 transition-all duration-300 bg-white/80 dark:bg-black/80 backdrop-blur-md shadow-sm"
+  id="navbar">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+
+    <!-- Logo -->
+    <a href="{{ '/' | relative_url }}{% if page.lang == 'it' %}it/{% else %}en/{% endif %}"
+      class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+      <span class="text-2xl font-black tracking-tighter uppercase font-display">Francesco Cucci</span>
+    </a>
+
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex items-center gap-8">
+      {% assign nav_file = "navigation_" | append: page.lang %}
+      {% assign nav_items = site.data[nav_file] %}
+
+      {% for item in nav_items %}
+      {% assign link_url = item.url %}
+      {% if link_url contains '#' %}
+      {% assign is_home = false %}
+      {% assign home_url_it = '/it/' %}
+      {% assign home_url_en = '/en/' %}
+      {% assign home_url_de = '/de/' %}
+      {% assign home_url_fr = '/fr/' %}
+
+      {% if page.url == home_url_it or page.url == '/it/index.html' %}
+      {% if page.lang == 'it' %}{% assign is_home = true %}{% endif %}
+      {% elsif page.url == home_url_en or page.url == '/en/index.html' %}
+      {% if page.lang == 'en' %}{% assign is_home = true %}{% endif %}
+      {% elsif page.url == home_url_de or page.url == '/de/index.html' %}
+      {% if page.lang == 'de' %}{% assign is_home = true %}{% endif %}
+      {% elsif page.url == home_url_fr or page.url == '/fr/index.html' %}
+      {% if page.lang == 'fr' %}{% assign is_home = true %}{% endif %}
+      {% endif %}
+
+      {% <!-- Preserve #contact on posts for Majestic Footer --> %}
+      {% if link_url == '#contact' and page.layout == 'post' %}
+      {% assign is_home = true %}
+      {% endif %}
+
+      {% unless is_home %}
+      {% assign lang_home = "/" | append: page.lang | append: "/" %}
+      {% assign link_url = lang_home | append: item.url %}
+      {% assign link_url = link_url | relative_url %}
+      {% endunless %}
+      {% endif %}
+
+      <a href="{{ link_url }}"
+        class="text-sm font-bold uppercase tracking-wide hover:text-gray-500 transition-colors relative group">
+        {{ item.title }}
+      </a>
+      {% endfor %}
+
+      <!-- Language Switcher (Desktop) -->
+      <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wide ml-4 border-l border-gray-300 pl-4">
+        <a href="/it/"
+          class="{% if page.lang == 'it' %}text-black dark:text-white{% else %}text-gray-400 hover:text-black dark:hover:text-white{% endif %} transition-colors">IT</a>
+        <a href="/en/"
+          class="{% if page.lang == 'en' %}text-black dark:text-white{% else %}text-gray-400 hover:text-black dark:hover:text-white{% endif %} transition-colors">EN</a>
+        <a href="/de/"
+          class="{% if page.lang == 'de' %}text-black dark:text-white{% else %}text-gray-400 hover:text-black dark:hover:text-white{% endif %} transition-colors">DE</a>
+        <a href="/fr/"
+          class="{% if page.lang == 'fr' %}text-black dark:text-white{% else %}text-gray-400 hover:text-black dark:hover:text-white{% endif %} transition-colors">FR</a>
+      </div>
+
+      <!-- Theme Toggle (Desktop) -->
+      <button onclick="toggleTheme()"
+        class="ml-4 text-gray-400 hover:text-black dark:hover:text-white transition-colors" aria-label="Toggle Theme">
+        <i class="fas fa-moon dark:hidden"></i>
+        <i class="fas fa-sun hidden dark:block"></i>
+      </button>
+
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <button class="md:hidden text-2xl" onclick="toggleMobileMenu()" aria-label="Menu">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu Overlay (OUTSIDE nav to avoid inheritance) -->
+<div id="mobile-menu"
+  class="fixed inset-0 bg-white dark:bg-neutral-950 z-[60] transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center gap-8">
+  <button class="absolute top-6 right-6 text-3xl" onclick="toggleMobileMenu()">
+    <i class="fas fa-times"></i>
+  </button>
+
+  {% assign nav_file = "navigation_" | append: page.lang %}
+  {% assign nav_items = site.data[nav_file] %}
+
+  {% for item in nav_items %}
+  {% assign link_url = item.url %}
+  {% if link_url contains '#' %}
+  {% assign is_home = false %}
+  {% assign home_url_it = '/it/' %}
+  {% assign home_url_en = '/en/' %}
+  {% assign home_url_de = '/de/' %}
+  {% assign home_url_fr = '/fr/' %}
+
+  {% if page.url == home_url_it or page.url == '/it/index.html' %}
+  {% if page.lang == 'it' %}{% assign is_home = true %}{% endif %}
+  {% elsif page.url == home_url_en or page.url == '/en/index.html' %}
+  {% if page.lang == 'en' %}{% assign is_home = true %}{% endif %}
+  {% elsif page.url == home_url_de or page.url == '/de/index.html' %}
+  {% if page.lang == 'de' %}{% assign is_home = true %}{% endif %}
+  {% elsif page.url == home_url_fr or page.url == '/fr/index.html' %}
+  {% if page.lang == 'fr' %}{% assign is_home = true %}{% endif %}
+  {% endif %}
+
+  {% <!-- Preserve #contact on posts for Majestic Footer --> %}
+  {% if link_url == '#contact' and page.layout == 'post' %}
+  {% assign is_home = true %}
+  {% endif %}
+
+  {% unless is_home %}
+  {% assign lang_home = "/" | append: page.lang | append: "/" %}
+  {% assign link_url = lang_home | append: item.url %}
+  {% assign link_url = link_url | relative_url %}
+  {% endunless %}
+  {% endif %}
+
+  <a href="{{ link_url }}" class="text-3xl font-black hover:text-gray-500 transition-colors"
+    onclick="toggleMobileMenu()">
+    {{ item.title }}
+  </a>
+  {% endfor %}
+
+  <div class="flex gap-4 mt-8 flex-col items-center">
+    <!-- Language Switcher (Mobile) -->
+    <div class="flex items-center gap-6 text-xl font-bold uppercase tracking-wide mb-4">
+      <a href="/it/"
+        class="{% if page.lang == 'it' %}text-black dark:text-white border-b-2 border-black dark:border-white{% else %}text-gray-400{% endif %}">IT</a>
+      <a href="/en/"
+        class="{% if page.lang == 'en' %}text-black dark:text-white border-b-2 border-black dark:border-white{% else %}text-gray-400{% endif %}">EN</a>
+      <a href="/de/"
+        class="{% if page.lang == 'de' %}text-black dark:text-white border-b-2 border-black dark:border-white{% else %}text-gray-400{% endif %}">DE</a>
+      <a href="/fr/"
+        class="{% if page.lang == 'fr' %}text-black dark:text-white border-b-2 border-black dark:border-white{% else %}text-gray-400{% endif %}">FR</a>
+    </div>
+
+    <!-- Theme Toggle (Mobile) -->
+    <button onclick="toggleTheme()"
+      class="text-3xl text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
+      aria-label="Toggle Theme">
+      <i class="fas fa-moon dark:hidden"></i>
+      <i class="fas fa-sun hidden dark:block"></i>
+    </button>
+  </div>
+</div>
+
+<script>
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const isOpen = !menu.classList.contains('translate-x-full');
+
+    if (isOpen) {
+      menu.classList.add('translate-x-full');
+      document.body.style.overflow = '';
+    } else {
+      menu.classList.remove('translate-x-full');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  // Theme Toggle Logic
+  function toggleTheme() {
+    const html = document.documentElement;
+    if (html.classList.contains('dark')) {
+      html.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    } else {
+      html.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    }
+  }
+
+  // Initialize Theme (check local storage or system preference)
+  (function () {
+    const savedTheme = localStorage.getItem('theme');
+    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+    if (savedTheme === 'dark' || (!savedTheme && systemTheme === 'dark')) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  })();
+</script>

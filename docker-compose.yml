@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  site:
+    image: jekyll/jekyll:4
+    command: jekyll serve --force_polling --livereload --host 0.0.0.0
+    ports:
+      - "4000:4000"
+      - "35729:35729"
+    volumes:
+      - .:/srv/jekyll
+    environment:
+      - JEKYLL_ENV=development
+    # Fix for potential permission issues on some systems, though usually not needed on Windows Docker Desktop
+    # user: "1000:1000" 
