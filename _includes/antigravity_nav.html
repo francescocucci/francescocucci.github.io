@@ -32,7 +32,7 @@
       {% if page.lang == 'fr' %}{% assign is_home = true %}{% endif %}
       {% endif %}
 
-      {% <!-- Preserve #contact on posts for Majestic Footer --> %}
+      <!-- Preserve #contact on posts for Majestic Footer -->
       {% if link_url == '#contact' and page.layout == 'post' %}
       {% assign is_home = true %}
       {% endif %}
