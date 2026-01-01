@@ -39,7 +39,13 @@
 
       {% unless is_home %}
       {% assign lang_home = "/" | append: page.lang | append: "/" %}
+
+      {% if item.url == '#gallery' %}
+      {% assign link_url = lang_home | append: 'gallery/' %}
+      {% else %}
       {% assign link_url = lang_home | append: item.url %}
+      {% endif %}
+
       {% assign link_url = link_url | relative_url %}
       {% endunless %}
       {% endif %}
@@ -114,7 +120,13 @@
 
   {% unless is_home %}
   {% assign lang_home = "/" | append: page.lang | append: "/" %}
+
+  {% if item.url == '#gallery' %}
+  {% assign link_url = lang_home | append: 'gallery/' %}
+  {% else %}
   {% assign link_url = lang_home | append: item.url %}
+  {% endif %}
+
   {% assign link_url = link_url | relative_url %}
   {% endunless %}
   {% endif %}
