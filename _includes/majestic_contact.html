@@ -22,7 +22,33 @@
                     %}L'Artiste{% else %}The Artist{% endif %}
                 </span>
 
-                <h2 class="text-5xl md:text-7xl font-black mb-8 leading-tight">
+                <style>
+                    .majestic-title-text {
+                        background-size: 200% auto;
+                        animation: shimmer-text 5s ease infinite;
+                        background-image: linear-gradient(to right, #ffffff 0%, #888888 20%, #ffffff 40%, #888888 60%, #ffffff 80%, #888888 100%);
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        background-clip: text;
+                        color: transparent;
+                    }
+
+                    @keyframes shimmer-text {
+                        0% {
+                            background-position: 0% 50%;
+                        }
+
+                        50% {
+                            background-position: 100% 50%;
+                        }
+
+                        100% {
+                            background-position: 0% 50%;
+                        }
+                    }
+                </style>
+
+                <h2 class="text-5xl md:text-7xl font-black mb-8 leading-tight majestic-title-text">
                     Francesco<br>Cucci.
                 </h2>
 
