@@ -127,6 +127,20 @@ Design."
     </div>
 </div>
 
+<style>
+    @media (max-height: 600px) and (orientation: landscape) {
+
+        #lightbox-caption-container,
+        #lightbox button.md\:hidden {
+            display: none !important;
+        }
+
+        #lightbox-img {
+            max-height: 96vh !important;
+        }
+    }
+</style>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const filterBtns = document.querySelectorAll('.filter-btn');
