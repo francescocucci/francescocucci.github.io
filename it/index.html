@@ -216,7 +216,7 @@ description: "Francesco Cucci: sculture, installazioni, ceramiche. Un dialogo di
                     <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
                     <div class="absolute bottom-0 left-0 p-8">
                         <h3 class="text-3xl font-black text-white mb-2">Installazioni</h3>
-                        <p class="text-white/80">Outside Inside</p>
+                        <!--<p class="text-white/80">Outside Inside</p>-->
                     </div>
                 </a>
 
@@ -291,13 +291,15 @@ description: "Francesco Cucci: sculture, installazioni, ceramiche. Un dialogo di
                 .hide-scrollbar::-webkit-scrollbar {
                     display: none;
                 }
+
                 .hide-scrollbar {
                     -ms-overflow-style: none;
                     scrollbar-width: none;
                 }
             </style>
 
-            <div class="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 hide-scrollbar -mx-6 px-6 md:mx-0 md:px-0">
+            <div
+                class="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 hide-scrollbar -mx-6 px-6 md:mx-0 md:px-0">
                 {% assign posts = site.posts | where: "lang", page.lang | slice: 0, 3 %}
                 {% for post in posts %}
                 <a href="{{ post.url }}"
@@ -329,12 +331,16 @@ description: "Francesco Cucci: sculture, installazioni, ceramiche. Un dialogo di
                 <a href="/it/blog/"
                     class="flex-shrink-0 w-[85vw] md:w-[700px] lg:w-[800px] snap-center group relative block rounded-[3rem] overflow-hidden shadow-xl aspect-[2/1] md:aspect-[21/9] bg-brand-surface dark:bg-neutral-800 border-2 border-dashed border-gray-300 dark:border-white/10 hover:border-brand-black dark:hover:border-white transition-colors">
                     <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
-                        <div class="w-20 h-20 rounded-full bg-white dark:bg-black shadow-lg flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform duration-500">
-                             <i class="fas fa-layer-group text-black dark:text-white"></i>
+                        <div
+                            class="w-20 h-20 rounded-full bg-white dark:bg-black shadow-lg flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform duration-500">
+                            <i class="fas fa-layer-group text-black dark:text-white"></i>
                         </div>
-                        <h3 class="text-3xl md:text-5xl font-black mb-4 text-brand-black dark:text-white">Tutti i Pensieri</h3>
-                        <p class="text-gray-500 dark:text-gray-400 text-lg max-w-md mb-8">Esplora l'archivio completo degli articoli, riflessioni e novità.</p>
-                        <span class="inline-flex items-center gap-3 px-8 py-4 bg-black dark:bg-white text-white dark:text-black rounded-full font-bold uppercase tracking-widest hover:opacity-80 transition-opacity">
+                        <h3 class="text-3xl md:text-5xl font-black mb-4 text-brand-black dark:text-white">Tutti i
+                            Pensieri</h3>
+                        <p class="text-gray-500 dark:text-gray-400 text-lg max-w-md mb-8">Esplora l'archivio completo
+                            degli articoli, riflessioni e novità.</p>
+                        <span
+                            class="inline-flex items-center gap-3 px-8 py-4 bg-black dark:bg-white text-white dark:text-black rounded-full font-bold uppercase tracking-widest hover:opacity-80 transition-opacity">
                             Vai al Blog <i class="fas fa-arrow-right"></i>
                         </span>
                     </div>
