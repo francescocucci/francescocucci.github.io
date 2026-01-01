@@ -404,45 +404,4 @@ Licht."
 </div>
 
 <!-- Contact Section -->
-<div class="mb-20 rounded-[3rem] overflow-hidden">
-    <section class="py-20 px-6 bg-brand-surface dark:bg-neutral-800">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-4xl font-black mb-12">Kontakt.</h2>
-            <div class="grid md:grid-cols-3 gap-8 text-center mb-16">
-                <div>
-                    <div
-                        class="w-16 h-16 mx-auto bg-white dark:bg-black rounded-2xl flex items-center justify-center text-2xl mb-4 shadow-sm">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <h3 class="font-bold mb-2">Atelier</h3>
-                    <p class="text-gray-500 dark:text-gray-400">Via Malnasca, 13<br>21100 Varese (Italien)</p>
-                </div>
-                <div>
-                    <div
-                        class="w-16 h-16 mx-auto bg-white dark:bg-black rounded-2xl flex items-center justify-center text-2xl mb-4 shadow-sm">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <h3 class="font-bold mb-2">E-Mail</h3>
-                    <p class="text-gray-500 dark:text-gray-400"><a href="mailto:francesco.cucci07@gmail.com"
-                            class="hover:underline">francesco.cucci07@gmail.com</a></p>
-                </div>
-                <div>
-                    <div
-                        class="w-16 h-16 mx-auto bg-white dark:bg-black rounded-2xl flex items-center justify-center text-2xl mb-4 shadow-sm">
-                        <i class="fas fa-phone"></i>
-                    </div>
-                    <h3 class="font-bold mb-2">Telefon</h3>
-                    <p class="text-gray-500 dark:text-gray-400">+39 330 76.87.08</p>
-                </div>
-            </div>
-
-            <!-- Contact section download link -->
-            <div class="border-t border-gray-200 dark:border-white/10 pt-12">
-                <a href="/assets/CURRICULUM.pdf" target="_blank"
-                    class="inline-flex items-center gap-3 text-lg font-bold text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors">
-                    <i class="fas fa-download text-red-500"></i> Lebenslauf herunterladen
-                </a>
-            </div>
-        </div>
-    </section>
-</div>
+{% include majestic_contact.html %}
