@@ -96,3 +96,84 @@ lang: de
         </div>
     </div>
 </div>
+
+<!-- Majestic Contact Footer -->
+<div id="contact" class="relative bg-black text-white overflow-hidden rounded-t-[3rem] -mt-10">
+    <section class="relative min-h-[90vh] flex items-center overflow-hidden">
+
+        <!-- Artist Image (Bottom Right, Blended) -->
+        <div
+            class="absolute bottom-0 right-0 z-0 w-full h-[75vh] md:h-[90vh] pointer-events-none select-none flex items-end justify-end overflow-visible">
+            <div class="relative h-full w-auto animate-float-slow mr-0">
+                <div class="absolute inset-0 z-10 bg-gradient-to-r from-black via-transparent to-transparent"></div>
+                <div class="absolute inset-0 z-10 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                <img src="/assets/images/francesco3.jpg" alt="Francesco Cucci"
+                    class="h-full w-auto object-contain object-bottom mask-image-b-r opacity-60 md:opacity-80">
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="max-w-7xl mx-auto px-6 relative z-20 w-full py-20">
+            <div class="max-w-2xl">
+                <span class="text-brand-blue font-bold tracking-widest uppercase mb-4 block">
+                    {% if page.lang == 'it' %}L'Artista{% elsif page.lang == 'de' %}Der Künstler{% elsif page.lang ==
+                    'fr'
+                    %}L'Artiste{% else %}The Artist{% endif %}
+                </span>
+
+                <h2 class="text-5xl md:text-7xl font-black mb-8 leading-tight">
+                    Francesco<br>Cucci.
+                </h2>
+
+                <p class="text-xl md:text-2xl text-gray-300 font-light leading-relaxed mb-12 max-w-lg">
+                    {% if page.lang == 'it' %}
+                    Una ricerca continua tra materia e spirito, dove la scultura diventa il linguaggio dell'invisibile.
+                    {% elsif page.lang == 'de' %}
+                    Eine kontinuierliche Suche zwischen Materie und Geist, wo Skulptur zur Sprache des Unsichtbaren
+                    wird.
+                    {% elsif page.lang == 'fr' %}
+                    Une recherche continue entre matière et esprit, où la sculpture devient le langage de l'invisible.
+                    {% else %}
+                    A continuous search between matter and spirit, where sculpture becomes the language of the
+                    invisible.
+                    {% endif %}
+                </p>
+
+                <!-- Contact Info -->
+                <div class="grid gap-6 mb-12">
+                    <div class="flex items-center gap-4 text-gray-300">
+                        <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <span class="block text-xs uppercase tracking-widest opacity-50">Studio</span>
+                            <span class="font-medium">Via Malnasca 13, Varese (IT)</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-4 text-gray-300">
+                        <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <span class="block text-xs uppercase tracking-widest opacity-50">Email</span>
+                            <a href="mailto:francesco.cucci07@gmail.com"
+                                class="font-medium hover:text-white transition-colors">francesco.cucci07@gmail.com</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CV Button -->
+                <a href="/assets/CURRICULUM.pdf" target="_blank"
+                    class="inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-bold rounded-full transition-transform hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                    <i class="fas fa-download"></i>
+                    <span>
+                        {% if page.lang == 'it' %}Scarica Curriculum{% elsif page.lang == 'de' %}Lebenslauf
+                        herunterladen{% elsif
+                        page.lang == 'fr' %}Télécharger CV{% else %}Download CV{% endif %}
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+</div>
