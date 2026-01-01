@@ -367,7 +367,13 @@ lumière."
             <script>
                 function scrollThoughts(direction) {
                     const container = document.getElementById('thoughts-container');
-                    const scrollAmount = container.clientWidth * 0.75;
+                    const item = container.firstElementChild;
+                    if (!item) return;
+
+                    const style = window.getComputedStyle(container);
+                    const gap = parseFloat(style.columnGap || style.gap) || 24;
+                    const scrollAmount = item.offsetWidth + gap;
+
                     container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
                 }
             </script>
