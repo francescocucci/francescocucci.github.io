@@ -1,247 +1,329 @@
+```
 ---
 layout: default
 title: Galerie - Francesco Cucci
 lang: fr
+locale: fr_FR
+description: "Explorez les œuvres de Francesco Cucci: Installations, Céramiques, Sculptures, Peinture, Graphisme et
+Design."
 ---
 
-<div class="fixed inset-0 z-50 bg-black transform transition-transform duration-500 translate-y-full" id="lightbox">
-    <div class="absolute top-6 right-6 z-50 flex gap-4">
-        <button class="text-white text-4xl hover:text-gray-300 transition-colors" onclick="closeLightbox()">
-            <i class="fas fa-times"></i>
-        </button>
-    </div>
+<div class="pt-32 pb-20 px-6 min-h-screen bg-brand-surface dark:bg-neutral-900">
+    <div class="max-w-7xl mx-auto">
 
-    <!-- Navigation Arrows -->
-    <button
-        class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-4xl md:text-6xl p-4 hover:text-gray-300 transition-colors z-50"
-        onclick="prevImage()">
-        <i class="fas fa-chevron-left"></i>
-    </button>
-    <button
-        class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-4xl md:text-6xl p-4 hover:text-gray-300 transition-colors z-50"
-        onclick="nextImage()">
-        <i class="fas fa-chevron-right"></i>
-    </button>
+        <!-- Header -->
+        <div class="text-center mb-16 reveal active">
+            <h1 class="text-5xl md:text-7xl font-black tracking-tight mb-6">Galerie.</h1>
+            <p class="text-xl text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+                Une collection sélectionnée d'œuvres qui explorent la relation entre la matière et l'espace.
+            </p>
+        </div>
 
-    <div class="h-full w-full flex items-center justify-center p-4 md:p-12">
-        <img src="" alt="" class="max-h-full max-w-full object-contain" id="lightbox-image">
-    </div>
-    <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent text-white">
-        <h3 class="text-3xl font-bold mb-2" id="lightbox-title"></h3>
-        <p class="text-gray-300" id="lightbox-desc"></p>
+        <!-- Filters -->
+        <div class="flex flex-wrap justify-center gap-4 mb-16 reveal delay-100" id="filters">
+            <button
+                class="filter-btn active px-6 py-2 rounded-full border-2 border-black dark:border-white bg-black dark:bg-white text-white dark:text-black font-bold transition-all hover:scale-105"
+                data-filter="all">
+                Tout
+            </button>
+            {% for category in site.data.artworks %}
+            {% assign cat_label = category.category %}
+            {% if category.category == 'installazioni' %}{% assign cat_label = 'Installations' %}{% endif %}
+            {% if category.category == 'ceramiche' %}{% assign cat_label = 'Céramiques' %}{% endif %}
+            {% if category.category == 'sculture' %}{% assign cat_label = 'Sculptures' %}{% endif %}
+            {% if category.category == 'pittura' %}{% assign cat_label = 'Peinture' %}{% endif %}
+            {% if category.category == 'grafica' %}{% assign cat_label = 'Graphisme' %}{% endif %}
+            {% if category.category == 'design' %}{% assign cat_label = 'Design' %}{% endif %}
+            <button
+                class="filter-btn px-6 py-2 rounded-full border-2 border-gray-200 dark:border-white/10 hover:border-black dark:hover:border-white font-bold text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-all capitalize"
+                data-filter="{{ category.category }}">
+                {{ cat_label }}
+            </button>
+            {% endfor %}
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="gallery-grid">
+            {% for category in site.data.artworks %}
+            {% for item in category.images %}
+            {% assign filename = item.file | default: item %}
+
+            {% assign artwork_title = item.title %}
+            {% if item.title and item.title.first %}
+            {% assign artwork_title = item.title[page.lang] %}
+            {% endif %}
+
+            {% assign artwork_desc = item.description %}
+            {% if item.description and item.description.first %}
+            {% assign artwork_desc = item.description[page.lang] %}
+            {% endif %}
+
+            {% assign cat_label = category.category %}
+            {% if category.category == 'installazioni' %}{% assign cat_label = 'Installations' %}{% endif %}
+            {% if category.category == 'ceramiche' %}{% assign cat_label = 'Céramiques' %}{% endif %}
+            {% if category.category == 'sculture' %}{% assign cat_label = 'Sculptures' %}{% endif %}
+            {% if category.category == 'pittura' %}{% assign cat_label = 'Peinture' %}{% endif %}
+            {% if category.category == 'grafica' %}{% assign cat_label = 'Graphisme' %}{% endif %}
+            {% if category.category == 'design' %}{% assign cat_label = 'Design' %}{% endif %}
+
+            <div class="gallery-item group relative h-80 rounded-[2rem] overflow-hidden bg-gray-100 cursor-pointer reveal"
+                data-category="{{ category.category }}" data-title="{{ artwork_title | escape }}"
+                data-description="{{ artwork_desc | escape }}"
+                onclick="openLightbox('/assets/images/portfolio/{{ category.category }}/{{ filename }}')">
+                <img src="/assets/images/portfolio/{{ category.category }}/{{ filename }}"
+                    alt="{{ artwork_title | escape }}" loading="lazy"
+                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
+                <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span
+                        class="inline-block px-3 py-1 bg-black/50 backdrop-blur-md text-white text-xs font-bold rounded-full uppercase">
+                        {{ cat_label }}
+                    </span>
+                </div>
+            </div>
+            {% endfor %}
+            {% endfor %}
+        </div>
+
+        <!-- Empty State -->
+        <div id="no-results" class="hidden text-center py-20">
+            <p class="text-xl text-gray-400">Aucune œuvre trouvée dans cette catégorie.</p>
+        </div>
+
     </div>
 </div>
 
-<div class="pt-32 pb-20 px-6 min-h-screen bg-white dark:bg-neutral-900">
-    <div class="max-w-7xl mx-auto">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-            <div>
-                <a href="/fr/"
-                    class="text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white mb-4 inline-block transition-colors">
-                    <i class="fas fa-arrow-left mr-2"></i> Retour à l'accueil
-                </a>
-                <h1 class="text-5xl md:text-7xl font-black mb-4 dark:text-white">Galerie.</h1>
-                <p class="text-xl text-gray-500 dark:text-gray-400 max-w-2xl">
-                    Une collection sélectionnée d'œuvres qui explorent la relation entre la matière et l'espace.
-                </p>
-            </div>
+<!-- Lightbox Modal -->
+<div id="lightbox"
+    class="fixed inset-0 z-50 bg-black/95 hidden flex flex-col items-center justify-center opacity-0 transition-opacity duration-300">
 
-            <!-- Filter Categories -->
-            <div class="flex flex-wrap gap-2" id="filters">
-                <button
-                    class="px-6 py-2 rounded-full border-2 border-black dark:border-white bg-black dark:bg-white text-white dark:text-black font-bold transition-all"
-                    data-filter="all">
-                    Tout
-                </button>
-                <button
-                    class="px-6 py-2 rounded-full border-2 border-gray-200 dark:border-neutral-700 hover:border-black dark:hover:border-white transition-all dark:text-gray-300"
-                    data-filter="installazioni">
-                    Installations
-                </button>
-                <button
-                    class="px-6 py-2 rounded-full border-2 border-gray-200 dark:border-neutral-700 hover:border-black dark:hover:border-white transition-all dark:text-gray-300"
-                    data-filter="ceramiche">
-                    Céramiques
-                </button>
-                <button
-                    class="px-6 py-2 rounded-full border-2 border-gray-200 dark:border-neutral-700 hover:border-black dark:hover:border-white transition-all dark:text-gray-300"
-                    data-filter="sculture">
-                    Sculptures
-                </button>
-                <button
-                    class="px-6 py-2 rounded-full border-2 border-gray-200 dark:border-neutral-700 hover:border-black dark:hover:border-white transition-all dark:text-gray-300"
-                    data-filter="pittura">
-                    Peinture
-                </button>
-                <button
-                    class="px-6 py-2 rounded-full border-2 border-gray-200 dark:border-neutral-700 hover:border-black dark:hover:border-white transition-all dark:text-gray-300"
-                    data-filter="grafica">
-                    Graphisme
-                </button>
-                <button
-                    class="px-6 py-2 rounded-full border-2 border-gray-200 dark:border-neutral-700 hover:border-black dark:hover:border-white transition-all dark:text-gray-300"
-                    data-filter="design">
-                    Design
-                </button>
-            </div>
+    <!-- Close Button -->
+    <button onclick="closeLightbox()"
+        class="absolute top-4 right-4 md:top-8 md:right-8 text-white text-3xl md:text-4xl hover:text-gray-300 transition-colors focus:outline-none z-50 bg-black/50 rounded-full w-10 h-10 md:w-12 md:h-12 flex items-center justify-center">&times;</button>
+
+    <!-- Desktop Nav: Left -->
+    <button onclick="changeImage(-1)"
+        class="hidden md:block absolute left-8 text-white text-6xl hover:text-gray-300 transition-colors focus:outline-none z-50 p-4">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+
+    <!-- Desktop Nav: Right -->
+    <button onclick="changeImage(1)"
+        class="hidden md:block absolute right-8 text-white text-6xl hover:text-gray-300 transition-colors focus:outline-none z-50 p-4">
+        <i class="fas fa-chevron-right"></i>
+    </button>
+
+    <!-- Image Container -->
+    <div class="relative w-full max-w-[90vw] md:max-w-5xl flex-1 flex flex-col justify-center items-center p-4">
+        <img id="lightbox-img" src=""
+            class="max-h-[70vh] md:max-h-[85vh] w-auto h-auto object-contain rounded-lg shadow-2xl transform scale-95 transition-transform duration-300">
+
+        <!-- Mobile Nav Controls (Below Image) -->
+        <div class="md:hidden flex justify-between w-full max-w-sm mt-4 px-4 text-white text-3xl">
+            <button onclick="changeImage(-1)" class="p-4 focus:outline-none active:scale-90 transition-transform">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button onclick="changeImage(1)" class="p-4 focus:outline-none active:scale-90 transition-transform">
+                <i class="fas fa-chevron-right"></i>
+            </button>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="gallery-grid">
-            <!-- Images will be populated by JS -->
+        <!-- Caption -->
+        <div id="lightbox-caption-container"
+            class="text-center mt-4 md:absolute md:bottom-8 md:mt-0 text-white transition-opacity duration-300">
+            <h3 id="lightbox-title" class="text-xl md:text-2xl font-bold mb-1"></h3>
+            <p id="lightbox-desc" class="text-sm md:text-base text-gray-300 max-w-2xl mx-auto"></p>
+            <p id="lightbox-category" class="text-xs text-gray-500 uppercase tracking-widest mt-2"></p>
         </div>
     </div>
 </div>
 
 <script>
-    // Portfolio Data
-    const portfolio = [
-        {
-            category: 'installazioni',
-            title: 'Outside Inside',
-            image: '/assets/images/portfolio/installazioni/0001.jpg',
-            year: '2024'
-        },
-        {
-            category: 'ceramiche',
-            title: 'Composizione 1',
-            image: '/assets/images/portfolio/ceramiche/01.jpg',
-            year: '2023'
-        },
-        {
-            category: 'sculture',
-            title: 'Forma 1',
-            image: '/assets/images/portfolio/sculture/00000001.jpg',
-            year: '2023'
-        },
-        {
-            category: 'pittura',
-            title: 'Dipinto 1',
-            image: '/assets/images/portfolio/pittura/001.jpg',
-            year: '2023'
-        },
-        {
-            category: 'grafica',
-            title: 'Grafica 1',
-            image: '/assets/images/portfolio/grafica/00001.jpg',
-            year: '2023'
-        },
-        {
-            category: 'design',
-            title: 'Design 1',
-            image: '/assets/images/portfolio/design/0001.jpg',
-            year: '2023'
+    document.addEventListener('DOMContentLoaded', function () {
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const items = document.querySelectorAll('.gallery-item');
+        const noResults = document.getElementById('no-results');
+
+        // Check URL param
+        const urlParams = new URLSearchParams(window.location.search);
+        const categoryParam = urlParams.get('category');
+
+        let currentImages = [];
+        let currentIndex = 0;
+
+        // Initialize with all images
+        updateCurrentImages('all');
+
+        if (categoryParam) {
+            filterGallery(categoryParam);
+        } else {
+            // Ensure 'all' button is active if no category param
+            const allBtn = document.querySelector('.filter-btn[data-filter="all"]');
+            if (allBtn) {
+                allBtn.classList.add('bg-black', 'dark:bg-white', 'text-white', 'dark:text-black', 'border-black', 'dark:border-white');
+                allBtn.classList.remove('text-gray-500', 'border-gray-200');
+            }
         }
-        // Add more items here
-    ];
 
-    // Initialize Gallery
-    const grid = document.getElementById('gallery-grid');
-    const filters = document.getElementById('filters');
-    let currentCategory = 'all';
-    let currentImages = []; // Array to store currently visible images for lightbox
-    let currentImageIndex = 0;
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.getAttribute('data-filter');
+                filterGallery(filter);
 
-    function renderGallery(filter = 'all') {
-        grid.innerHTML = '';
-        currentCategory = filter;
-
-        const items = filter === 'all'
-            ? portfolio
-            : portfolio.filter(item => item.category === filter);
-
-        currentImages = items; // Update current images list
-
-        items.forEach((item, index) => {
-            const el = document.createElement('div');
-            el.className = 'group relative h-96 rounded-[2rem] overflow-hidden cursor-pointer animate-fade-in';
-            el.onclick = () => openLightbox(index); // Pass index relative to filtered list
-            el.innerHTML = `
-                <img src="${item.image}" alt="${item.title}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
-                    <h3 class="text-2xl font-bold text-white mb-1">${item.title}</h3>
-                    <p class="text-white/80">${item.category.charAt(0).toUpperCase() + item.category.slice(1)}</p>
-                </div>
-            `;
-            grid.appendChild(el);
-        });
-    }
-
-    // Filter Logic
-    filters.addEventListener('click', (e) => {
-        if (e.target.tagName === 'BUTTON') {
-            // Update Active State
-            filters.querySelectorAll('button').forEach(btn => {
-                btn.className = 'px-6 py-2 rounded-full border-2 border-gray-200 dark:border-neutral-700 hover:border-black dark:hover:border-white transition-all dark:text-gray-300';
+                // Update URL
+                const url = new URL(window.location);
+                if (filter === 'all') {
+                    url.searchParams.delete('category');
+                } else {
+                    url.searchParams.set('category', filter);
+                }
+                window.history.pushState({}, '', url);
             });
-            e.target.className = 'px-6 py-2 rounded-full border-2 border-black dark:border-white bg-black dark:bg-white text-white dark:text-black font-bold transition-all';
+        });
 
-            // Render
-            renderGallery(e.target.dataset.filter);
+        function filterGallery(filter) {
+            // Update buttons
+            filterBtns.forEach(b => {
+                if (b.getAttribute('data-filter') === filter) {
+                    b.classList.add('bg-black', 'dark:bg-white', 'text-white', 'dark:text-black', 'border-black', 'dark:border-white');
+                    b.classList.remove('text-gray-500', 'border-gray-200', 'dark:border-white/10', 'hover:border-black', 'dark:hover:border-white');
+                } else {
+                    b.classList.remove('bg-black', 'dark:bg-white', 'text-white', 'dark:text-black', 'border-black', 'dark:border-white');
+                    b.classList.add('text-gray-500', 'border-gray-200', 'dark:border-white/10', 'hover:border-black', 'dark:hover:border-white');
+                }
+            });
 
-            // Update URL
-            const url = new URL(window.location);
-            url.searchParams.set('category', e.target.dataset.filter);
-            window.history.pushState({}, '', url);
+            let visibleCount = 0;
+            items.forEach(item => {
+                const itemCategory = item.getAttribute('data-category');
+                if (filter === 'all' || itemCategory === filter) {
+                    item.style.display = 'block';
+                    setTimeout(() => item.classList.add('reveal'), 50);
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            if (visibleCount === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+
+            updateCurrentImages(filter);
         }
+
+        function updateCurrentImages(filter) {
+            currentImages = [];
+            items.forEach(item => {
+                if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                    const img = item.querySelector('img');
+                    // Get displayed category text (from span) for lightbox
+                    const catSpan = item.querySelector('.bottom-4 span');
+
+                    currentImages.push({
+                        src: img.src,
+                        category: catSpan.innerText, // Use localized text
+                        title: item.getAttribute('data-title'),
+                        desc: item.getAttribute('data-description')
+                    });
+                }
+            });
+        }
+
+        // Export functions to global scope
+        window.openLightbox = function (src) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+
+            // Find index
+            // We need to match the full path, not just the filename, as filenames might repeat across categories
+            currentIndex = currentImages.findIndex(img => img.src === src);
+
+            if (currentIndex === -1) currentIndex = 0; // Fallback if not found
+
+            updateLightboxContent();
+
+            lightbox.classList.remove('hidden');
+            // Trigger reflow to ensure transition plays
+            void lightbox.offsetWidth;
+            lightbox.classList.remove('opacity-0');
+            lightboxImg.classList.remove('scale-95');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        };
+
+        window.changeImage = function (direction) {
+            currentIndex += direction;
+            if (currentIndex >= currentImages.length) currentIndex = 0;
+            if (currentIndex < 0) currentIndex = currentImages.length - 1;
+            updateLightboxContent();
+        };
+
+        function updateLightboxContent() {
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxTitle = document.getElementById('lightbox-title');
+            const lightboxDesc = document.getElementById('lightbox-desc');
+            const lightboxCategory = document.getElementById('lightbox-category');
+
+            const imgData = currentImages[currentIndex];
+
+            lightboxImg.style.opacity = '0';
+            // Hide caption during transition
+            document.getElementById('lightbox-caption-container').style.opacity = '0';
+
+            setTimeout(() => {
+                lightboxImg.src = imgData.src;
+
+                // Update Content
+                if (imgData.title && imgData.title !== "null" && imgData.title !== "") {
+                    lightboxTitle.innerText = imgData.title;
+                    lightboxTitle.classList.remove('hidden');
+                } else {
+                    lightboxTitle.classList.add('hidden');
+                }
+
+                if (imgData.desc && imgData.desc !== "null" && imgData.desc !== "") {
+                    lightboxDesc.innerText = imgData.desc;
+                    lightboxDesc.classList.remove('hidden');
+                } else {
+                    lightboxDesc.classList.add('hidden');
+                }
+
+                lightboxCategory.innerText = imgData.category;
+
+
+                lightboxImg.onload = () => {
+                    lightboxImg.style.opacity = '1';
+                    document.getElementById('lightbox-caption-container').style.opacity = '1';
+                };
+            }, 200);
+        }
+
+        window.closeLightbox = function () {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightbox.classList.add('opacity-0');
+            lightboxImg.classList.add('scale-95');
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+                lightboxImg.src = ''; // Clear image source
+                document.body.style.overflow = ''; // Restore scrolling
+            }, 300);
+        };
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function (e) {
+            const lightbox = document.getElementById('lightbox');
+            if (!lightbox.classList.contains('hidden')) {
+                if (e.key === 'ArrowLeft') window.changeImage(-1);
+                if (e.key === 'ArrowRight') window.changeImage(1);
+                if (e.key === 'Escape') window.closeLightbox();
+            }
+        });
     });
 
-    // Check URL params on load
-    const urlParams = new URLSearchParams(window.location.search);
-    const category = urlParams.get('category');
-    if (category) {
-        const btn = filters.querySelector(`[data-filter="${category}"]`);
-        if (btn) btn.click();
-    } else {
-        renderGallery();
-    }
-
-    // Lightbox Logic
     const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-image');
-    const lightboxTitle = document.getElementById('lightbox-title');
-    const lightboxDesc = document.getElementById('lightbox-desc');
-
-    // Make functions global so they can be called from HTML onclick attributes
-    window.openLightbox = function (index) {
-        if (!currentImages[index]) return;
-
-        currentImageIndex = index;
-        const item = currentImages[index];
-
-        lightboxImg.src = item.image;
-        lightboxTitle.innerText = item.title;
-        lightboxDesc.innerText = item.category.charAt(0).toUpperCase() + item.category.slice(1);
-
-        lightbox.classList.remove('translate-y-full');
-        document.body.style.overflow = 'hidden';
-    };
-
-    window.closeLightbox = function () {
-        lightbox.classList.add('translate-y-full');
-        document.body.style.overflow = '';
-    };
-
-    window.nextImage = function (e) {
-        if (e) e.stopPropagation();
-        currentImageIndex = (currentImageIndex + 1) % currentImages.length;
-        window.openLightbox(currentImageIndex);
-    };
-
-    window.prevImage = function (e) {
-        if (e) e.stopPropagation();
-        currentImageIndex = (currentImageIndex - 1 + currentImages.length) % currentImages.length;
-        window.openLightbox(currentImageIndex);
-    };
-
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (lightbox.classList.contains('translate-y-full')) return;
-
-        if (e.key === 'Escape') window.closeLightbox();
-        if (e.key === 'ArrowRight') window.nextImage();
-        if (e.key === 'ArrowLeft') window.prevImage();
-    });
-
     // Close on background click
     lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox) window.closeLightbox();
@@ -262,10 +344,11 @@ lang: fr
 
     function handleSwipe() {
         if (touchEndX < touchStartX - 50) {
-            window.nextImage(); // Swipe Left -> Next
+            window.changeImage(1); // Swipe Left -> Next
         }
         if (touchEndX > touchStartX + 50) {
-            window.prevImage(); // Swipe Right -> Prev
+            window.changeImage(-1); // Swipe Right -> Prev
         }
     }
 </script>
+```

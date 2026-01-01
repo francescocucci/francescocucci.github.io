@@ -36,11 +36,30 @@ description: "Esplora le opere di Francesco Cucci: Installazioni, Ceramiche, Scu
         <!-- Gallery Grid -->
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="gallery-grid">
             {% for category in site.data.artworks %}
-            {% for image in category.images %}
+            {% for item in category.images %}
+            {% if item.file %}
+            {% assign filename = item.file %}
+
+            {% assign artwork_title = item.title %}
+            {% if item.title.first %}
+            {% assign artwork_title = item.title[page.lang] %}
+            {% endif %}
+
+            {% assign artwork_desc = item.description %}
+            {% if item.description.first %}
+            {% assign artwork_desc = item.description[page.lang] %}
+            {% endif %}
+            {% else %}
+            {% assign filename = item %}
+            {% assign artwork_title = "" %}
+            {% assign artwork_desc = "" %}
+            {% endif %}
             <div class="gallery-item group relative h-80 rounded-[2rem] overflow-hidden bg-gray-100 cursor-pointer reveal"
-                data-category="{{ category.category }}"
-                onclick="openLightbox('/assets/images/portfolio/{{ category.category }}/{{ image }}', '{{ category.category }}')">
-                <img src="/assets/images/portfolio/{{ category.category }}/{{ image }}" alt="{{ image }}" loading="lazy"
+                data-category="{{ category.category }}" data-title="{{ artwork_title }}"
+                data-description="{{ artwork_desc }}"
+                onclick="openLightbox('/assets/images/portfolio/{{ category.category }}/{{ filename }}', '{{ category.category }}')">
+                <img src="/assets/images/portfolio/{{ category.category }}/{{ filename }}" alt="{{ filename }}"
+                    loading="lazy"
                     class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                 <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
                 <div class="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -64,23 +83,47 @@ description: "Esplora le opere di Francesco Cucci: Installazioni, Ceramiche, Scu
 
 <!-- Lightbox Modal -->
 <div id="lightbox"
-    class="fixed inset-0 z-50 bg-black/95 hidden flex items-center justify-center opacity-0 transition-opacity duration-300">
-    <button onclick="closeLightbox()"
-        class="absolute top-8 right-8 text-white text-4xl hover:text-gray-300 transition-colors focus:outline-none z-50">&times;</button>
+    class="fixed inset-0 z-50 bg-black/95 hidden flex flex-col items-center justify-center opacity-0 transition-opacity duration-300">
 
+    <!-- Close Button -->
+    <button onclick="closeLightbox()"
+        class="absolute top-4 right-4 md:top-8 md:right-8 text-white text-3xl md:text-4xl hover:text-gray-300 transition-colors focus:outline-none z-50 bg-black/50 rounded-full w-10 h-10 md:w-12 md:h-12 flex items-center justify-center">&times;</button>
+
+    <!-- Desktop Nav: Left -->
     <button onclick="changeImage(-1)"
-        class="absolute left-4 md:left-8 text-white text-4xl md:text-6xl hover:text-gray-300 transition-colors focus:outline-none z-50 p-4">
+        class="hidden md:block absolute left-8 text-white text-6xl hover:text-gray-300 transition-colors focus:outline-none z-50 p-4">
         <i class="fas fa-chevron-left"></i>
     </button>
 
+    <!-- Desktop Nav: Right -->
     <button onclick="changeImage(1)"
-        class="absolute right-4 md:right-8 text-white text-4xl md:text-6xl hover:text-gray-300 transition-colors focus:outline-none z-50 p-4">
+        class="hidden md:block absolute right-8 text-white text-6xl hover:text-gray-300 transition-colors focus:outline-none z-50 p-4">
         <i class="fas fa-chevron-right"></i>
     </button>
 
-    <img id="lightbox-img" src=""
-        class="max-h-[90vh] max-w-[90vw] object-contain rounded-lg shadow-2xl transform scale-95 transition-transform duration-300">
-    <p id="lightbox-caption" class="absolute bottom-8 text-white/80 font-medium tracking-widest uppercase text-sm"></p>
+    <!-- Image Container -->
+    <div class="relative w-full max-w-[90vw] md:max-w-5xl flex-1 flex flex-col justify-center items-center p-4">
+        <img id="lightbox-img" src=""
+            class="max-h-[70vh] md:max-h-[85vh] w-auto h-auto object-contain rounded-lg shadow-2xl transform scale-95 transition-transform duration-300">
+
+        <!-- Mobile Nav Controls (Below Image) -->
+        <div class="md:hidden flex justify-between w-full max-w-sm mt-4 px-4 text-white text-3xl">
+            <button onclick="changeImage(-1)" class="p-4 focus:outline-none active:scale-90 transition-transform">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button onclick="changeImage(1)" class="p-4 focus:outline-none active:scale-90 transition-transform">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Caption -->
+        <div id="lightbox-caption-container"
+            class="text-center mt-4 md:absolute md:bottom-8 md:mt-0 text-white transition-opacity duration-300">
+            <h3 id="lightbox-title" class="text-xl md:text-2xl font-bold mb-1"></h3>
+            <p id="lightbox-desc" class="text-sm md:text-base text-gray-300 max-w-2xl mx-auto"></p>
+            <p id="lightbox-category" class="text-xs text-gray-500 uppercase tracking-widest mt-2"></p>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -150,21 +193,22 @@ description: "Esplora le opere di Francesco Cucci: Installazioni, Ceramiche, Scu
                     const img = item.querySelector('img');
                     currentImages.push({
                         src: img.src,
-                        caption: item.getAttribute('data-category')
+                        category: item.getAttribute('data-category'),
+                        title: item.getAttribute('data-title'),
+                        desc: item.getAttribute('data-description')
                     });
                 }
             });
         }
 
         // Export functions to global scope
-        window.openLightbox = function (src, caption) {
+        window.openLightbox = function (src, category) {
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightbox-img');
-            const lightboxCaption = document.getElementById('lightbox-caption');
 
             // Find index
             currentIndex = currentImages.findIndex(img => img.src.includes(src.split('/').pop())); // Simple match check
-            // Fallback if not found (unexpected)
+            // Fallback
             if (currentIndex === -1) {
                 currentIndex = currentImages.findIndex(img => img.src === src);
             }
@@ -188,15 +232,40 @@ description: "Esplora le opere di Francesco Cucci: Installazioni, Ceramiche, Scu
 
         function updateLightboxContent() {
             const lightboxImg = document.getElementById('lightbox-img');
-            const lightboxCaption = document.getElementById('lightbox-caption');
+            const lightboxTitle = document.getElementById('lightbox-title');
+            const lightboxDesc = document.getElementById('lightbox-desc');
+            const lightboxCategory = document.getElementById('lightbox-category');
+
             const imgData = currentImages[currentIndex];
 
             lightboxImg.style.opacity = '0';
+            // Hide caption during transition
+            document.getElementById('lightbox-caption-container').style.opacity = '0';
+
             setTimeout(() => {
                 lightboxImg.src = imgData.src;
-                lightboxCaption.innerText = imgData.caption;
+
+                // Update Content
+                if (imgData.title) {
+                    lightboxTitle.innerText = imgData.title;
+                    lightboxTitle.classList.remove('hidden');
+                } else {
+                    lightboxTitle.classList.add('hidden');
+                }
+
+                if (imgData.desc) {
+                    lightboxDesc.innerText = imgData.desc;
+                    lightboxDesc.classList.remove('hidden');
+                } else {
+                    lightboxDesc.classList.add('hidden');
+                }
+
+                lightboxCategory.innerText = imgData.category;
+
+
                 lightboxImg.onload = () => {
                     lightboxImg.style.opacity = '1';
+                    document.getElementById('lightbox-caption-container').style.opacity = '1';
                 };
             }, 200);
         }

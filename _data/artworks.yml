@@ -1,6 +1,16 @@
 ﻿- category: ceramiche
   images:
-    - 01.jpg
+    - file: 01.jpg
+      title:
+        it: "Titolo Opera"
+        en: "Artwork Title"
+        de: "Werktitel"
+        fr: "Titre de l'oeuvre"
+      description:
+        it: "Breve descrizione dell'opera..."
+        en: "Short description of the artwork..."
+        de: "Kurze Beschreibung des Kunstwerks..."
+        fr: "Brève description de l'oeuvre..."
     - 02.jpg
     - 03.jpg
     - 04.jpg
