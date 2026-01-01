@@ -131,8 +131,15 @@ Design."
     @media (max-height: 600px) and (orientation: landscape) {
 
         #lightbox-caption-container,
-        #lightbox button.md\:hidden {
+        #lightbox .relative .md\:hidden {
             display: none !important;
+        }
+
+        #lightbox>button.hidden.md\:block {
+            display: block !important;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
         }
 
         #lightbox-img {
