@@ -229,4 +229,26 @@ Design."
     lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox) window.closeLightbox();
     });
+
+    // Swipe Support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    lightbox.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    lightbox.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+        if (touchEndX < touchStartX - 50) {
+            window.changeImage(1); // Swipe Left -> Next
+        }
+        if (touchEndX > touchStartX + 50) {
+            window.changeImage(-1); // Swipe Right -> Prev
+        }
+    }
 </script>

@@ -293,24 +293,36 @@ lumière."
         <div class="max-w-7xl mx-auto">
             <h2 class="text-4xl lg:text-5xl font-black mb-16 text-center">Pensées.</h2>
 
-            <div class="grid md:grid-cols-1 gap-12">
-                {% assign posts = site.posts | where: "lang", page.lang | slice: 0, 1 %}
+            <style>
+                .hide-scrollbar::-webkit-scrollbar {
+                    display: none;
+                }
+
+                .hide-scrollbar {
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                }
+            </style>
+
+            <div
+                class="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 hide-scrollbar -mx-6 px-6 md:mx-0 md:px-0">
+                {% assign posts = site.posts | where: "lang", page.lang | slice: 0, 3 %}
                 {% for post in posts %}
                 <a href="{{ post.url }}"
-                    class="group relative block rounded-[3rem] overflow-hidden shadow-xl aspect-[2/1] md:aspect-[21/9]">
+                    class="flex-shrink-0 w-[85vw] md:w-[700px] lg:w-[800px] snap-center group relative block rounded-[3rem] overflow-hidden shadow-xl aspect-[2/1] md:aspect-[21/9]">
                     <img src="{{ post.image }}" alt="{{ post.title }}"
                         class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
-                    <div class="absolute bottom-0 left-0 p-8 md:p-16 max-w-4xl">
+                    <div class="absolute bottom-0 left-0 p-8 md:p-12 max-w-4xl">
                         <div
-                            class="inline-block px-4 py-2 rounded-full border border-white/30 text-xs font-bold uppercase tracking-widest text-white mb-6 backdrop-blur-sm">
+                            class="inline-block px-4 py-2 rounded-full border border-white/30 text-xs font-bold uppercase tracking-widest text-white mb-4 md:mb-6 backdrop-blur-sm">
                             {{ post.categories | first }}
                         </div>
                         <h3
-                            class="text-3xl md:text-5xl lg:text-6xl font-black text-white mb-6 leading-tight group-hover:text-gray-200 transition-colors">
+                            class="text-2xl md:text-4xl lg:text-5xl font-black text-white mb-4 md:mb-6 leading-tight group-hover:text-gray-200 transition-colors">
                             {{ post.title }}
                         </h3>
-                        <p class="text-lg md:text-xl text-gray-300 line-clamp-2 md:line-clamp-3 max-w-2xl mb-8">
+                        <p class="hidden md:block text-lg text-gray-300 line-clamp-2 max-w-2xl mb-6">
                             {{ post.description }}
                         </p>
                         <span
@@ -320,6 +332,25 @@ lumière."
                     </div>
                 </a>
                 {% endfor %}
+
+                <!-- CTA Slide -->
+                <a href="/fr/blog/"
+                    class="flex-shrink-0 w-[85vw] md:w-[700px] lg:w-[800px] snap-center group relative block rounded-[3rem] overflow-hidden shadow-xl aspect-[2/1] md:aspect-[21/9] bg-brand-surface dark:bg-neutral-800 border-2 border-dashed border-gray-300 dark:border-white/10 hover:border-brand-black dark:hover:border-white transition-colors">
+                    <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
+                        <div
+                            class="w-20 h-20 rounded-full bg-white dark:bg-black shadow-lg flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform duration-500">
+                            <i class="fas fa-layer-group text-black dark:text-white"></i>
+                        </div>
+                        <h3 class="text-3xl md:text-5xl font-black mb-4 text-brand-black dark:text-white">Toutes les
+                            Pensées</h3>
+                        <p class="text-gray-500 dark:text-gray-400 text-lg max-w-md mb-8">Explorez les archives
+                            complètes des articles, réflexions et actualités.</p>
+                        <span
+                            class="inline-flex items-center gap-3 px-8 py-4 bg-black dark:bg-white text-white dark:text-black rounded-full font-bold uppercase tracking-widest hover:opacity-80 transition-opacity">
+                            Aller au Blog <i class="fas fa-arrow-right"></i>
+                        </span>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
