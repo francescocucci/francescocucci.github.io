@@ -4,7 +4,7 @@ title: "The Soul of Matter"
 date: 2024-03-15
 categories: [Philosophy]
 author: "Francesco Cucci"
-image: "/assets/images/portfolio/sculture/00000001.jpg"
+image: "/assets/images/portfolio/sculture/020.jpg"
 description: "How inert matter comes to life through dialogue with space and light."
 lang: en
 ---

@@ -4,7 +4,7 @@ title: "L'Âme de la Matière"
 date: 2024-03-15
 categories: [Philosophie]
 author: "Francesco Cucci"
-image: "/assets/images/portfolio/sculture/00000001.jpg"
+image: "/assets/images/portfolio/sculture/020.jpg"
 description: "Comment la matière inerte prend vie grâce au dialogue avec l'espace et la lumière."
 lang: fr
 ---

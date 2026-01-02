@@ -4,7 +4,7 @@ title: "L'Anima della Materia"
 date: 2024-03-15
 categories: [Filosofia]
 author: "Francesco Cucci"
-image: "/assets/images/portfolio/sculture/00000001.jpg"
+image: "/assets/images/portfolio/sculture/020.jpg"
 description: "Come la materia inerte prende vita attraverso il dialogo con lo spazio e la luce."
 lang: it
 ---

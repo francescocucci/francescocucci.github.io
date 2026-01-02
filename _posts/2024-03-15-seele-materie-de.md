@@ -4,7 +4,7 @@ title: "Die Seele der Materie"
 date: 2024-03-15
 categories: [Philosophie]
 author: "Francesco Cucci"
-image: "/assets/images/portfolio/sculture/00000001.jpg"
+image: "/assets/images/portfolio/sculture/020.jpg"
 description: "Wie träge Materie durch den Dialog mit Raum und Licht zum Leben erwacht."
 lang: de
 ---
