@@ -22,8 +22,8 @@ bundle exec jekyll serve
 - ✅ SEO strutturare la seo del sito, attenzione ai meta tags e alle immagini di anteprima '_incudes/seo.html'
 - ✅ Completare la clonazione dei contenuti del sito
 - 🔜 Editing di menu e footer per rispecchiare l'originale --> quasi fatto
-- 🔜 analizzare e creare lo script di deploy [https://kiwi.Franco Trento.com/antonio/jekyll-Franco Trento/wiki/script-di-deploy](wiki)
-- 🔜 Ideare uno script per effettuare il minify del sito di produzione [https://kiwi.Franco Trento.com/antonio/jekyll-Franco Trento/wiki/script-di-deploy](wiki)
+- 🔜 analizzare e creare lo script di deploy [https://kiwi.Francesco Cucci.com/antonio/jekyll-Francesco Cucci/wiki/script-di-deploy](wiki)
+- 🔜 Ideare uno script per effettuare il minify del sito di produzione [https://kiwi.Francesco Cucci.com/antonio/jekyll-Francesco Cucci/wiki/script-di-deploy](wiki)
 
 ### 1. Verifica se sei nella directory corretta
 Assicurati di essere nella directory del progetto dove intendi configurare il repository Git. Usa il comando:
@@ -42,7 +42,7 @@ Questo creerà una directory `.git` nel tuo progetto, rendendolo un repository G
 ### 3. Aggiungi il remote
 Dopo aver inizializzato il repository, aggiungi il remote:
 ```bash
-git remote add origin https://kiwi.Franco Trento.com/antonio/jekyll-Franco Trento.git
+git remote add origin https://kiwi.Francesco Cucci.com/antonio/jekyll-Francesco Cucci.git
 ```
 
 ### 4. Conferma l'operazione
@@ -52,8 +52,8 @@ git remote -v
 ```
 Dovresti vedere qualcosa come:
 ```
-origin  https://kiwi.Franco Trento.com/antonio/jekyll-Franco Trento.git (fetch)
-origin  https://kiwi.Franco Trento.com/antonio/jekyll-Franco Trento.git (push)
+origin  https://kiwi.Francesco Cucci.com/antonio/jekyll-Francesco Cucci.git (fetch)
+origin  https://kiwi.Francesco Cucci.com/antonio/jekyll-Francesco Cucci.git (push)
 ```
 
 ### 5. Aggiungi file e fai il primo commit (se necessario)
