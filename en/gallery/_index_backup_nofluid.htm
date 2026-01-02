@@ -1,10 +1,9 @@
 ---
 layout: default
-title: Kunstgalerie - Francesco Cucci
-lang: de
-locale: de_DE
-description: "Entdecken Sie die Werke von Francesco Cucci: Installationen, Keramik, Skulpturen, Malerei, Grafik und
-Design."
+title: Artwork Gallery - Francesco Cucci
+lang: en
+locale: en_US
+description: "Explore Francesco Cucci's works: Installations, Ceramics, Sculptures, Paintings, Graphics, and Design."
 ---
 
 <div class="pt-32 pb-20 px-6 min-h-screen bg-brand-surface dark:bg-neutral-900">
@@ -55,7 +54,7 @@ Design."
 
             <h1
                 class="text-6xl md:text-8xl font-black tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-r from-black via-gray-500 to-black dark:from-white dark:via-gray-400 dark:to-white animate-text-shimmer drop-shadow-sm select-none">
-                Die Werke.
+                The Works.
             </h1>
 
             <div
@@ -64,7 +63,7 @@ Design."
 
             <p
                 class="text-xl md:text-2xl font-light text-gray-600 dark:text-gray-300 max-w-2xl mx-auto italic animate-float-subtle">
-                "Eine Reise durch Materie und Form."
+                "A journey through matter and form."
             </p>
         </div>
 
@@ -73,7 +72,7 @@ Design."
             <button
                 class="filter-btn active px-6 py-2 rounded-full border-2 border-black dark:border-white bg-black dark:bg-white text-white dark:text-black font-bold transition-all hover:scale-105"
                 data-filter="all">
-                Alle
+                All
             </button>
             {% for category in site.data.artworks %}
             <button
@@ -85,8 +84,7 @@ Design."
         </div>
 
         <!-- Gallery Grid -->
-        <!-- Fluid Gallery Grid -->
-        <div class="columns-1 md:columns-2 lg:columns-3 gap-8" id="gallery-grid">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="gallery-grid">
             {% for category in site.data.artworks %}
             {% for item in category.images %}
             {% if item.file %}
@@ -106,8 +104,7 @@ Design."
             {% assign artwork_title = "" %}
             {% assign artwork_desc = "" %}
             {% endif %}
-
-            <div class="gallery-item group relative w-full mb-8 break-inside-avoid rounded-[2rem] overflow-hidden bg-gray-100 cursor-pointer reveal"
+            <div class="gallery-item group relative h-80 rounded-[2rem] overflow-hidden bg-gray-100 cursor-pointer reveal"
                 data-category="{{ category.category }}" data-title="{{ artwork_title }}"
                 data-description="{{ artwork_desc }}"
                 onclick="openLightbox('/assets/images/portfolio/{{ category.category }}/{{ filename }}', '{{ category.category }}')">
@@ -116,10 +113,9 @@ Design."
                         class="w-8 h-8 border-2 border-gray-300 border-t-black dark:border-gray-700 dark:border-t-white rounded-full animate-spin">
                     </div>
                 </div>
-                <!-- Modified Image: Added max-h-[800px] and object-cover -->
                 <img src="/assets/images/portfolio/{{ category.category }}/{{ filename }}" alt="{{ filename }}"
                     loading="lazy" onload="this.previousElementSibling.style.display='none'"
-                    class="w-full h-auto max-h-[800px] block object-cover transition-transform duration-700 group-hover:scale-110 relative z-10">
+                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 z-10">
                 <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 z-20">
                 </div>
                 <div
@@ -139,7 +135,7 @@ Design."
 
         <!-- Empty State -->
         <div id="no-results" class="hidden text-center py-20">
-            <p class="text-xl text-gray-400">Keine Werke in dieser Kategorie gefunden.</p>
+            <p class="text-xl text-gray-400">No artworks found in this category.</p>
         </div>
 
     </div>
@@ -259,7 +255,7 @@ Design."
                 const itemCategory = item.getAttribute('data-category');
                 if (filter === 'all' || itemCategory === filter) {
                     item.style.display = 'block';
-                    setTimeout(() => item.classList.add('reveal'), 50); // Re-trigger animation if needed
+                    setTimeout(() => item.classList.add('reveal'), 50);
                     visibleCount++;
                 } else {
                     item.style.display = 'none';
@@ -297,7 +293,7 @@ Design."
 
             // Find index
             currentIndex = currentImages.findIndex(img => img.src.includes(src.split('/').pop())); // Simple match check
-            // Fallback if not found (unexpected)
+            // Fallback
             if (currentIndex === -1) {
                 currentIndex = currentImages.findIndex(img => img.src === src);
             }
@@ -337,14 +333,14 @@ Design."
                 lightboxImg.src = imgData.src;
 
                 // Update Content
-                if (imgData.title && imgData.title !== "null") { // Check for "null" string if Jekyll outputs it for empty
+                if (imgData.title) {
                     lightboxTitle.innerText = imgData.title;
                     lightboxTitle.classList.remove('hidden');
                 } else {
                     lightboxTitle.classList.add('hidden');
                 }
 
-                if (imgData.desc && imgData.desc !== "null") { // Check for "null" string
+                if (imgData.desc) {
                     lightboxDesc.innerText = imgData.desc;
                     lightboxDesc.classList.remove('hidden');
                 } else {

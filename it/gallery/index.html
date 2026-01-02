@@ -3,7 +3,7 @@ layout: default
 title: Galleria Opere - Francesco Cucci
 lang: it
 locale: it_IT
-description: "Esplora le opere di Francesco Cucci: Installazioni, Ceramiche, Sculture, Pittura, Grafica e Design."
+description: "Esplora le opere di Francesco Cucci in layout fluido."
 ---
 
 <div class="pt-32 pb-20 px-6 min-h-screen bg-brand-surface dark:bg-neutral-900">
@@ -83,8 +83,9 @@ description: "Esplora le opere di Francesco Cucci: Installazioni, Ceramiche, Scu
             {% endfor %}
         </div>
 
-        <!-- Gallery Grid -->
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="gallery-grid">
+        <!-- Fluid Gallery Grid -->
+        <!-- Changed from grid to columns for masonry effect -->
+        <div class="columns-1 md:columns-2 lg:columns-3 gap-8" id="gallery-grid">
             {% for category in site.data.artworks %}
             {% for item in category.images %}
             {% if item.file %}
@@ -104,20 +105,27 @@ description: "Esplora le opere di Francesco Cucci: Installazioni, Ceramiche, Scu
             {% assign artwork_title = "" %}
             {% assign artwork_desc = "" %}
             {% endif %}
-            <div class="gallery-item group relative h-80 rounded-[2rem] overflow-hidden bg-gray-100 cursor-pointer reveal"
+
+            <!-- Modified Gallery Item: Removed h-80, added break-inside-avoid, mb-8 -->
+            <div class="gallery-item group relative w-full mb-8 break-inside-avoid rounded-[2rem] overflow-hidden bg-gray-100 cursor-pointer reveal"
                 data-category="{{ category.category }}" data-title="{{ artwork_title }}"
                 data-description="{{ artwork_desc }}"
                 onclick="openLightbox('/assets/images/portfolio/{{ category.category }}/{{ filename }}', '{{ category.category }}')">
+
                 <div class="absolute inset-0 flex items-center justify-center z-0">
                     <div
                         class="w-8 h-8 border-2 border-gray-300 border-t-black dark:border-gray-700 dark:border-t-white rounded-full animate-spin">
                     </div>
                 </div>
+
+                <!-- Modified Image: Added max-h-[800px] and object-cover to clamp extremely tall images -->
                 <img src="/assets/images/portfolio/{{ category.category }}/{{ filename }}" alt="{{ filename }}"
                     loading="lazy" onload="this.previousElementSibling.style.display='none'"
-                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 z-10">
+                    class="w-full h-auto max-h-[800px] block object-cover transition-transform duration-700 group-hover:scale-110 relative z-10">
+
                 <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 z-20">
                 </div>
+
                 <div
                     class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 flex flex-col items-start gap-2">
                     {% if artwork_title != "" and artwork_title != nil and artwork_title != "null" %}
@@ -254,7 +262,7 @@ description: "Esplora le opere di Francesco Cucci: Installazioni, Ceramiche, Scu
             items.forEach(item => {
                 const itemCategory = item.getAttribute('data-category');
                 if (filter === 'all' || itemCategory === filter) {
-                    item.style.display = 'block';
+                    item.style.display = 'block'; // Using block in columns works fine
                     setTimeout(() => item.classList.add('reveal'), 50); // Re-trigger animation if needed
                     visibleCount++;
                 } else {

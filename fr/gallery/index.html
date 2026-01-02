@@ -93,7 +93,8 @@ Design."
         </div>
 
         <!-- Gallery Grid -->
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="gallery-grid">
+        <!-- Fluid Gallery Grid -->
+        <div class="columns-1 md:columns-2 lg:columns-3 gap-8" id="gallery-grid">
             {% for category in site.data.artworks %}
             {% for item in category.images %}
             {% assign filename = item.file | default: item %}
@@ -116,7 +117,7 @@ Design."
             {% if category.category == 'grafica' %}{% assign cat_label = 'Graphisme' %}{% endif %}
             {% if category.category == 'design' %}{% assign cat_label = 'Design' %}{% endif %}
 
-            <div class="gallery-item group relative h-80 rounded-[2rem] overflow-hidden bg-gray-100 cursor-pointer reveal"
+            <div class="gallery-item group relative w-full mb-8 break-inside-avoid rounded-[2rem] overflow-hidden bg-gray-100 cursor-pointer reveal"
                 data-category="{{ category.category }}" data-title="{{ artwork_title | escape }}"
                 data-description="{{ artwork_desc | escape }}"
                 onclick="openLightbox('/assets/images/portfolio/{{ category.category }}/{{ filename }}')">
@@ -125,10 +126,11 @@ Design."
                         class="w-8 h-8 border-2 border-gray-300 border-t-black dark:border-gray-700 dark:border-t-white rounded-full animate-spin">
                     </div>
                 </div>
+                <!-- Modified Image -->
                 <img src="/assets/images/portfolio/{{ category.category }}/{{ filename }}"
                     alt="{{ artwork_title | escape }}" loading="lazy"
                     onload="this.previousElementSibling.style.display='none'"
-                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 z-10">
+                    class="w-full h-auto max-h-[800px] block object-cover transition-transform duration-700 group-hover:scale-110 relative z-10">
                 <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 z-20">
                 </div>
                 <div
