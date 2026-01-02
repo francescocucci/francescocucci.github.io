@@ -3,10 +3,10 @@
 function initTheme() {
   const html = document.documentElement;
   // Check local storage or system preference
-  if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    html.classList.add('dark');
-  } else {
+  if (localStorage.theme === 'light') {
     html.classList.remove('dark');
+  } else {
+    html.classList.add('dark');
   }
 }
 
