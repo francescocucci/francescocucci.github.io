@@ -85,7 +85,10 @@ description: "Esplora le opere di Francesco Cucci in layout fluido."
 
         <!-- Fluid Gallery Grid -->
         <!-- Changed from grid to columns for masonry effect -->
-        <div class="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8" id="gallery-grid">
+        <!-- Fluid Gallery Grid -->
+        <!-- Changed from grid to columns for masonry effect -->
+        <!-- Removed space-y-8 to fix top alignment issues across columns -->
+        <div class="columns-1 md:columns-2 lg:columns-3 gap-8" id="gallery-grid">
             {% for category in site.data.artworks %}
             {% for item in category.images %}
             {% if item.file %}
@@ -118,10 +121,10 @@ description: "Esplora le opere di Francesco Cucci in layout fluido."
                     </div>
                 </div>
 
-                <!-- Modified Image: Removed absolute inset-0, added w-full h-auto block -->
+                <!-- Modified Image: Added max-h-[800px] and object-cover to clamp extremely tall images -->
                 <img src="/assets/images/portfolio/{{ category.category }}/{{ filename }}" alt="{{ filename }}"
                     loading="lazy" onload="this.previousElementSibling.style.display='none'"
-                    class="w-full h-auto block object-cover transition-transform duration-700 group-hover:scale-110 relative z-10">
+                    class="w-full h-auto max-h-[800px] block object-cover transition-transform duration-700 group-hover:scale-110 relative z-10">
 
                 <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 z-20">
                 </div>
