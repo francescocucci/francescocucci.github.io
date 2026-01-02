@@ -295,7 +295,8 @@ description: "Explore Francesco Cucci's works: Installations, Ceramics, Sculptur
             const lightboxImg = document.getElementById('lightbox-img');
 
             // Find index
-            currentIndex = currentImages.findIndex(img => img.src.includes(src.split('/').pop())); // Simple match check
+            // Find index using robust matching (checking if the full src url contains the passed path)
+            currentIndex = currentImages.findIndex(img => img.src.includes(src));
             // Fallback
             if (currentIndex === -1) {
                 currentIndex = currentImages.findIndex(img => img.src === src);

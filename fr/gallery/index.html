@@ -327,8 +327,8 @@ Design."
 
             // Find index
             // We need to match the full path, not just the filename, as filenames might repeat across categories
-            currentIndex = currentImages.findIndex(img => img.src === src);
-
+            // Find index using robust matching (checking if the full src url contains the passed path)
+            currentIndex = currentImages.findIndex(img => img.src.includes(src));
             if (currentIndex === -1) currentIndex = 0; // Fallback if not found
 
             updateLightboxContent();
