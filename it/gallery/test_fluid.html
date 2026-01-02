@@ -86,59 +86,174 @@ description: "Esplora le opere di Francesco Cucci in layout fluido."
         <!-- Fluid Gallery Grid -->
         <!-- Changed from grid to columns for masonry effect -->
         <div class="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8" id="gallery-grid">
-            {% for category in site.data.artworks %}
-            {% for item in category.images %}
-            {% if item.file %}
-            {% assign filename = item.file %}
+            <!-- Placeholder Items for Testing Fluid Layout -->
 
-            {% assign artwork_title = item.title %}
-            {% if item.title.first %}
-            {% assign artwork_title = item.title[page.lang] %}
-            {% endif %}
-
-            {% assign artwork_desc = item.description %}
-            {% if item.description.first %}
-            {% assign artwork_desc = item.description[page.lang] %}
-            {% endif %}
-            {% else %}
-            {% assign filename = item %}
-            {% assign artwork_title = "" %}
-            {% assign artwork_desc = "" %}
-            {% endif %}
-
-            <!-- Modified Gallery Item: Removed h-80, added break-inside-avoid, mb-8 -->
+            <!-- Item 1: Portrait (Vertical) -->
             <div class="gallery-item group relative w-full mb-8 break-inside-avoid rounded-[2rem] overflow-hidden bg-gray-100 cursor-pointer reveal"
-                data-category="{{ category.category }}" data-title="{{ artwork_title }}"
-                data-description="{{ artwork_desc }}"
-                onclick="openLightbox('/assets/images/portfolio/{{ category.category }}/{{ filename }}', '{{ category.category }}')">
-
-                <div class="absolute inset-0 flex items-center justify-center z-0">
-                    <div
-                        class="w-8 h-8 border-2 border-gray-300 border-t-black dark:border-gray-700 dark:border-t-white rounded-full animate-spin">
-                    </div>
-                </div>
-
-                <!-- Modified Image: Removed absolute inset-0, added w-full h-auto block -->
-                <img src="/assets/images/portfolio/{{ category.category }}/{{ filename }}" alt="{{ filename }}"
-                    loading="lazy" onload="this.previousElementSibling.style.display='none'"
+                data-category="sculture" data-title="Placeholder Scultura 1"
+                data-description="Descrizione placeholder verticale"
+                onclick="openLightbox('https://picsum.photos/600/800?random=1', 'sculture')">
+                <img src="https://picsum.photos/600/800?random=1" alt="Placeholder 1"
                     class="w-full h-auto block object-cover transition-transform duration-700 group-hover:scale-110 relative z-10">
-
                 <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 z-20">
                 </div>
-
                 <div
                     class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 flex flex-col items-start gap-2">
-                    {% if artwork_title != "" and artwork_title != nil and artwork_title != "null" %}
-                    <h3 class="text-white font-bold text-lg drop-shadow-md leading-tight">{{ artwork_title }}</h3>
-                    {% endif %}
+                    <h3 class="text-white font-bold text-lg drop-shadow-md leading-tight">Opera Verticale</h3>
                     <span
-                        class="inline-block px-3 py-1 bg-black/50 backdrop-blur-md text-white text-xs font-bold rounded-full uppercase">
-                        {{ category.category }}
-                    </span>
+                        class="inline-block px-3 py-1 bg-black/50 backdrop-blur-md text-white text-xs font-bold rounded-full uppercase">sculture</span>
                 </div>
             </div>
-            {% endfor %}
-            {% endfor %}
+
+            <!-- Item 2: Landscape (Horizontal) -->
+            <div class="gallery-item group relative w-full mb-8 break-inside-avoid rounded-[2rem] overflow-hidden bg-gray-100 cursor-pointer reveal"
+                data-category="pittura" data-title="Placeholder Pittura 1"
+                data-description="Descrizione placeholder orizzontale"
+                onclick="openLightbox('https://picsum.photos/800/600?random=2', 'pittura')">
+                <img src="https://picsum.photos/800/600?random=2" alt="Placeholder 2"
+                    class="w-full h-auto block object-cover transition-transform duration-700 group-hover:scale-110 relative z-10">
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 z-20">
+                </div>
+                <div
+                    class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 flex flex-col items-start gap-2">
+                    <h3 class="text-white font-bold text-lg drop-shadow-md leading-tight">Opera Orizzontale</h3>
+                    <span
+                        class="inline-block px-3 py-1 bg-black/50 backdrop-blur-md text-white text-xs font-bold rounded-full uppercase">pittura</span>
+                </div>
+            </div>
+
+            <!-- Item 3: Square -->
+            <div class="gallery-item group relative w-full mb-8 break-inside-avoid rounded-[2rem] overflow-hidden bg-gray-100 cursor-pointer reveal"
+                data-category="installazioni" data-title="Placeholder Installazione 1"
+                data-description="Descrizione placeholder quadrata"
+                onclick="openLightbox('https://picsum.photos/800/800?random=3', 'installazioni')">
+                <img src="https://picsum.photos/800/800?random=3" alt="Placeholder 3"
+                    class="w-full h-auto block object-cover transition-transform duration-700 group-hover:scale-110 relative z-10">
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 z-20">
+                </div>
+                <div
+                    class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 flex flex-col items-start gap-2">
+                    <h3 class="text-white font-bold text-lg drop-shadow-md leading-tight">Opera Quadrata</h3>
+                    <span
+                        class="inline-block px-3 py-1 bg-black/50 backdrop-blur-md text-white text-xs font-bold rounded-full uppercase">installazioni</span>
+                </div>
+            </div>
+
+            <!-- Item 4: Tall Portrait -->
+            <div class="gallery-item group relative w-full mb-8 break-inside-avoid rounded-[2rem] overflow-hidden bg-gray-100 cursor-pointer reveal"
+                data-category="ceramiche" data-title="Placeholder Ceramica 1"
+                data-description="Descrizione placeholder alta"
+                onclick="openLightbox('https://picsum.photos/600/1000?random=4', 'ceramiche')">
+                <img src="https://picsum.photos/600/1000?random=4" alt="Placeholder 4"
+                    class="w-full h-auto block object-cover transition-transform duration-700 group-hover:scale-110 relative z-10">
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 z-20">
+                </div>
+                <div
+                    class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 flex flex-col items-start gap-2">
+                    <h3 class="text-white font-bold text-lg drop-shadow-md leading-tight">Opera Alta</h3>
+                    <span
+                        class="inline-block px-3 py-1 bg-black/50 backdrop-blur-md text-white text-xs font-bold rounded-full uppercase">ceramiche</span>
+                </div>
+            </div>
+
+            <!-- Item 5: Wide Landscape -->
+            <div class="gallery-item group relative w-full mb-8 break-inside-avoid rounded-[2rem] overflow-hidden bg-gray-100 cursor-pointer reveal"
+                data-category="design" data-title="Placeholder Design 1"
+                data-description="Descrizione placeholder larga"
+                onclick="openLightbox('https://picsum.photos/1000/600?random=5', 'design')">
+                <img src="https://picsum.photos/1000/600?random=5" alt="Placeholder 5"
+                    class="w-full h-auto block object-cover transition-transform duration-700 group-hover:scale-110 relative z-10">
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 z-20">
+                </div>
+                <div
+                    class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 flex flex-col items-start gap-2">
+                    <h3 class="text-white font-bold text-lg drop-shadow-md leading-tight">Opera Larga</h3>
+                    <span
+                        class="inline-block px-3 py-1 bg-black/50 backdrop-blur-md text-white text-xs font-bold rounded-full uppercase">design</span>
+                </div>
+            </div>
+
+            <!-- Item 6: Portrait -->
+            <div class="gallery-item group relative w-full mb-8 break-inside-avoid rounded-[2rem] overflow-hidden bg-gray-100 cursor-pointer reveal"
+                data-category="grafica" data-title="Placeholder Grafica 1"
+                data-description="Descrizione placeholder verticale"
+                onclick="openLightbox('https://picsum.photos/600/900?random=6', 'grafica')">
+                <img src="https://picsum.photos/600/900?random=6" alt="Placeholder 6"
+                    class="w-full h-auto block object-cover transition-transform duration-700 group-hover:scale-110 relative z-10">
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 z-20">
+                </div>
+                <div
+                    class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 flex flex-col items-start gap-2">
+                    <h3 class="text-white font-bold text-lg drop-shadow-md leading-tight">Opera Verticale 2</h3>
+                    <span
+                        class="inline-block px-3 py-1 bg-black/50 backdrop-blur-md text-white text-xs font-bold rounded-full uppercase">grafica</span>
+                </div>
+            </div>
+
+            <!-- Item 7: Square small -->
+            <div class="gallery-item group relative w-full mb-8 break-inside-avoid rounded-[2rem] overflow-hidden bg-gray-100 cursor-pointer reveal"
+                data-category="installazioni" data-title="Placeholder Installazione 2"
+                data-description="Descrizione placeholder"
+                onclick="openLightbox('https://picsum.photos/500/500?random=7', 'installazioni')">
+                <img src="https://picsum.photos/500/500?random=7" alt="Placeholder 7"
+                    class="w-full h-auto block object-cover transition-transform duration-700 group-hover:scale-110 relative z-10">
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 z-20">
+                </div>
+                <div
+                    class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 flex flex-col items-start gap-2">
+                    <h3 class="text-white font-bold text-lg drop-shadow-md leading-tight">Piccolo Quadrato</h3>
+                    <span
+                        class="inline-block px-3 py-1 bg-black/50 backdrop-blur-md text-white text-xs font-bold rounded-full uppercase">installazioni</span>
+                </div>
+            </div>
+
+            <!-- Item 8: Landscape -->
+            <div class="gallery-item group relative w-full mb-8 break-inside-avoid rounded-[2rem] overflow-hidden bg-gray-100 cursor-pointer reveal"
+                data-category="sculture" data-title="Placeholder Scultura 2" data-description="Descrizione placeholder"
+                onclick="openLightbox('https://picsum.photos/900/600?random=8', 'sculture')">
+                <img src="https://picsum.photos/900/600?random=8" alt="Placeholder 8"
+                    class="w-full h-auto block object-cover transition-transform duration-700 group-hover:scale-110 relative z-10">
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 z-20">
+                </div>
+                <div
+                    class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 flex flex-col items-start gap-2">
+                    <h3 class="text-white font-bold text-lg drop-shadow-md leading-tight">Altro Orizzontale</h3>
+                    <span
+                        class="inline-block px-3 py-1 bg-black/50 backdrop-blur-md text-white text-xs font-bold rounded-full uppercase">sculture</span>
+                </div>
+            </div>
+
+            <!-- Item 9: Portrait -->
+            <div class="gallery-item group relative w-full mb-8 break-inside-avoid rounded-[2rem] overflow-hidden bg-gray-100 cursor-pointer reveal"
+                data-category="pittura" data-title="Placeholder Pittura 2" data-description="Descrizione placeholder"
+                onclick="openLightbox('https://picsum.photos/600/850?random=9', 'pittura')">
+                <img src="https://picsum.photos/600/850?random=9" alt="Placeholder 9"
+                    class="w-full h-auto block object-cover transition-transform duration-700 group-hover:scale-110 relative z-10">
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 z-20">
+                </div>
+                <div
+                    class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 flex flex-col items-start gap-2">
+                    <h3 class="text-white font-bold text-lg drop-shadow-md leading-tight">Ritratto Alto</h3>
+                    <span
+                        class="inline-block px-3 py-1 bg-black/50 backdrop-blur-md text-white text-xs font-bold rounded-full uppercase">pittura</span>
+                </div>
+            </div>
+
+            <!-- Item 10: Square -->
+            <div class="gallery-item group relative w-full mb-8 break-inside-avoid rounded-[2rem] overflow-hidden bg-gray-100 cursor-pointer reveal"
+                data-category="ceramiche" data-title="Placeholder Ceramica 2" data-description="Descrizione placeholder"
+                onclick="openLightbox('https://picsum.photos/700/700?random=10', 'ceramiche')">
+                <img src="https://picsum.photos/700/700?random=10" alt="Placeholder 10"
+                    class="w-full h-auto block object-cover transition-transform duration-700 group-hover:scale-110 relative z-10">
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 z-20">
+                </div>
+                <div
+                    class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 flex flex-col items-start gap-2">
+                    <h3 class="text-white font-bold text-lg drop-shadow-md leading-tight">Quadrato Medio</h3>
+                    <span
+                        class="inline-block px-3 py-1 bg-black/50 backdrop-blur-md text-white text-xs font-bold rounded-full uppercase">ceramiche</span>
+                </div>
+            </div>
         </div>
 
         <!-- Empty State -->
