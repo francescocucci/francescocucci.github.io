@@ -487,16 +487,137 @@ description: "Esplora le opere di Francesco Cucci. Layout ibrido: Masonry su mob
 
         // Lightbox Functions
         window.openLightbox = function (src, category) {
-            const lb = document.getElementById('lightbox');
-            const img = document.getElementById('lightbox-img');
-            img.src = src;
-            lb.classList.remove('hidden');
-            setTimeout(() => lb.classList.remove('opacity-0'), 10);
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+
+            // Find index
+            // Find index using robust matching (checking if the full src url contains the passed path)
+            currentIndex = currentImages.findIndex(img => img.src.includes(src));
+            // Fallback
+            if (currentIndex === -1) {
+                currentIndex = currentImages.findIndex(img => img.src === src);
+            }
+            if (currentIndex === -1) currentIndex = 0;
+
+            updateLightboxContent();
+
+            lightbox.classList.remove('hidden');
+            // Trigger reflow
+            void lightbox.offsetWidth;
+            lightbox.classList.remove('opacity-0');
+            lightboxImg.classList.remove('scale-95');
+        };
+
+        window.changeImage = function (direction) {
+            currentIndex += direction;
+            if (currentIndex >= currentImages.length) currentIndex = 0;
+            if (currentIndex < 0) currentIndex = currentImages.length - 1;
+            updateLightboxContent();
+        };
+
+        function updateLightboxContent() {
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxTitle = document.getElementById('lightbox-title');
+            const lightboxDesc = document.getElementById('lightbox-desc');
+            const lightboxCategory = document.getElementById('lightbox-category');
+            const loader = document.getElementById('lightbox-loader');
+
+            const imgData = currentImages[currentIndex];
+
+            if (!imgData) return;
+
+            lightboxImg.style.opacity = '0';
+            // Hide caption during transition
+            const captionContainer = document.getElementById('lightbox-caption-container');
+            if (captionContainer) captionContainer.style.opacity = '0';
+
+            setTimeout(() => {
+                if (loader) loader.classList.remove('hidden');
+                lightboxImg.src = imgData.src;
+
+                // Update Content
+                if (imgData.title) {
+                    if (lightboxTitle) {
+                        lightboxTitle.innerText = imgData.title;
+                        lightboxTitle.classList.remove('hidden');
+                    }
+                } else {
+                    if (lightboxTitle) lightboxTitle.classList.add('hidden');
+                }
+
+                if (imgData.desc) {
+                    if (lightboxDesc) {
+                        lightboxDesc.innerText = imgData.desc;
+                        lightboxDesc.classList.remove('hidden');
+                    }
+                } else {
+                    if (lightboxDesc) lightboxDesc.classList.add('hidden');
+                }
+
+                if (lightboxCategory) lightboxCategory.innerText = imgData.category;
+
+
+                lightboxImg.onload = () => {
+                    if (loader) loader.classList.add('hidden');
+                    // Add small delay to ensure rendering matches
+                    setTimeout(() => {
+                        lightboxImg.style.opacity = '1';
+                        if (captionContainer) captionContainer.style.opacity = '1';
+                    }, 50);
+                };
+            }, 200);
         }
+
         window.closeLightbox = function () {
-            const lb = document.getElementById('lightbox');
-            lb.classList.add('opacity-0');
-            setTimeout(() => lb.classList.add('hidden'), 300);
-        }
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const loader = document.getElementById('lightbox-loader');
+
+            lightbox.classList.add('opacity-0');
+            lightboxImg.classList.add('scale-95');
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+                lightboxImg.src = '';
+                if (loader) loader.classList.add('hidden');
+            }, 300);
+        };
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function (e) {
+            const lightbox = document.getElementById('lightbox');
+            if (!lightbox.classList.contains('hidden')) {
+                if (e.key === 'ArrowLeft') window.changeImage(-1);
+                if (e.key === 'ArrowRight') window.changeImage(1);
+                if (e.key === 'Escape') window.closeLightbox();
+            }
+        });
     });
+
+    const lightbox = document.getElementById('lightbox');
+    // Close on background click
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) window.closeLightbox();
+    });
+
+    // Swipe Support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    lightbox.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    lightbox.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+        if (touchEndX < touchStartX - 50) {
+            window.changeImage(1); // Swipe Left -> Next
+        }
+        if (touchEndX > touchStartX + 50) {
+            window.changeImage(-1); // Swipe Right -> Prev
+        }
+    }
 </script>
