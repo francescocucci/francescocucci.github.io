@@ -46,6 +46,70 @@ layout: default
 
   </div>
 
+  <!-- Post Navigation -->
+  <div class="max-w-5xl mx-auto px-6 mb-20 reveal border-t border-gray-200 dark:border-white/10 pt-10">
+    {% assign same_lang_posts = "" | split: "" %}
+    {% for p in site.posts %}
+    {% if p.lang == page.lang %}
+    {% assign same_lang_posts = same_lang_posts | push: p %}
+    {% endif %}
+    {% endfor %}
+
+    {% assign prev_post = nil %}
+    {% assign next_post = nil %}
+
+    {% for p in same_lang_posts %}
+    {% if p.url == page.url %}
+    {% assign prev_index = forloop.index %}
+    {% assign next_index = forloop.index0 | minus: 1 %}
+
+    {% if forloop.last == false %}
+    {% assign prev_post = same_lang_posts[prev_index] %}
+    {% endif %}
+
+    {% if forloop.first == false %}
+    {% assign next_post = same_lang_posts[next_index] %}
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+
+    <div class="flex flex-col md:flex-row justify-between gap-12">
+      <!-- Previous Post (Older) -->
+      <div class="flex-1">
+        {% if prev_post %}
+        <a href="{{ prev_post.url }}" class="group block text-left">
+          <span
+            class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 group-hover:text-brand-blue transition-colors">
+            <i class="fas fa-arrow-left mr-2"></i>
+            {% if page.lang == 'it' %}Post Precedente{% else %}Previous Post{% endif %}
+          </span>
+          <h4
+            class="text-2xl font-black text-brand-black dark:text-white group-hover:underline decoration-2 decoration-brand-blue/50 underline-offset-4 transition-all">
+            {{ prev_post.title }}
+          </h4>
+        </a>
+        {% endif %}
+      </div>
+
+      <!-- Next Post (Newer) -->
+      <div class="flex-1 flex justify-end">
+        {% if next_post %}
+        <a href="{{ next_post.url }}" class="group block text-right">
+          <span
+            class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 group-hover:text-brand-blue transition-colors">
+            {% if page.lang == 'it' %}Post Successivo{% else %}Next Post{% endif %}
+            <i class="fas fa-arrow-right ml-2"></i>
+          </span>
+          <h4
+            class="text-2xl font-black text-brand-black dark:text-white group-hover:underline decoration-2 decoration-brand-blue/50 underline-offset-4 transition-all">
+            {{ next_post.title }}
+          </h4>
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
   {% include majestic_contact.html %}
 
 </article>
