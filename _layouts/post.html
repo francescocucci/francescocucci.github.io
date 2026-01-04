@@ -81,7 +81,12 @@ layout: default
           <span
             class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 group-hover:text-brand-blue transition-colors">
             <i class="fas fa-arrow-left mr-2"></i>
-            {% if page.lang == 'it' %}Post Precedente{% else %}Previous Post{% endif %}
+            {% case page.lang %}
+            {% when 'it' %}Pensiero Precedente
+            {% when 'fr' %}Pensée Précédente
+            {% when 'de' %}Vorheriger Gedanke
+            {% else %}Previous Thought
+            {% endcase %}
           </span>
           <h4
             class="text-2xl font-black text-brand-black dark:text-white group-hover:underline decoration-2 decoration-brand-blue/50 underline-offset-4 transition-all">
@@ -97,7 +102,12 @@ layout: default
         <a href="{{ next_post.url }}" class="group block text-right">
           <span
             class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 group-hover:text-brand-blue transition-colors">
-            {% if page.lang == 'it' %}Post Successivo{% else %}Next Post{% endif %}
+            {% case page.lang %}
+            {% when 'it' %}Pensiero Successivo
+            {% when 'fr' %}Pensée Suivante
+            {% when 'de' %}Nächster Gedanke
+            {% else %}Next Thought
+            {% endcase %}
             <i class="fas fa-arrow-right ml-2"></i>
           </span>
           <h4
