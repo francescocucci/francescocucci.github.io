@@ -6,11 +6,10 @@ locale: it_IT
 description: "Esplora le opere di Francesco Cucci in layout fluido."
 ---
 
-<!-- Restored original container classes for spacing and background -->
-<div class="pt-32 pb-20 px-6 min-h-screen bg-brand-surface dark:bg-neutral-900 flex flex-col">
-    <div class="max-w-[95%] w-full mx-auto flex-1 flex flex-col">
+<div class="pt-32 pb-20 px-6 min-h-screen bg-brand-surface dark:bg-neutral-900">
+    <div class="max-w-7xl mx-auto">
 
-        <!-- Majestic Header (Restored) -->
+        <!-- Majestic Header -->
         <style>
             @keyframes shimmer {
                 0% {
@@ -46,19 +45,8 @@ description: "Esplora le opere di Francesco Cucci in layout fluido."
             .animate-float-subtle {
                 animation: float-subtle 4s ease-in-out infinite;
             }
-
-            /* Hide Scrollbar but keep functionality */
-            .no-scrollbar::-webkit-scrollbar {
-                display: none;
-            }
-
-            .no-scrollbar {
-                -ms-overflow-style: none;
-                scrollbar-width: none;
-            }
         </style>
-
-        <div class="text-center mb-10 relative reveal active z-10 flex-shrink-0">
+        <div class="text-center mb-10 relative reveal active z-10">
             <!-- Ambient Glow -->
             <div
                 class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[150%] bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-brand-lime/10 blur-3xl opacity-60 rounded-full -z-10 pointer-events-none">
@@ -80,7 +68,7 @@ description: "Esplora le opere di Francesco Cucci in layout fluido."
         </div>
 
         <!-- Filters -->
-        <div class="flex flex-wrap justify-center gap-4 mb-8 reveal delay-100 flex-shrink-0" id="filters">
+        <div class="flex flex-wrap justify-center gap-4 mb-16 reveal delay-100" id="filters">
             <button
                 class="filter-btn active px-6 py-2 rounded-full border-2 border-black dark:border-white bg-black dark:bg-white text-white dark:text-black font-bold transition-all hover:scale-105"
                 data-filter="all">
@@ -95,96 +83,62 @@ description: "Esplora le opere di Francesco Cucci in layout fluido."
             {% endfor %}
         </div>
 
-        <!-- Fluid Horizontal Container -->
-        <div class="flex-1 w-full overflow-x-auto overflow-y-hidden whitespace-nowrap scroll-smooth cursor-grab active:cursor-grabbing no-scrollbar relative z-0 reveal delay-200"
-            id="gallery-scroll-container" style="-webkit-overflow-scrolling: touch;">
+        <!-- Fluid Gallery Grid -->
+        <!-- Changed from grid to columns for masonry effect -->
+        <div class="columns-1 md:columns-2 lg:columns-3 gap-8" id="gallery-grid">
+            {% for category in site.data.artworks %}
+            {% for item in category.images %}
+            {% if item.file %}
+            {% assign filename = item.file %}
 
-            <div class="inline-flex h-full items-start gap-8 md:gap-16 pb-4">
-                {% for category in site.data.artworks %}
-                {% for item in category.images %}
-                {% if item.file %}
-                {% assign filename = item.file %}
-                {% assign artwork_title = item.title %}
-                {% if item.title.first %}
-                {% assign artwork_title = item.title[page.lang] %}
-                {% endif %}
-                {% assign artwork_desc = item.description %}
-                {% if item.description.first %}
-                {% assign artwork_desc = item.description[page.lang] %}
-                {% endif %}
-                {% else %}
-                {% assign filename = item %}
-                {% assign artwork_title = "" %}
-                {% assign artwork_desc = "" %}
-                {% endif %}
+            {% assign artwork_title = item.title %}
+            {% if item.title.first %}
+            {% assign artwork_title = item.title[page.lang] %}
+            {% endif %}
 
-                <!-- Gallery Item -->
-                <!-- Use h-[60vh] to h-[75vh] to give a fullscreen feel but fit within layout -->
-                <div class="gallery-item inline-flex flex-col flex-shrink-0 h-[65vh] md:h-[75vh] transition-all duration-500 opacity-100 group relative"
-                    data-category="{{ category.category }}">
+            {% assign artwork_desc = item.description %}
+            {% if item.description.first %}
+            {% assign artwork_desc = item.description[page.lang] %}
+            {% endif %}
+            {% else %}
+            {% assign filename = item %}
+            {% assign artwork_title = "" %}
+            {% assign artwork_desc = "" %}
+            {% endif %}
 
-                    <!-- Preloader -->
+            <!-- Modified Gallery Item: Removed h-80, added break-inside-avoid, mb-8 -->
+            <div class="gallery-item group relative w-full mb-8 break-inside-avoid rounded-[2rem] overflow-hidden bg-gray-100 cursor-pointer reveal"
+                data-category="{{ category.category }}" data-title="{{ artwork_title }}"
+                data-description="{{ artwork_desc }}"
+                onclick="openLightbox('/assets/images/portfolio/{{ category.category }}/{{ filename }}', '{{ category.category }}')">
+
+                <div class="absolute inset-0 flex items-center justify-center z-0">
                     <div
-                        class="absolute inset-0 flex items-center justify-center z-0 bg-gray-100 dark:bg-neutral-800 rounded-[1.5rem]">
-                        <div
-                            class="w-8 h-8 border-2 border-gray-300 border-t-black dark:border-gray-700 dark:border-t-white rounded-full animate-spin">
-                        </div>
-                    </div>
-
-                    <!-- Image Wrapper -->
-                    <div class="relative h-full rounded-[1.5rem] overflow-hidden shadow-2xl select-none z-10">
-                        <img src="/assets/images/portfolio/{{ category.category }}/{{ filename }}" alt="{{ filename }}"
-                            class="h-full w-auto max-w-[90vw] object-cover block select-none pointer-events-none transition-transform duration-700 group-hover:scale-105"
-                            loading="lazy" onload="this.parentElement.previousElementSibling.style.display='none'">
-                        <!-- Hide preloader -->
-
-                        <!-- Hover Overlay -->
-                        <div
-                            class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none">
-                        </div>
-                    </div>
-
-                    <!-- Info Below Image -->
-                    <div class="mt-4 px-2 whitespace-normal max-w-[90vw] md:max-w-md flex flex-col items-start gap-1">
-                        {% if artwork_title != "" and artwork_title != nil %}
-                        <h3 class="text-xl md:text-2xl font-bold text-black dark:text-white leading-tight">
-                            {{ artwork_title }}
-                        </h3>
-                        {% endif %}
-                        <span
-                            class="inline-block px-2 py-0.5 bg-gray-100 dark:bg-white/10 text-gray-500 dark:text-gray-300 text-xs font-bold rounded uppercase">
-                            {{ category.category }}
-                        </span>
-                        {% if artwork_desc != "" and artwork_desc != nil %}
-                        <p class="text-sm md:text-base text-gray-600 dark:text-gray-400 mt-2 line-clamp-3">
-                            {{ artwork_desc }}
-                        </p>
-                        {% endif %}
+                        class="w-8 h-8 border-2 border-gray-300 border-t-black dark:border-gray-700 dark:border-t-white rounded-full animate-spin">
                     </div>
                 </div>
-                {% endfor %}
-                {% endfor %}
 
-                <!-- Spacer -->
-                <div class="w-8 flex-shrink-0"></div>
+                <!-- Modified Image: Added max-h-[800px] and object-cover to clamp extremely tall images -->
+                <img src="/assets/images/portfolio/{{ category.category }}/{{ filename }}" alt="{{ filename }}"
+                    loading="lazy" onload="this.previousElementSibling.style.display='none'"
+                    class="w-full h-auto max-h-[800px] block object-cover transition-transform duration-700 group-hover:scale-110 relative z-10">
+
+                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 z-20">
+                </div>
+
+                <div
+                    class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 flex flex-col items-start gap-2">
+                    {% if artwork_title != "" and artwork_title != nil and artwork_title != "null" %}
+                    <h3 class="text-white font-bold text-lg drop-shadow-md leading-tight">{{ artwork_title }}</h3>
+                    {% endif %}
+                    <span
+                        class="inline-block px-3 py-1 bg-black/50 backdrop-blur-md text-white text-xs font-bold rounded-full uppercase">
+                        {{ category.category }}
+                    </span>
+                </div>
             </div>
-        </div>
-
-        <!-- Navigation Controls (Bottom) -->
-        <div class="flex-shrink-0 my-8 flex items-center justify-center gap-8 relative z-20">
-            <button id="scroll-left"
-                class="w-14 h-14 rounded-full bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 shadow-lg hover:shadow-xl flex items-center justify-center transition-all active:scale-95 text-black dark:text-white group"
-                aria-label="Scorri a sinistra">
-                <i class="fas fa-arrow-left text-xl group-hover:-translate-x-1 transition-transform"></i>
-            </button>
-
-            <span class="text-xs uppercase tracking-widest text-gray-400 font-medium">Scorri</span>
-
-            <button id="scroll-right"
-                class="w-14 h-14 rounded-full bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 shadow-lg hover:shadow-xl flex items-center justify-center transition-all active:scale-95 text-black dark:text-white group"
-                aria-label="Scorri a destra">
-                <i class="fas fa-arrow-right text-xl group-hover:translate-x-1 transition-transform"></i>
-            </button>
+            {% endfor %}
+            {% endfor %}
         </div>
 
         <!-- Empty State -->
@@ -197,75 +151,94 @@ description: "Esplora le opere di Francesco Cucci in layout fluido."
 
 {% include majestic_contact.html %}
 
+<!-- Lightbox Modal -->
+<div id="lightbox"
+    class="fixed inset-0 z-50 bg-black/95 hidden flex flex-col items-center justify-center opacity-0 transition-opacity duration-300">
+
+    <!-- Close Button -->
+    <button onclick="closeLightbox()"
+        class="absolute top-4 right-4 md:top-8 md:right-8 text-white text-3xl md:text-4xl hover:text-gray-300 transition-colors focus:outline-none z-50 bg-black/50 rounded-full w-10 h-10 md:w-12 md:h-12 flex items-center justify-center">&times;</button>
+
+    <!-- Desktop Nav: Left -->
+    <button onclick="changeImage(-1)"
+        class="hidden md:block absolute left-8 text-white text-6xl hover:text-gray-300 transition-colors focus:outline-none z-50 p-4">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+
+    <!-- Desktop Nav: Right -->
+    <button onclick="changeImage(1)"
+        class="hidden md:block absolute right-8 text-white text-6xl hover:text-gray-300 transition-colors focus:outline-none z-50 p-4">
+        <i class="fas fa-chevron-right"></i>
+    </button>
+
+    <!-- Image Container -->
+    <div class="relative w-full max-w-[90vw] md:max-w-5xl flex-1 flex flex-col justify-center items-center p-4">
+        <div id="lightbox-loader" class="absolute inset-0 flex items-center justify-center pointer-events-none hidden">
+            <div class="w-12 h-12 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
+        </div>
+        <img id="lightbox-img" src=""
+            class="max-h-[70vh] md:max-h-[85vh] w-auto h-auto object-contain rounded-lg shadow-2xl transform scale-95 transition-transform duration-300">
+
+        <!-- Mobile Nav Controls (Below Image) -->
+        <div class="md:hidden flex justify-between w-full max-w-sm mt-4 px-4 text-white text-3xl">
+            <button onclick="changeImage(-1)" class="p-4 focus:outline-none active:scale-90 transition-transform">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button onclick="changeImage(1)" class="p-4 focus:outline-none active:scale-90 transition-transform">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Caption -->
+        <div id="lightbox-caption-container" class="text-center mt-4 text-white transition-opacity duration-300">
+            <h3 id="lightbox-title" class="text-xl md:text-2xl font-bold mb-1"></h3>
+            <p id="lightbox-desc" class="text-sm md:text-base text-gray-300 max-w-2xl mx-auto"></p>
+            <p id="lightbox-category" class="text-xs text-gray-500 uppercase tracking-widest mt-2"></p>
+        </div>
+    </div>
+</div>
+
+<style>
+    @media (max-height: 600px) and (orientation: landscape) {
+
+        #lightbox-caption-container,
+        #lightbox .relative .md\:hidden {
+            display: none !important;
+        }
+
+        #lightbox>button.hidden.md\:block {
+            display: block !important;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+        }
+
+        #lightbox-img {
+            max-height: 96vh !important;
+        }
+    }
+</style>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const container = document.getElementById('gallery-scroll-container');
-        const scrollLeftBtn = document.getElementById('scroll-left');
-        const scrollRightBtn = document.getElementById('scroll-right');
         const filterBtns = document.querySelectorAll('.filter-btn');
         const items = document.querySelectorAll('.gallery-item');
         const noResults = document.getElementById('no-results');
 
-        // --- Filter Logic ---
-        // Helper to update active class on buttons
-        function updateFilterButtons(filter) {
-            filterBtns.forEach(b => {
-                if (b.getAttribute('data-filter') === filter) {
-                    b.classList.add('bg-black', 'dark:bg-white', 'text-white', 'dark:text-black', 'border-black', 'dark:border-white');
-                    b.classList.remove('text-gray-500', 'border-gray-200', 'dark:border-white/10');
-                } else {
-                    b.classList.remove('bg-black', 'dark:bg-white', 'text-white', 'dark:text-black', 'border-black', 'dark:border-white');
-                    b.classList.add('text-gray-500', 'border-gray-200', 'dark:border-white/10');
-                }
-            });
-        }
-
-        function filterGallery(filter) {
-            updateFilterButtons(filter);
-
-            let visibleCount = 0;
-            items.forEach(item => {
-                const itemCategory = item.getAttribute('data-category');
-                if (filter === 'all' || itemCategory === filter) {
-                    item.style.display = 'inline-flex';
-                    // Slight delay for fade-in effect if desired
-                    setTimeout(() => item.style.opacity = '1', 10);
-                    visibleCount++;
-                } else {
-                    item.style.display = 'none';
-                    item.style.opacity = '0';
-                }
-            });
-
-            if (visibleCount === 0) {
-                noResults.classList.remove('hidden');
-                container.classList.add('hidden');
-            } else {
-                noResults.classList.add('hidden');
-                container.classList.remove('hidden');
-            }
-
-            // Scroll to start
-            container.scrollTo({ left: 0, behavior: 'smooth' });
-        }
-
-        // Initialize from URL param
+        // Check URL param
         const urlParams = new URLSearchParams(window.location.search);
         const categoryParam = urlParams.get('category');
 
+        let currentImages = [];
+        let currentIndex = 0;
+
+        // Initialize with all images
+        updateCurrentImages('all');
+
         if (categoryParam) {
-            // Check if valid category
-            const validCategory = Array.from(filterBtns).some(btn => btn.getAttribute('data-filter') === categoryParam);
-            if (validCategory) {
-                filterGallery(categoryParam);
-            } else {
-                filterGallery('all');
-            }
-        } else {
-            filterGallery('all'); // Default
+            filterGallery(categoryParam);
         }
 
-        // Click Handler for Buttons
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const filter = btn.getAttribute('data-filter');
@@ -273,57 +246,177 @@ description: "Esplora le opere di Francesco Cucci in layout fluido."
             });
         });
 
+        function filterGallery(filter) {
+            // Update buttons
+            filterBtns.forEach(b => {
+                if (b.getAttribute('data-filter') === filter) {
+                    b.classList.add('bg-black', 'dark:bg-white', 'text-white', 'dark:text-black', 'border-black', 'dark:border-white');
+                    b.classList.remove('text-gray-500', 'border-gray-200');
+                } else {
+                    b.classList.remove('bg-black', 'dark:bg-white', 'text-white', 'dark:text-black', 'border-black', 'dark:border-white');
+                    b.classList.add('text-gray-500', 'border-gray-200');
+                }
+            });
 
-        // --- Scroll Logic ---
-        const scrollAmount = window.innerWidth * 0.7;
+            let visibleCount = 0;
+            items.forEach(item => {
+                const itemCategory = item.getAttribute('data-category');
+                if (filter === 'all' || itemCategory === filter) {
+                    item.style.display = 'block'; // Using block in columns works fine
+                    setTimeout(() => item.classList.add('reveal'), 50); // Re-trigger animation if needed
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
 
-        scrollLeftBtn.addEventListener('click', () => {
-            container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-        });
+            if (visibleCount === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
 
-        scrollRightBtn.addEventListener('click', () => {
-            container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-        });
+            updateCurrentImages(filter);
+        }
 
-        // Wheel Support
-        container.addEventListener('wheel', (evt) => {
-            if (evt.deltaY !== 0) {
-                evt.preventDefault();
-                container.scrollLeft += evt.deltaY;
+        function updateCurrentImages(filter) {
+            currentImages = [];
+            items.forEach(item => {
+                if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                    const img = item.querySelector('img');
+                    currentImages.push({
+                        src: img.src,
+                        category: item.getAttribute('data-category'),
+                        title: item.getAttribute('data-title'),
+                        desc: item.getAttribute('data-description')
+                    });
+                }
+            });
+        }
+
+        // Export functions to global scope
+        window.openLightbox = function (src, category) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+
+            // Find index
+            // Find index using robust matching (checking if the full src url contains the passed path)
+            currentIndex = currentImages.findIndex(img => img.src.includes(src));
+            // Fallback
+            if (currentIndex === -1) {
+                currentIndex = currentImages.findIndex(img => img.src === src);
+            }
+            if (currentIndex === -1) currentIndex = 0;
+
+            updateLightboxContent();
+
+            lightbox.classList.remove('hidden');
+            // Trigger reflow
+            void lightbox.offsetWidth;
+            lightbox.classList.remove('opacity-0');
+            lightboxImg.classList.remove('scale-95');
+        };
+
+        window.changeImage = function (direction) {
+            currentIndex += direction;
+            if (currentIndex >= currentImages.length) currentIndex = 0;
+            if (currentIndex < 0) currentIndex = currentImages.length - 1;
+            updateLightboxContent();
+        };
+
+        function updateLightboxContent() {
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxTitle = document.getElementById('lightbox-title');
+            const lightboxDesc = document.getElementById('lightbox-desc');
+            const lightboxCategory = document.getElementById('lightbox-category');
+            const loader = document.getElementById('lightbox-loader');
+
+            const imgData = currentImages[currentIndex];
+
+            lightboxImg.style.opacity = '0';
+            // Hide caption during transition
+            document.getElementById('lightbox-caption-container').style.opacity = '0';
+
+            setTimeout(() => {
+                if (loader) loader.classList.remove('hidden');
+                lightboxImg.src = imgData.src;
+
+                // Update Content
+                if (imgData.title) {
+                    lightboxTitle.innerText = imgData.title;
+                    lightboxTitle.classList.remove('hidden');
+                } else {
+                    lightboxTitle.classList.add('hidden');
+                }
+
+                if (imgData.desc) {
+                    lightboxDesc.innerText = imgData.desc;
+                    lightboxDesc.classList.remove('hidden');
+                } else {
+                    lightboxDesc.classList.add('hidden');
+                }
+
+                lightboxCategory.innerText = imgData.category;
+
+
+                lightboxImg.onload = () => {
+                    if (loader) loader.classList.add('hidden');
+                    lightboxImg.style.opacity = '1';
+                    document.getElementById('lightbox-caption-container').style.opacity = '1';
+                };
+            }, 200);
+        }
+
+        window.closeLightbox = function () {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const loader = document.getElementById('lightbox-loader');
+
+            lightbox.classList.add('opacity-0');
+            lightboxImg.classList.add('scale-95');
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+                lightboxImg.src = '';
+                if (loader) loader.classList.add('hidden');
+            }, 300);
+        };
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function (e) {
+            const lightbox = document.getElementById('lightbox');
+            if (!lightbox.classList.contains('hidden')) {
+                if (e.key === 'ArrowLeft') window.changeImage(-1);
+                if (e.key === 'ArrowRight') window.changeImage(1);
+                if (e.key === 'Escape') window.closeLightbox();
             }
         });
-
-        // Mouse Drag (Grab)
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-
-        container.addEventListener('mousedown', (e) => {
-            isDown = true;
-            container.classList.add('cursor-grabbing');
-            container.classList.remove('cursor-grab');
-            startX = e.pageX - container.offsetLeft;
-            scrollLeft = container.scrollLeft;
-        });
-
-        container.addEventListener('mouseleave', () => {
-            isDown = false;
-            container.classList.remove('cursor-grabbing');
-            container.classList.add('cursor-grab');
-        });
-
-        container.addEventListener('mouseup', () => {
-            isDown = false;
-            container.classList.remove('cursor-grabbing');
-            container.classList.add('cursor-grab');
-        });
-
-        container.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - container.offsetLeft;
-            const walk = (x - startX) * 2; // Speed multiplier
-            container.scrollLeft = scrollLeft - walk;
-        });
     });
+
+    const lightbox = document.getElementById('lightbox');
+    // Close on background click
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) window.closeLightbox();
+    });
+
+    // Swipe Support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    lightbox.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    lightbox.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+        if (touchEndX < touchStartX - 50) {
+            window.changeImage(1); // Swipe Left -> Next
+        }
+        if (touchEndX > touchStartX + 50) {
+            window.changeImage(-1); // Swipe Right -> Prev
+        }
+    }
 </script>
