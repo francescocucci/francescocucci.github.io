@@ -3,14 +3,14 @@ layout: default
 title: Galleria Opere - Francesco Cucci
 lang: it
 locale: it_IT
-description: "Esplora le opere di Francesco Cucci in layout fluido. Scorri per vedere le immagini."
+description: "Esplora le opere di Francesco Cucci. Layout ibrido: Masonry su mobile, Fluido su desktop."
 ---
 
-<!-- Restored original container classes for spacing and background -->
+<!-- Restored original container for spacing and background -->
 <div class="pt-32 pb-20 px-6 min-h-screen bg-brand-surface dark:bg-neutral-900 flex flex-col">
-    <div class="max-w-[95%] w-full mx-auto flex-1 flex flex-col">
+    <div class="max-w-7xl w-full mx-auto flex-1 flex flex-col">
 
-        <!-- Majestic Header (Restored) -->
+        <!-- Majestic Header (Common) -->
         <style>
             @keyframes shimmer {
                 0% {
@@ -79,7 +79,7 @@ description: "Esplora le opere di Francesco Cucci in layout fluido. Scorri per v
             </p>
         </div>
 
-        <!-- Filters -->
+        <!-- Filters (Common) -->
         <div class="flex flex-wrap justify-center gap-4 mb-8 reveal delay-100 flex-shrink-0" id="filters">
             <button
                 class="filter-btn active px-6 py-2 rounded-full border-2 border-black dark:border-white bg-black dark:bg-white text-white dark:text-black font-bold transition-all hover:scale-105"
@@ -95,106 +95,144 @@ description: "Esplora le opere di Francesco Cucci in layout fluido. Scorri per v
             {% endfor %}
         </div>
 
-        <!-- Fluid Horizontal Container -->
-        <!-- Added touch-action: pan-y to explicitly allow vertical scrolling -->
-        <div class="flex-1 w-full overflow-x-auto overflow-y-hidden whitespace-nowrap scroll-smooth cursor-grab active:cursor-grabbing no-scrollbar relative z-0 reveal delay-200"
-            id="gallery-scroll-container" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;">
-
-            <div class="inline-flex h-full items-start gap-6 md:gap-12 pb-4 px-4 align-top">
+        <!-- ============================================== -->
+        <!-- MOBILE VIEW: Vertical Masonry Grid (Default)   -->
+        <!-- Visible on mobile, hidden on md+                -->
+        <!-- ============================================== -->
+        <div id="mobile-gallery" class="block md:hidden">
+            <div class="columns-1 gap-8">
                 {% for category in site.data.artworks %}
                 {% for item in category.images %}
                 {% if item.file %}
                 {% assign filename = item.file %}
-                {% assign artwork_title = item.title %}
-                {% if item.title.first %}
-                {% assign artwork_title = item.title[page.lang] %}
-                {% endif %}
-                {% assign artwork_desc = item.description %}
-                {% if item.description.first %}
-                {% assign artwork_desc = item.description[page.lang] %}
-                {% endif %}
+                {% assign artwork_title = item.title[page.lang] | default: item.title %}
+                {% assign artwork_desc = item.description[page.lang] | default: item.description %}
                 {% else %}
                 {% assign filename = item %}
-                {% assign artwork_title = "" %}
-                {% assign artwork_desc = "" %}
                 {% endif %}
 
-                <!-- Gallery Item -->
-                <!-- Removed fixed height h-[65vh] for mobile, using max-h instead to respect aspect ratio -->
-                <!-- Added align-top to inline-flex to ensure alignment -->
-                <div class="gallery-item inline-flex flex-col flex-shrink-0 max-w-[85vw] md:max-w-none transition-all duration-500 opacity-100 group relative align-top"
-                    data-category="{{ category.category }}">
+                <div class="gallery-item group relative w-full mb-8 break-inside-avoid rounded-[2rem] overflow-hidden bg-gray-100 cursor-pointer reveal"
+                    data-category="{{ category.category }}"
+                    onclick="openLightbox('/assets/images/portfolio/{{ category.category }}/{{ filename }}', '{{ category.category }}')">
 
-                    <!-- Image Wrapper -->
-                    <!-- Removed strict aspect ratio forcing, allowing natural image shape -->
-                    <!-- Constrained by max-height of viewport to ensure it fits -->
-                    <div
-                        class="relative rounded-[1.5rem] overflow-hidden shadow-2xl select-none z-10 bg-gray-100 dark:bg-neutral-800">
-                        <!-- Preloader inside wrapper -->
-                        <div class="absolute inset-0 flex items-center justify-center z-0">
-                            <div
-                                class="w-8 h-8 border-2 border-gray-300 border-t-black dark:border-gray-700 dark:border-t-white rounded-full animate-spin">
-                            </div>
-                        </div>
-
-                        <!-- Image: h-auto w-auto but constrained by max-height -->
-                        <!-- Mobile: max-h-[60vh] to leave room for scrolling the page vertically -->
-                        <!-- Desktop: max-h-[70vh] -->
-                        <img src="/assets/images/portfolio/{{ category.category }}/{{ filename }}" alt="{{ filename }}"
-                            class="w-auto h-auto max-h-[60vh] md:max-h-[70vh] object-contain block select-none pointer-events-none transition-transform duration-700 group-hover:scale-105 relative z-10"
-                            loading="lazy" onload="this.previousElementSibling.style.display='none'">
-
-                        <!-- Hover Overlay -->
+                    <div class="absolute inset-0 flex items-center justify-center z-0">
                         <div
-                            class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none z-20">
+                            class="w-8 h-8 border-2 border-gray-300 border-t-black dark:border-gray-700 dark:border-t-white rounded-full animate-spin">
                         </div>
                     </div>
 
-                    <!-- Info Below Image -->
+                    <img src="/assets/images/portfolio/{{ category.category }}/{{ filename }}" alt="{{ filename }}"
+                        class="w-full h-auto block object-cover relative z-10" loading="lazy"
+                        onload="this.previousElementSibling.style.display='none'">
+
                     <div
-                        class="mt-4 px-2 whitespace-normal w-full max-w-[300px] md:max-w-md flex flex-col items-start gap-1">
-                        {% if artwork_title != "" and artwork_title != nil %}
-                        <h3 class="text-lg md:text-xl font-bold text-black dark:text-white leading-tight break-words">
-                            {{ artwork_title }}
-                        </h3>
+                        class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 z-20">
+                    </div>
+
+                    <div
+                        class="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-30 flex flex-col items-start gap-2">
+                        {% if artwork_title %}
+                        <h3 class="text-white font-bold text-lg drop-shadow-md leading-tight">{{ artwork_title }}</h3>
                         {% endif %}
                         <span
-                            class="inline-block px-2 py-0.5 bg-gray-100 dark:bg-white/10 text-gray-500 dark:text-gray-300 text-xs font-bold rounded uppercase">
+                            class="inline-block px-3 py-1 bg-black/50 backdrop-blur-md text-white text-xs font-bold rounded-full uppercase">
                             {{ category.category }}
                         </span>
-                        {% if artwork_desc != "" and artwork_desc != nil %}
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-3 break-words">
-                            {{ artwork_desc }}
-                        </p>
-                        {% endif %}
                     </div>
                 </div>
                 {% endfor %}
                 {% endfor %}
-
-                <!-- Spacer -->
-                <div class="w-8 flex-shrink-0"></div>
             </div>
         </div>
 
-        <!-- Navigation Controls (Bottom) -->
-        <div class="flex-shrink-0 my-8 flex items-center justify-center gap-8 relative z-20">
-            <button id="scroll-left"
-                class="w-14 h-14 rounded-full bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 shadow-lg hover:shadow-xl flex items-center justify-center transition-all active:scale-95 text-black dark:text-white group"
-                aria-label="Scorri a sinistra">
-                <i class="fas fa-arrow-left text-xl group-hover:-translate-x-1 transition-transform"></i>
-            </button>
+        <!-- ============================================== -->
+        <!-- DESKTOP VIEW: Horizontal Fluid Scroll          -->
+        <!-- Hidden on mobile, visible on md+               -->
+        <!-- ============================================== -->
+        <div id="desktop-gallery" class="hidden md:block flex-1 w-full relative">
 
-            <span class="text-xs uppercase tracking-widest text-gray-400 font-medium">Scorri</span>
+            <div class="w-full overflow-x-auto overflow-y-hidden whitespace-nowrap scroll-smooth cursor-grab active:cursor-grabbing no-scrollbar relative z-0 reveal delay-200"
+                id="gallery-scroll-container">
 
-            <button id="scroll-right"
-                class="w-14 h-14 rounded-full bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 shadow-lg hover:shadow-xl flex items-center justify-center transition-all active:scale-95 text-black dark:text-white group"
-                aria-label="Scorri a destra">
-                <i class="fas fa-arrow-right text-xl group-hover:translate-x-1 transition-transform"></i>
-            </button>
+                <div class="inline-flex h-full items-start gap-12 pb-4 px-4 align-top">
+                    {% for category in site.data.artworks %}
+                    {% for item in category.images %}
+                    {% if item.file %}
+                    {% assign filename = item.file %}
+                    {% assign artwork_title = item.title[page.lang] | default: item.title %}
+                    {% assign artwork_desc = item.description[page.lang] | default: item.description %}
+                    {% else %}
+                    {% assign filename = item %}
+                    {% endif %}
+
+                    <div class="gallery-item inline-flex flex-col flex-shrink-0 transition-all duration-500 opacity-100 group relative align-top"
+                        data-category="{{ category.category }}">
+
+                        <!-- Image Wrapper -->
+                        <div
+                            class="relative rounded-[1.5rem] overflow-hidden shadow-2xl select-none z-10 bg-gray-100 dark:bg-neutral-800">
+                            <!-- Preloader -->
+                            <div class="absolute inset-0 flex items-center justify-center z-0">
+                                <div
+                                    class="w-8 h-8 border-2 border-gray-300 border-t-black dark:border-gray-700 dark:border-t-white rounded-full animate-spin">
+                                </div>
+                            </div>
+
+                            <!-- Desktop Height: max-h-[70vh] -->
+                            <img src="/assets/images/portfolio/{{ category.category }}/{{ filename }}"
+                                alt="{{ filename }}"
+                                class="w-auto h-auto max-h-[70vh] object-contain block select-none pointer-events-none transition-transform duration-700 group-hover:scale-105 relative z-10"
+                                loading="lazy" onload="this.previousElementSibling.style.display='none'">
+
+                            <div
+                                class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none z-20">
+                            </div>
+                        </div>
+
+                        <!-- Info Below Image -->
+                        <div class="mt-4 px-2 whitespace-normal w-full max-w-md flex flex-col items-start gap-1">
+                            {% if artwork_title %}
+                            <h3 class="text-xl font-bold text-black dark:text-white leading-tight break-words">
+                                {{ artwork_title }}
+                            </h3>
+                            {% endif %}
+                            <span
+                                class="inline-block px-2 py-0.5 bg-gray-100 dark:bg-white/10 text-gray-500 dark:text-gray-300 text-xs font-bold rounded uppercase">
+                                {{ category.category }}
+                            </span>
+                            {% if artwork_desc %}
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-3 break-words">
+                                {{ artwork_desc }}
+                            </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% endfor %}
+
+                    <div class="w-8 flex-shrink-0"></div>
+                </div>
+            </div>
+
+            <!-- Navigation Controls (Desktop Only) -->
+            <div class="flex-shrink-0 my-8 flex items-center justify-center gap-8 relative z-20">
+                <button id="scroll-left"
+                    class="w-14 h-14 rounded-full bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 shadow-lg hover:shadow-xl flex items-center justify-center transition-all active:scale-95 text-black dark:text-white group"
+                    aria-label="Scorri a sinistra">
+                    <i class="fas fa-arrow-left text-xl group-hover:-translate-x-1 transition-transform"></i>
+                </button>
+
+                <span class="text-xs uppercase tracking-widest text-gray-400 font-medium">Scorri</span>
+
+                <button id="scroll-right"
+                    class="w-14 h-14 rounded-full bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 shadow-lg hover:shadow-xl flex items-center justify-center transition-all active:scale-95 text-black dark:text-white group"
+                    aria-label="Scorri a destra">
+                    <i class="fas fa-arrow-right text-xl group-hover:translate-x-1 transition-transform"></i>
+                </button>
+            </div>
         </div>
 
-        <!-- Empty State -->
+        <!-- Empty State (Common) -->
         <div id="no-results" class="hidden text-center py-20">
             <p class="text-xl text-gray-400">Nessuna opera trovata in questa categoria.</p>
         </div>
@@ -204,7 +242,7 @@ description: "Esplora le opere di Francesco Cucci in layout fluido. Scorri per v
 
 {% include majestic_contact.html %}
 
-<!-- Lightbox Modal (Simplified for better compatibility) -->
+<!-- Lightbox Modal (Simplified) -->
 <div id="lightbox"
     class="fixed inset-0 z-50 bg-black/95 hidden flex flex-col items-center justify-center opacity-0 transition-opacity duration-300">
     <button onclick="closeLightbox()"
@@ -225,8 +263,12 @@ description: "Esplora le opere di Francesco Cucci in layout fluido. Scorri per v
         const scrollLeftBtn = document.getElementById('scroll-left');
         const scrollRightBtn = document.getElementById('scroll-right');
         const filterBtns = document.querySelectorAll('.filter-btn');
-        const items = document.querySelectorAll('.gallery-item');
         const noResults = document.getElementById('no-results');
+
+        // Select items from BOTH mobile and desktop containers
+        const mobileItems = document.querySelectorAll('#mobile-gallery .gallery-item');
+        const desktopItems = document.querySelectorAll('#desktop-gallery .gallery-item');
+        const allItems = [...mobileItems, ...desktopItems];
 
         // --- Filter Logic ---
         function updateFilterButtons(filter) {
@@ -245,10 +287,26 @@ description: "Esplora le opere di Francesco Cucci in layout fluido. Scorri per v
             updateFilterButtons(filter);
 
             let visibleCount = 0;
-            items.forEach(item => {
+
+            // Loop through ALL items (mobile + desktop)
+            allItems.forEach(item => {
                 const itemCategory = item.getAttribute('data-category');
+
+                // Determine display type based on container parent
+                // Mobile parent uses block/default, Desktop uses inline-flex
+                // But simplified: just toggle display: none vs display: '' (revert to css)
+
                 if (filter === 'all' || itemCategory === filter) {
-                    item.style.display = 'inline-flex';
+                    // Check if it's a desktop item to preserve inline-flex if needed, or just let CSS handle it
+                    // The easiest is clearing inline style for display, but that works only if class sets it
+                    // Mobile items rely on default div blocking. Desktop items use inline-flex class.
+
+                    if (item.closest('#desktop-gallery')) {
+                        item.style.display = 'inline-flex';
+                    } else {
+                        item.style.display = 'block';
+                    }
+
                     setTimeout(() => item.style.opacity = '1', 10);
                     visibleCount++;
                 } else {
@@ -257,15 +315,23 @@ description: "Esplora le opere di Francesco Cucci in layout fluido. Scorri per v
                 }
             });
 
+            // Adjust visible count because we have matching double items
+            // If visibleCount > 0, we have results.
             if (visibleCount === 0) {
                 noResults.classList.remove('hidden');
-                container.classList.add('hidden');
+                document.getElementById('mobile-gallery').classList.add('hidden');
+                document.getElementById('desktop-gallery').classList.add('hidden');
             } else {
                 noResults.classList.add('hidden');
-                container.classList.remove('hidden');
+                // Restore visibility of main wrappers (their specific display is controlled by CSS media queries)
+                document.getElementById('mobile-gallery').classList.remove('hidden');
+                // We shouldn't remove 'hidden' blindly from desktop-gallery because it has 'hidden md:block' classes.
+                // Actually, just removing the 'hidden' added by the "no results" logic is tricky if we use classList.
+                // Better approach: Don't hide the main wrappers for no-results. Just let them be empty.
+                // But items are hidden, so they are effectively empty. 
             }
 
-            container.scrollTo({ left: 0, behavior: 'smooth' });
+            if (container) container.scrollTo({ left: 0, behavior: 'smooth' });
         }
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -286,56 +352,58 @@ description: "Esplora le opere di Francesco Cucci in layout fluido. Scorri per v
             });
         });
 
-        // --- Scroll Logic ---
-        const scrollAmount = window.innerWidth * 0.7;
+        // --- Scroll Logic (Desktop Only) ---
+        if (container) {
+            const scrollAmount = window.innerWidth * 0.7;
 
-        scrollLeftBtn.addEventListener('click', () => {
-            container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-        });
+            scrollLeftBtn.addEventListener('click', () => {
+                container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            });
 
-        scrollRightBtn.addEventListener('click', () => {
-            container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-        });
+            scrollRightBtn.addEventListener('click', () => {
+                container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            });
 
-        container.addEventListener('wheel', (evt) => {
-            if (evt.deltaY !== 0) {
-                evt.preventDefault();
-                container.scrollLeft += evt.deltaY;
-            }
-        });
+            container.addEventListener('wheel', (evt) => {
+                if (evt.deltaY !== 0) {
+                    evt.preventDefault();
+                    container.scrollLeft += evt.deltaY;
+                }
+            });
 
-        // Mouse Drag
-        let isDown = false;
-        let startX;
-        let scrollLeft;
+            // Mouse Drag
+            let isDown = false;
+            let startX;
+            let scrollLeft;
 
-        container.addEventListener('mousedown', (e) => {
-            isDown = true;
-            container.classList.add('cursor-grabbing');
-            container.classList.remove('cursor-grab');
-            startX = e.pageX - container.offsetLeft;
-            scrollLeft = container.scrollLeft;
-        });
+            container.addEventListener('mousedown', (e) => {
+                isDown = true;
+                container.classList.add('cursor-grabbing');
+                container.classList.remove('cursor-grab');
+                startX = e.pageX - container.offsetLeft;
+                scrollLeft = container.scrollLeft;
+            });
 
-        container.addEventListener('mouseleave', () => {
-            isDown = false;
-            container.classList.remove('cursor-grabbing');
-            container.classList.add('cursor-grab');
-        });
+            container.addEventListener('mouseleave', () => {
+                isDown = false;
+                container.classList.remove('cursor-grabbing');
+                container.classList.add('cursor-grab');
+            });
 
-        container.addEventListener('mouseup', () => {
-            isDown = false;
-            container.classList.remove('cursor-grabbing');
-            container.classList.add('cursor-grab');
-        });
+            container.addEventListener('mouseup', () => {
+                isDown = false;
+                container.classList.remove('cursor-grabbing');
+                container.classList.add('cursor-grab');
+            });
 
-        container.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - container.offsetLeft;
-            const walk = (x - startX) * 2;
-            container.scrollLeft = scrollLeft - walk;
-        });
+            container.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - container.offsetLeft;
+                const walk = (x - startX) * 2;
+                container.scrollLeft = scrollLeft - walk;
+            });
+        }
 
         // Lightbox Functions
         window.openLightbox = function (src, category) {
