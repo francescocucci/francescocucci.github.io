@@ -3,7 +3,7 @@ layout: default
 title: Galleria Opere - Francesco Cucci
 lang: it
 locale: it_IT
-description: "Esplora le opere di Francesco Cucci in layout fluido."
+description: "Esplora le opere di Francesco Cucci in layout fluido. Scorri per vedere le immagini."
 ---
 
 <!-- Restored original container classes for spacing and background -->
@@ -96,10 +96,11 @@ description: "Esplora le opere di Francesco Cucci in layout fluido."
         </div>
 
         <!-- Fluid Horizontal Container -->
+        <!-- Added touch-action: pan-y to explicitly allow vertical scrolling -->
         <div class="flex-1 w-full overflow-x-auto overflow-y-hidden whitespace-nowrap scroll-smooth cursor-grab active:cursor-grabbing no-scrollbar relative z-0 reveal delay-200"
-            id="gallery-scroll-container" style="-webkit-overflow-scrolling: touch;">
+            id="gallery-scroll-container" style="-webkit-overflow-scrolling: touch; touch-action: pan-y;">
 
-            <div class="inline-flex h-full items-start gap-8 md:gap-16 pb-4">
+            <div class="inline-flex h-full items-start gap-6 md:gap-12 pb-4 px-4 align-top">
                 {% for category in site.data.artworks %}
                 {% for item in category.images %}
                 {% if item.file %}
@@ -119,35 +120,41 @@ description: "Esplora le opere di Francesco Cucci in layout fluido."
                 {% endif %}
 
                 <!-- Gallery Item -->
-                <!-- Use h-[60vh] to h-[75vh] to give a fullscreen feel but fit within layout -->
-                <div class="gallery-item inline-flex flex-col flex-shrink-0 h-[65vh] md:h-[75vh] transition-all duration-500 opacity-100 group relative"
+                <!-- Removed fixed height h-[65vh] for mobile, using max-h instead to respect aspect ratio -->
+                <!-- Added align-top to inline-flex to ensure alignment -->
+                <div class="gallery-item inline-flex flex-col flex-shrink-0 max-w-[85vw] md:max-w-none transition-all duration-500 opacity-100 group relative align-top"
                     data-category="{{ category.category }}">
 
-                    <!-- Preloader -->
-                    <div
-                        class="absolute inset-0 flex items-center justify-center z-0 bg-gray-100 dark:bg-neutral-800 rounded-[1.5rem]">
-                        <div
-                            class="w-8 h-8 border-2 border-gray-300 border-t-black dark:border-gray-700 dark:border-t-white rounded-full animate-spin">
-                        </div>
-                    </div>
-
                     <!-- Image Wrapper -->
-                    <div class="relative h-full rounded-[1.5rem] overflow-hidden shadow-2xl select-none z-10">
+                    <!-- Removed strict aspect ratio forcing, allowing natural image shape -->
+                    <!-- Constrained by max-height of viewport to ensure it fits -->
+                    <div
+                        class="relative rounded-[1.5rem] overflow-hidden shadow-2xl select-none z-10 bg-gray-100 dark:bg-neutral-800">
+                        <!-- Preloader inside wrapper -->
+                        <div class="absolute inset-0 flex items-center justify-center z-0">
+                            <div
+                                class="w-8 h-8 border-2 border-gray-300 border-t-black dark:border-gray-700 dark:border-t-white rounded-full animate-spin">
+                            </div>
+                        </div>
+
+                        <!-- Image: h-auto w-auto but constrained by max-height -->
+                        <!-- Mobile: max-h-[60vh] to leave room for scrolling the page vertically -->
+                        <!-- Desktop: max-h-[70vh] -->
                         <img src="/assets/images/portfolio/{{ category.category }}/{{ filename }}" alt="{{ filename }}"
-                            class="h-full w-auto max-w-[90vw] object-cover block select-none pointer-events-none transition-transform duration-700 group-hover:scale-105"
-                            loading="lazy" onload="this.parentElement.previousElementSibling.style.display='none'">
-                        <!-- Hide preloader -->
+                            class="w-auto h-auto max-h-[60vh] md:max-h-[70vh] object-contain block select-none pointer-events-none transition-transform duration-700 group-hover:scale-105 relative z-10"
+                            loading="lazy" onload="this.previousElementSibling.style.display='none'">
 
                         <!-- Hover Overlay -->
                         <div
-                            class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none">
+                            class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none z-20">
                         </div>
                     </div>
 
                     <!-- Info Below Image -->
-                    <div class="mt-4 px-2 whitespace-normal max-w-[90vw] md:max-w-md flex flex-col items-start gap-1">
+                    <div
+                        class="mt-4 px-2 whitespace-normal w-full max-w-[300px] md:max-w-md flex flex-col items-start gap-1">
                         {% if artwork_title != "" and artwork_title != nil %}
-                        <h3 class="text-xl md:text-2xl font-bold text-black dark:text-white leading-tight">
+                        <h3 class="text-lg md:text-xl font-bold text-black dark:text-white leading-tight break-words">
                             {{ artwork_title }}
                         </h3>
                         {% endif %}
@@ -156,7 +163,7 @@ description: "Esplora le opere di Francesco Cucci in layout fluido."
                             {{ category.category }}
                         </span>
                         {% if artwork_desc != "" and artwork_desc != nil %}
-                        <p class="text-sm md:text-base text-gray-600 dark:text-gray-400 mt-2 line-clamp-3">
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-3 break-words">
                             {{ artwork_desc }}
                         </p>
                         {% endif %}
@@ -197,6 +204,21 @@ description: "Esplora le opere di Francesco Cucci in layout fluido."
 
 {% include majestic_contact.html %}
 
+<!-- Lightbox Modal (Simplified for better compatibility) -->
+<div id="lightbox"
+    class="fixed inset-0 z-50 bg-black/95 hidden flex flex-col items-center justify-center opacity-0 transition-opacity duration-300">
+    <button onclick="closeLightbox()"
+        class="absolute top-4 right-4 md:top-8 md:right-8 text-white z-50 bg-black/50 rounded-full w-12 h-12 flex items-center justify-center text-3xl hover:bg-white/20 transition-all">&times;</button>
+
+    <div class="relative w-full h-full flex flex-col justify-center items-center p-4">
+        <img id="lightbox-img" src="" class="max-h-[85vh] max-w-[95vw] object-contain shadow-2xl">
+        <div id="lightbox-caption-container" class="mt-4 text-center text-white max-w-xl">
+            <h3 id="lightbox-title" class="text-xl font-bold"></h3>
+            <p id="lightbox-desc" class="text-sm text-gray-300 mt-1"></p>
+        </div>
+    </div>
+</div>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const container = document.getElementById('gallery-scroll-container');
@@ -207,7 +229,6 @@ description: "Esplora le opere di Francesco Cucci in layout fluido."
         const noResults = document.getElementById('no-results');
 
         // --- Filter Logic ---
-        // Helper to update active class on buttons
         function updateFilterButtons(filter) {
             filterBtns.forEach(b => {
                 if (b.getAttribute('data-filter') === filter) {
@@ -228,7 +249,6 @@ description: "Esplora le opere di Francesco Cucci in layout fluido."
                 const itemCategory = item.getAttribute('data-category');
                 if (filter === 'all' || itemCategory === filter) {
                     item.style.display = 'inline-flex';
-                    // Slight delay for fade-in effect if desired
                     setTimeout(() => item.style.opacity = '1', 10);
                     visibleCount++;
                 } else {
@@ -245,34 +265,26 @@ description: "Esplora le opere di Francesco Cucci in layout fluido."
                 container.classList.remove('hidden');
             }
 
-            // Scroll to start
             container.scrollTo({ left: 0, behavior: 'smooth' });
         }
 
-        // Initialize from URL param
         const urlParams = new URLSearchParams(window.location.search);
         const categoryParam = urlParams.get('category');
 
         if (categoryParam) {
-            // Check if valid category
             const validCategory = Array.from(filterBtns).some(btn => btn.getAttribute('data-filter') === categoryParam);
-            if (validCategory) {
-                filterGallery(categoryParam);
-            } else {
-                filterGallery('all');
-            }
+            if (validCategory) filterGallery(categoryParam);
+            else filterGallery('all');
         } else {
-            filterGallery('all'); // Default
+            filterGallery('all');
         }
 
-        // Click Handler for Buttons
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const filter = btn.getAttribute('data-filter');
                 filterGallery(filter);
             });
         });
-
 
         // --- Scroll Logic ---
         const scrollAmount = window.innerWidth * 0.7;
@@ -285,7 +297,6 @@ description: "Esplora le opere di Francesco Cucci in layout fluido."
             container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
         });
 
-        // Wheel Support
         container.addEventListener('wheel', (evt) => {
             if (evt.deltaY !== 0) {
                 evt.preventDefault();
@@ -293,7 +304,7 @@ description: "Esplora le opere di Francesco Cucci in layout fluido."
             }
         });
 
-        // Mouse Drag (Grab)
+        // Mouse Drag
         let isDown = false;
         let startX;
         let scrollLeft;
@@ -322,8 +333,22 @@ description: "Esplora le opere di Francesco Cucci in layout fluido."
             if (!isDown) return;
             e.preventDefault();
             const x = e.pageX - container.offsetLeft;
-            const walk = (x - startX) * 2; // Speed multiplier
+            const walk = (x - startX) * 2;
             container.scrollLeft = scrollLeft - walk;
         });
+
+        // Lightbox Functions
+        window.openLightbox = function (src, category) {
+            const lb = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            img.src = src;
+            lb.classList.remove('hidden');
+            setTimeout(() => lb.classList.remove('opacity-0'), 10);
+        }
+        window.closeLightbox = function () {
+            const lb = document.getElementById('lightbox');
+            lb.classList.add('opacity-0');
+            setTimeout(() => lb.classList.add('hidden'), 300);
+        }
     });
 </script>
