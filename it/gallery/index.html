@@ -6,127 +6,276 @@ locale: it_IT
 description: "Esplora le opere di Francesco Cucci in layout fluido."
 ---
 
-<div class="fixed inset-0 pt-24 pb-4 px-0 bg-brand-surface dark:bg-neutral-900 overflow-hidden flex flex-col">
-    
-    <!-- Majestic Header (Compact for maximum image space) -->
-    <div class="text-center mb-4 flex-shrink-0 relative z-10 px-6">
-        <h1 class="text-4xl md:text-5xl font-black tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-black via-gray-500 to-black dark:from-white dark:via-gray-400 dark:to-white drop-shadow-sm select-none">
-            Le Opere.
-        </h1>
-        
-        <!-- Filters (Compact) -->
-        <div class="flex flex-wrap justify-center gap-2 mt-4" id="filters">
-            <button class="filter-btn active px-4 py-1 text-sm rounded-full border border-black dark:border-white bg-black dark:bg-white text-white dark:text-black font-medium transition-all hover:scale-105" data-filter="all">
+<!-- Restored original container classes for spacing and background -->
+<div class="pt-32 pb-20 px-6 min-h-screen bg-brand-surface dark:bg-neutral-900 flex flex-col">
+    <div class="max-w-[95%] w-full mx-auto flex-1 flex flex-col">
+
+        <!-- Majestic Header (Restored) -->
+        <style>
+            @keyframes shimmer {
+                0% {
+                    background-position: 0% 50%;
+                }
+
+                50% {
+                    background-position: 100% 50%;
+                }
+
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+
+            .animate-text-shimmer {
+                background-size: 200% auto;
+                animation: shimmer 5s ease infinite;
+            }
+
+            @keyframes float-subtle {
+
+                0%,
+                100% {
+                    transform: translateY(0);
+                }
+
+                50% {
+                    transform: translateY(-5px);
+                }
+            }
+
+            .animate-float-subtle {
+                animation: float-subtle 4s ease-in-out infinite;
+            }
+
+            /* Hide Scrollbar but keep functionality */
+            .no-scrollbar::-webkit-scrollbar {
+                display: none;
+            }
+
+            .no-scrollbar {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+        </style>
+
+        <div class="text-center mb-10 relative reveal active z-10 flex-shrink-0">
+            <!-- Ambient Glow -->
+            <div
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[150%] bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-brand-lime/10 blur-3xl opacity-60 rounded-full -z-10 pointer-events-none">
+            </div>
+
+            <h1
+                class="text-6xl md:text-8xl font-black tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-r from-black via-gray-500 to-black dark:from-white dark:via-gray-400 dark:to-white animate-text-shimmer drop-shadow-sm select-none">
+                Le Opere.
+            </h1>
+
+            <div
+                class="w-32 h-1 bg-gradient-to-r from-transparent via-black dark:via-white to-transparent mx-auto mb-6 opacity-20">
+            </div>
+
+            <p
+                class="text-xl md:text-2xl font-light text-gray-600 dark:text-gray-300 max-w-2xl mx-auto italic animate-float-subtle">
+                "Un percorso attraverso la materia e la forma."
+            </p>
+        </div>
+
+        <!-- Filters -->
+        <div class="flex flex-wrap justify-center gap-4 mb-8 reveal delay-100 flex-shrink-0" id="filters">
+            <button
+                class="filter-btn active px-6 py-2 rounded-full border-2 border-black dark:border-white bg-black dark:bg-white text-white dark:text-black font-bold transition-all hover:scale-105"
+                data-filter="all">
                 Tutte
             </button>
             {% for category in site.data.artworks %}
-            <button class="filter-btn px-4 py-1 text-sm rounded-full border border-gray-300 dark:border-white/20 hover:border-black dark:hover:border-white font-medium text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-all capitalize" data-filter="{{ category.category }}">
+            <button
+                class="filter-btn px-6 py-2 rounded-full border-2 border-gray-200 dark:border-white/10 hover:border-black dark:hover:border-white font-bold text-gray-500 hover:text-black dark:text-gray-400 dark:hover:text-white transition-all capitalize"
+                data-filter="{{ category.category }}">
                 {{ category.category }}
             </button>
             {% endfor %}
         </div>
-    </div>
 
-    <!-- Fluid Horizontal Container -->
-    <!-- h-full allows it to take remaining space. items-center centers images vertically if they don't fill height, but we want full height usage. -->
-    <div class="flex-1 w-full overflow-x-auto overflow-y-hidden whitespace-nowrap scroll-smooth cursor-grab active:cursor-grabbing no-scrollbar relative z-0" 
-         id="gallery-scroll-container" 
-         style="-webkit-overflow-scrolling: touch;">
-        
-        <div class="inline-flex h-full items-center px-[5vw] gap-8 md:gap-16">
-            {% for category in site.data.artworks %}
-            {% for item in category.images %}
-            {% if item.file %}
+        <!-- Fluid Horizontal Container -->
+        <div class="flex-1 w-full overflow-x-auto overflow-y-hidden whitespace-nowrap scroll-smooth cursor-grab active:cursor-grabbing no-scrollbar relative z-0 reveal delay-200"
+            id="gallery-scroll-container" style="-webkit-overflow-scrolling: touch;">
+
+            <div class="inline-flex h-full items-start gap-8 md:gap-16 pb-4">
+                {% for category in site.data.artworks %}
+                {% for item in category.images %}
+                {% if item.file %}
                 {% assign filename = item.file %}
                 {% assign artwork_title = item.title %}
                 {% if item.title.first %}
-                    {% assign artwork_title = item.title[page.lang] %}
+                {% assign artwork_title = item.title[page.lang] %}
                 {% endif %}
                 {% assign artwork_desc = item.description %}
                 {% if item.description.first %}
-                    {% assign artwork_desc = item.description[page.lang] %}
+                {% assign artwork_desc = item.description[page.lang] %}
                 {% endif %}
-            {% else %}
+                {% else %}
                 {% assign filename = item %}
                 {% assign artwork_title = "" %}
                 {% assign artwork_desc = "" %}
-            {% endif %}
+                {% endif %}
 
-            <!-- Gallery Item -->
-            <!-- h-[65vh] md:h-[70vh] ensures it dominates the screen but leaves room -->
-            <div class="gallery-item inline-flex flex-col flex-shrink-0 h-[65vh] md:h-[70vh] transition-all duration-500 opacity-100"
-                 data-category="{{ category.category }}">
-                
-                <!-- Image Wrapper -->
-                <div class="relative h-full rounded-[1.5rem] overflow-hidden shadow-xl select-none">
-                    <img src="/assets/images/portfolio/{{ category.category }}/{{ filename }}" 
-                         alt="{{ filename }}"
-                         class="h-full w-auto max-w-[90vw] object-cover block select-none pointer-events-none"
-                         loading="lazy">
-                    
-                    <!-- Gradient overlay for text contrast on image (optional, mostly relying on bottom text) -->
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
-                </div>
+                <!-- Gallery Item -->
+                <!-- Use h-[60vh] to h-[75vh] to give a fullscreen feel but fit within layout -->
+                <div class="gallery-item inline-flex flex-col flex-shrink-0 h-[65vh] md:h-[75vh] transition-all duration-500 opacity-100 group relative"
+                    data-category="{{ category.category }}">
 
-                <!-- Info Below Image -->
-                <div class="mt-4 px-2 whitespace-normal max-w-[90vw] md:max-w-md">
-                    {% if artwork_title != "" and artwork_title != nil %}
-                    <h3 class="text-xl md:text-2xl font-bold text-black dark:text-white leading-tight">
-                        {{ artwork_title }}
-                    </h3>
-                    {% endif %}
-                    
-                    {% if artwork_desc != "" and artwork_desc != nil %}
-                    <p class="text-sm md:text-base text-gray-600 dark:text-gray-400 mt-1 line-clamp-3">
-                        {{ artwork_desc }}
-                    </p>
-                    {% endif %}
+                    <!-- Preloader -->
+                    <div
+                        class="absolute inset-0 flex items-center justify-center z-0 bg-gray-100 dark:bg-neutral-800 rounded-[1.5rem]">
+                        <div
+                            class="w-8 h-8 border-2 border-gray-300 border-t-black dark:border-gray-700 dark:border-t-white rounded-full animate-spin">
+                        </div>
+                    </div>
+
+                    <!-- Image Wrapper -->
+                    <div class="relative h-full rounded-[1.5rem] overflow-hidden shadow-2xl select-none z-10">
+                        <img src="/assets/images/portfolio/{{ category.category }}/{{ filename }}" alt="{{ filename }}"
+                            class="h-full w-auto max-w-[90vw] object-cover block select-none pointer-events-none transition-transform duration-700 group-hover:scale-105"
+                            loading="lazy" onload="this.parentElement.previousElementSibling.style.display='none'">
+                        <!-- Hide preloader -->
+
+                        <!-- Hover Overlay -->
+                        <div
+                            class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none">
+                        </div>
+                    </div>
+
+                    <!-- Info Below Image -->
+                    <div class="mt-4 px-2 whitespace-normal max-w-[90vw] md:max-w-md flex flex-col items-start gap-1">
+                        {% if artwork_title != "" and artwork_title != nil %}
+                        <h3 class="text-xl md:text-2xl font-bold text-black dark:text-white leading-tight">
+                            {{ artwork_title }}
+                        </h3>
+                        {% endif %}
+                        <span
+                            class="inline-block px-2 py-0.5 bg-gray-100 dark:bg-white/10 text-gray-500 dark:text-gray-300 text-xs font-bold rounded uppercase">
+                            {{ category.category }}
+                        </span>
+                        {% if artwork_desc != "" and artwork_desc != nil %}
+                        <p class="text-sm md:text-base text-gray-600 dark:text-gray-400 mt-2 line-clamp-3">
+                            {{ artwork_desc }}
+                        </p>
+                        {% endif %}
+                    </div>
                 </div>
+                {% endfor %}
+                {% endfor %}
+
+                <!-- Spacer -->
+                <div class="w-8 flex-shrink-0"></div>
             </div>
-            {% endfor %}
-            {% endfor %}
-            
-            <!-- Spacer for end of scroll -->
-            <div class="w-[5vw] h-1 flex-shrink-0"></div>
         </div>
+
+        <!-- Navigation Controls (Bottom) -->
+        <div class="flex-shrink-0 my-8 flex items-center justify-center gap-8 relative z-20">
+            <button id="scroll-left"
+                class="w-14 h-14 rounded-full bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 shadow-lg hover:shadow-xl flex items-center justify-center transition-all active:scale-95 text-black dark:text-white group"
+                aria-label="Scorri a sinistra">
+                <i class="fas fa-arrow-left text-xl group-hover:-translate-x-1 transition-transform"></i>
+            </button>
+
+            <span class="text-xs uppercase tracking-widest text-gray-400 font-medium">Scorri</span>
+
+            <button id="scroll-right"
+                class="w-14 h-14 rounded-full bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 shadow-lg hover:shadow-xl flex items-center justify-center transition-all active:scale-95 text-black dark:text-white group"
+                aria-label="Scorri a destra">
+                <i class="fas fa-arrow-right text-xl group-hover:translate-x-1 transition-transform"></i>
+            </button>
+        </div>
+
+        <!-- Empty State -->
+        <div id="no-results" class="hidden text-center py-20">
+            <p class="text-xl text-gray-400">Nessuna opera trovata in questa categoria.</p>
+        </div>
+
     </div>
-
-    <!-- Navigation Controls (Bottom Fixed) -->
-    <div class="flex-shrink-0 h-20 flex items-center justify-center gap-8 relative z-20 bg-gradient-to-t from-brand-surface dark:from-neutral-900 to-transparent">
-        <button id="scroll-left" class="w-12 h-12 rounded-full bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 flex items-center justify-center transition-all active:scale-95 text-black dark:text-white" aria-label="Scorri a sinistra">
-            <i class="fas fa-arrow-left text-xl"></i>
-        </button>
-        
-        <span class="text-xs uppercase tracking-widest text-gray-400 font-medium">Scorri o usa le frecce</span>
-
-        <button id="scroll-right" class="w-12 h-12 rounded-full bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 flex items-center justify-center transition-all active:scale-95 text-black dark:text-white" aria-label="Scorri a destra">
-            <i class="fas fa-arrow-right text-xl"></i>
-        </button>
-    </div>
-
 </div>
 
-<style>
-    /* Hide Scrollbar but keep functionality */
-    .no-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
-    .no-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-</style>
+{% include majestic_contact.html %}
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const container = document.getElementById('gallery-scroll-container');
         const scrollLeftBtn = document.getElementById('scroll-left');
         const scrollRightBtn = document.getElementById('scroll-right');
         const filterBtns = document.querySelectorAll('.filter-btn');
         const items = document.querySelectorAll('.gallery-item');
+        const noResults = document.getElementById('no-results');
 
-        // Scroll Logic
-        const scrollAmount = window.innerWidth * 0.7; // Scroll 70% of screen width
+        // --- Filter Logic ---
+        // Helper to update active class on buttons
+        function updateFilterButtons(filter) {
+            filterBtns.forEach(b => {
+                if (b.getAttribute('data-filter') === filter) {
+                    b.classList.add('bg-black', 'dark:bg-white', 'text-white', 'dark:text-black', 'border-black', 'dark:border-white');
+                    b.classList.remove('text-gray-500', 'border-gray-200', 'dark:border-white/10');
+                } else {
+                    b.classList.remove('bg-black', 'dark:bg-white', 'text-white', 'dark:text-black', 'border-black', 'dark:border-white');
+                    b.classList.add('text-gray-500', 'border-gray-200', 'dark:border-white/10');
+                }
+            });
+        }
+
+        function filterGallery(filter) {
+            updateFilterButtons(filter);
+
+            let visibleCount = 0;
+            items.forEach(item => {
+                const itemCategory = item.getAttribute('data-category');
+                if (filter === 'all' || itemCategory === filter) {
+                    item.style.display = 'inline-flex';
+                    // Slight delay for fade-in effect if desired
+                    setTimeout(() => item.style.opacity = '1', 10);
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                    item.style.opacity = '0';
+                }
+            });
+
+            if (visibleCount === 0) {
+                noResults.classList.remove('hidden');
+                container.classList.add('hidden');
+            } else {
+                noResults.classList.add('hidden');
+                container.classList.remove('hidden');
+            }
+
+            // Scroll to start
+            container.scrollTo({ left: 0, behavior: 'smooth' });
+        }
+
+        // Initialize from URL param
+        const urlParams = new URLSearchParams(window.location.search);
+        const categoryParam = urlParams.get('category');
+
+        if (categoryParam) {
+            // Check if valid category
+            const validCategory = Array.from(filterBtns).some(btn => btn.getAttribute('data-filter') === categoryParam);
+            if (validCategory) {
+                filterGallery(categoryParam);
+            } else {
+                filterGallery('all');
+            }
+        } else {
+            filterGallery('all'); // Default
+        }
+
+        // Click Handler for Buttons
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.getAttribute('data-filter');
+                filterGallery(filter);
+            });
+        });
+
+
+        // --- Scroll Logic ---
+        const scrollAmount = window.innerWidth * 0.7;
 
         scrollLeftBtn.addEventListener('click', () => {
             container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
@@ -136,7 +285,7 @@ description: "Esplora le opere di Francesco Cucci in layout fluido."
             container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
         });
 
-        // Wheel Support for horizontal scrolling
+        // Wheel Support
         container.addEventListener('wheel', (evt) => {
             if (evt.deltaY !== 0) {
                 evt.preventDefault();
@@ -144,38 +293,7 @@ description: "Esplora le opere di Francesco Cucci in layout fluido."
             }
         });
 
-        // Filter Logic
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const filter = btn.getAttribute('data-filter');
-                
-                // Active functionality
-                filterBtns.forEach(b => {
-                    b.classList.remove('bg-black', 'dark:bg-white', 'text-white', 'dark:text-black', 'border-black', 'dark:border-white');
-                    b.classList.add('text-gray-500', 'border-gray-300', 'dark:border-white/20'); 
-                });
-                btn.classList.add('bg-black', 'dark:bg-white', 'text-white', 'dark:text-black', 'border-black', 'dark:border-white');
-                btn.classList.remove('text-gray-500', 'border-gray-300', 'dark:border-white/20');
-                
-                // Show/Hide items
-                items.forEach(item => {
-                    const itemCategory = item.getAttribute('data-category');
-                    if (filter === 'all' || itemCategory === filter) {
-                        item.style.display = 'inline-flex';
-                        // Add fade in effect
-                        setTimeout(() => item.style.opacity = '1', 10);
-                    } else {
-                        item.style.display = 'none';
-                        item.style.opacity = '0';
-                    }
-                });
-                
-                // Reset scroll
-                container.scrollTo({ left: 0, behavior: 'smooth' });
-            });
-        });
-
-        // Mouse Drag to Scroll (Grab and Drag)
+        // Mouse Drag (Grab)
         let isDown = false;
         let startX;
         let scrollLeft;
@@ -204,7 +322,7 @@ description: "Esplora le opere di Francesco Cucci in layout fluido."
             if (!isDown) return;
             e.preventDefault();
             const x = e.pageX - container.offsetLeft;
-            const walk = (x - startX) * 2; // Scroll-fast
+            const walk = (x - startX) * 2; // Speed multiplier
             container.scrollLeft = scrollLeft - walk;
         });
     });
